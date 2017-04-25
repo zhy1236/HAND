@@ -9,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.hand.mockingbot.MainActivity;
 import com.example.hand.mockingbot.R;
 
 

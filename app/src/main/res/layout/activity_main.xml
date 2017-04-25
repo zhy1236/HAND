@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <android.support.v4.view.ViewPager
+        android:background="#fff"
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_bar"
-        android:background="@android:color/white" >
-    </FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1.0"/>
 
     <RadioGroup
         android:background="#F8F8F8"
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -50,4 +49,4 @@
             android:id="@+id/rb_main_my"
             android:text="我的" />
     </RadioGroup>
-</RelativeLayout>
+</LinearLayout>
