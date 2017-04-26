@@ -7,9 +7,6 @@ import android.os.Handler;
 import android.os.StrictMode;
 
 
-/**zhy
- * Created by liuweiyan_PC on 2016/9/13.
- */
 public class GeelyApp extends Application {
     //handler
     public static Handler mainHandler;
@@ -22,6 +19,7 @@ public class GeelyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mainHandler = new Handler();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

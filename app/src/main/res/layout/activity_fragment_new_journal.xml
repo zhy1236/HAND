@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/new_journal_today"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -105,6 +106,7 @@
             android:layout_gravity="center"
             android:gravity="center_vertical"
             android:text="附件"
+            android:id="@+id/new_journal_tv_fj"
             android:textColor="#000"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -124,6 +126,7 @@
         android:layout_height="0.5dp" />
 
     <Button
+        android:id="@+id/new_journal_tj"
         android:background="#5AC2E7"
         android:layout_margin="10dp"
         android:text="提交"

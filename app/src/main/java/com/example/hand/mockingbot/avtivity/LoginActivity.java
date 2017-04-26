@@ -10,6 +10,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.hand.mockingbot.R;
+import com.example.hand.mockingbot.datamanage.HttpManager;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -35,10 +40,29 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
+                Map<String, Object> param = new HashMap<>();
+                param.put("account","xide.han");
+                param.put("password","123123");
+                String url = "http://192.168.11.198:8088/project-mg/login";
+                try {
+                    HttpManager.getInstance().post(url, param, loginentity.class, new HttpManager.ResultCallback<loginentity>() {
+                        @Override
+                        public void onSuccess(String json, loginentity loginentity) throws InterruptedException {
+                            Intent intent = new Intent();
+                            intent.setClass(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(String msg) {
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
+
 }

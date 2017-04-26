@@ -23,13 +23,11 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int arg0) {
-        // TODO Auto-generated method stub
         return listfragment.get(arg0); //返回第几个fragment
     }
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return listfragment.size(); //总共有多少个fragment
     }
 
