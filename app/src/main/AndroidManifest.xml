@@ -10,11 +10,12 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_hand"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".avtivity.MainActivity">
+        <activity android:name=".avtivity.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +25,12 @@
         <activity android:name=".avtivity.LoginActivity">
 
         </activity>
+        <activity android:name=".avtivity.ReceivedJournalAtivity"/>
+        <activity android:name=".avtivity.NewJournalActivity"/>
+        <activity android:name=".avtivity.SendJournalActivity"/>
+        <activity android:name=".avtivity.DefectJournalActivity"/>
+        <activity android:name=".avtivity.CommentJournalActivity"/>
+        <activity android:name=".avtivity.LookUpJournalActivity"/>
     </application>
 
 </manifest>

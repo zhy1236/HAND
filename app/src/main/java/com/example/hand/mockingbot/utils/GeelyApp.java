@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.StrictMode;
 
+import com.example.hand.mockingbot.entity.LoginEntity;
+
 
 public class GeelyApp extends Application {
     //handler
@@ -14,6 +16,8 @@ public class GeelyApp extends Application {
     public static Context context;
 
     private static String Language;
+
+    private static LoginEntity loginEntity;
 
 
     @Override
@@ -36,11 +40,13 @@ public class GeelyApp extends Application {
         return Language;
     }
 
+    public static LoginEntity getLoginEntity() {
+        return loginEntity;
+    }
 
-//    private void checkFirstIn() {
-//        CommonValues.firstIn = getSharedPreferences("app", MODE_PRIVATE).getBoolean("firstIn", true);
-//    }
-
+    public static void setLoginEntity(LoginEntity loginEntity) {
+        GeelyApp.loginEntity = loginEntity;
+    }
 
 
 }

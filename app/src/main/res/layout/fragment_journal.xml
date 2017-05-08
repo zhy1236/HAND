@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F5F4F4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="#C9C9C9"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/journal_receiver"
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/journal_iv_received"
+                android:layout_marginTop="12dp"
+                android:background="@mipmap/ic_receiver"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:layout_margin="8dp"
+                android:textColor="#4C5E70"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:layout_centerHorizontal="true"
+                android:text="收到日志"
+                android:layout_below="@+id/journal_iv_received"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:gravity="center"
+                android:background="@drawable/journal_item"
+                android:textColor="#fff"
+                android:text="2"
+                android:textSize="10sp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/journal_iv_received"
+                android:layout_alignRight="@+id/journal_iv_received" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:id="@+id/journal_new"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/journal_iv_new"
+                android:layout_marginTop="12dp"
+                android:background="@mipmap/ic_new_journal"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:layout_margin="8dp"
+                android:textColor="#4C5E70"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="写日报"
+                android:layout_below="@+id/journal_iv_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:gravity="center"
+                android:background="@drawable/journal_item"
+                android:textColor="#fff"
+                android:visibility="gone"
+                android:text="10"
+                android:textSize="10sp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/journal_iv_new"
+                android:layout_alignRight="@+id/journal_iv_new" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:id="@+id/journal_send"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/journal_iv_send"
+                android:layout_marginTop="12dp"
+                android:background="@mipmap/ic_sended_journal"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:layout_margin="8dp"
+                android:textColor="#4C5E70"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:layout_centerHorizontal="true"
+                android:text="已发送日志"
+                android:layout_below="@+id/journal_iv_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:gravity="center"
+                android:background="@drawable/journal_item"
+                android:textColor="#fff"
+                android:visibility="gone"
+                android:text="2"
+                android:textSize="10sp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/journal_iv_send"
+                android:layout_alignRight="@+id/journal_iv_send" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:id="@+id/journal_defect"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/journal_iv_defect"
+                android:layout_marginTop="12dp"
+                android:background="@mipmap/ic_defect"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:textColor="#4C5E70"
+                android:textSize="13sp"
+                android:layout_centerHorizontal="true"
+                android:text="未提交人员"
+                android:layout_below="@+id/journal_iv_defect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:gravity="center"
+                android:background="@drawable/journal_item"
+                android:textColor="#fff"
+                android:text="1"
+                android:textSize="10sp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/journal_iv_defect"
+                android:layout_alignRight="@+id/journal_iv_defect" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#C9C9C9"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:id="@+id/journal_comment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/journal_iv_comment"
+                android:layout_marginTop="12dp"
+                android:background="@mipmap/ic_comment"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_margin="7dp"
+                android:textSize="13sp"
+                android:textColor="#4C5E70"
+                android:layout_centerHorizontal="true"
+                android:text="评论"
+                android:layout_below="@+id/journal_iv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:gravity="center"
+                android:background="@drawable/journal_item"
+                android:textColor="#fff"
+                android:text="8"
+                android:textSize="10sp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/journal_iv_comment"
+                android:layout_alignRight="@+id/journal_iv_comment" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_marginTop="35dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_margin="7dp"
+                android:textSize="13sp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_marginTop="35dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_margin="7dp"
+                android:textSize="13sp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_margin="0.5dp"
+            android:background="#fff"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_marginTop="35dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_margin="7dp"
+                android:textSize="13sp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

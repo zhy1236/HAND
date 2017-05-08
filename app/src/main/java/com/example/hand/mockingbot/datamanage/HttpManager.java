@@ -31,7 +31,6 @@ import okhttp3.Response;
  * zhy
  * Created on 2016/7/23.
  */
-//统一网络管理类
 public class HttpManager {
 
     private static OkHttpClient okHttpClient = new OkHttpClient() ;
@@ -359,7 +358,9 @@ public class HttpManager {
         }
         return response.toString();
     }
-    public void getUrl(String url) {
+
+
+     public void getUrl(String url) {
 
             Request request = new Request.Builder()
                     .url(url)
@@ -449,77 +450,53 @@ public class HttpManager {
         okHttpClient = null;
     }
 
-    public <T>  void post(String url,  Map<String, Object> map,final Class<T> clazz, final ResultCallback<T> callback) throws IOException {
-        String json = GsonUtil.getJson(map);
-        RequestBody requestBody = RequestBody.create(
-                MediaType.parse("application/json"), json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                try {
-                    callback.onFailure(e.getMessage());
+    public <T>  void post(String url,  Map<String, Object> map,final Class<T> clazz, final ResultCallback<T> callback){
+        try {
+            String json = GsonUtil.getJson(map);
+            RequestBody requestBody = RequestBody.create(
+                    MediaType.parse("application/json"), json);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+            okHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    try {
+                        callback.onFailure(e.getMessage());
 
-                }catch (NullPointerException ex){
-                    ex.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                T t = null;
-                String content = "";
-                try {
-                    content = response.body().string();
-                    setJson(content);
-                    t = parseJson(content, clazz);
-                    if (t != null) {
-                        callback.onSuccess(content, t);
-                    } else {
-                        callback.onFailure(content);
+                    } catch (NullPointerException ex) {
+                        ex.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    T t = null;
+                    String content = "";
+                    try {
+                        content = response.body().string();
+                        setJson(content);
+                        t = parseJson(content, clazz);
+                        if (t != null) {
+                            callback.onSuccess(content, t);
+                        } else {
+                            callback.onFailure(content);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            callback.onFailure(e.getMessage());
+        }
+
     }
 
-    public <T> void upLoadFile(String filePath, final ResultCallback<T> callBack) {
-        final String url = "http://192.168.11.198:8088/project-mg/daily/uploadAttachment";
-        File file = new File("fileDir", "test.jpg");
-        RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("image", "test.jpg", fileBody)
-                .build();
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-
-
-        final okhttp3.OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
-        OkHttpClient okHttpClient  = httpBuilder
-                //设置超时
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
-                .build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-            }
-
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-            }
-        });
-    }
 
     /**
      * 上传文件
@@ -541,8 +518,8 @@ public class HttpManager {
         final okhttp3.OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
         OkHttpClient okHttpClient  = httpBuilder
                 //设置超时
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(150, TimeUnit.SECONDS)
                 .build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -554,7 +531,7 @@ public class HttpManager {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
-                Log.i("asd", "uploadMultiFile() response=" + response.body().string());
+                Log.e("asd", "uploadMultiFile() response=" + string);
             }
         });
     }

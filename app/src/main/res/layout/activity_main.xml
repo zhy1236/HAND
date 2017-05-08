@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:title=""
+        android:id="@+id/id_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:textColor="#fff"
+            android:id="@+id/main_tv_title"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:isScrollContainer="@+id/main_bt_search"
+            android:background="#5AC2E7"
+            android:drawableRight="@mipmap/ic_search"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
         android:background="#fff"
@@ -11,40 +41,44 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.0"/>
+    <TextView
+        android:background="#2630C790"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
 
     <RadioGroup
         android:background="#F8F8F8"
         android:id="@+id/bottom_bar"
+        android:backgroundTint="#FAFAFA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/rb_main_message"
+            android:visibility="gone"
+            android:layout_marginTop="1dp"
+            android:id="@+id/rb_main_object"
             style="@style/BottomBarItem"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@mipmap/ic_object"
             android:checked="true"
+            android:text="项目" />
+
+        <RadioButton
+            android:visibility="gone"
+            android:background="@color/white"
+            android:id="@+id/rb_main_message"
+            android:drawableTop="@mipmap/ic_hand"
+            style="@style/BottomBarItem"
             android:text="消息" />
 
         <RadioButton
-            android:id="@+id/rb_main_new_journal"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@drawable/btn_check_journal"
+            android:id="@+id/rb_main_journal"
             style="@style/BottomBarItem"
-            android:text="写日报" />
+            android:text="日志" />
 
         <RadioButton
-            android:drawableTop="@mipmap/ic_launcher"
-            android:id="@+id/rb_main_look_up_journal"
-            style="@style/BottomBarItem"
-            android:text="看日报" />
-
-        <RadioButton
-            android:drawableTop="@mipmap/ic_launcher"
-            android:id="@+id/rb_main_manager"
-            style="@style/BottomBarItem"
-            android:text="管理用户" />
-        <RadioButton
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@mipmap/ic_my"
             style="@style/BottomBarItem"
             android:id="@+id/rb_main_my"
             android:text="我的" />

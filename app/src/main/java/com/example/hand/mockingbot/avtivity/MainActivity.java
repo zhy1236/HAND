@@ -5,18 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
-import android.view.WindowManager;
+import android.support.v7.widget.Toolbar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.MyFragmentPagerAdapter;
-import com.example.hand.mockingbot.fagment.LookUpJournalFragment;
-import com.example.hand.mockingbot.fagment.ManagerFragment;
-import com.example.hand.mockingbot.fagment.MessagrFragment;
+import com.example.hand.mockingbot.fagment.JournalFragment;
 import com.example.hand.mockingbot.fagment.MyFragment;
-import com.example.hand.mockingbot.fagment.NewJournalFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,24 +21,35 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private List<Fragment> fragments;
+    private RadioButton object;
     private RadioButton message;
-    private RadioButton newjournal;
-    private RadioButton lookup;
+    private RadioButton journal;
     private RadioButton my;
     private ViewPager pager;
-    private RadioButton manager;
+    private Toolbar toolbar;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN , WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        toolbar = (Toolbar) findViewById(R.id.id_toolbar);
+        toolbar.setTitle("");
+        //设置左侧图标和点击事件
+//        toolbar.setNavigationIcon(R.mipmap.ic_back);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onBackPressed();
+//            }
+//        });
+
         initView();
     }
 
     private void initView() {
         pager = (ViewPager) findViewById(R.id.fl_content);
+        title = (TextView) findViewById(R.id.main_tv_title);
         fragments = getData();
         FragmentManager fm = getSupportFragmentManager();
         MyFragmentPagerAdapter mfpa = new MyFragmentPagerAdapter(fm, fragments);
@@ -49,41 +57,42 @@ public class MainActivity extends AppCompatActivity {
         pager.setOnPageChangeListener(new TabOnPageChangeListener());
 
         radioGroup=(RadioGroup) findViewById(R.id.bottom_bar);
+        object = (RadioButton) findViewById(R.id.rb_main_object);
         message=(RadioButton) findViewById(R.id.rb_main_message);
-        newjournal=(RadioButton) findViewById(R.id.rb_main_new_journal);
-        lookup=(RadioButton) findViewById(R.id.rb_main_look_up_journal);
-        manager = (RadioButton) findViewById(R.id.rb_main_manager);
+        journal=(RadioButton) findViewById(R.id.rb_main_journal);
+        journal.setChecked(true);
+        title.setText("日志");
         my = (RadioButton) findViewById(R.id.rb_main_my);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.rb_main_message:
-                        pager.setCurrentItem(0);//选择某一页
-                        break;
-                    case R.id.rb_main_new_journal:
-                        pager.setCurrentItem(1);
-                        break;
-                    case R.id.rb_main_look_up_journal:
-                        pager.setCurrentItem(2);
-                        break;
-                    case R.id.rb_main_manager:
-                        pager.setCurrentItem(3);
+//                    case R.id.rb_main_object:
+//                        pager.setCurrentItem(0);//选择某一页
+//                        break;
+//                    case R.id.rb_main_message:
+//                        pager.setCurrentItem(1);
+//                        title.setText("消息");
+//                        break;
+                    case R.id.rb_main_journal:
+                        pager.setCurrentItem(0);
+                        title.setText("日志");
                         break;
                     case R.id.rb_main_my:
-                        pager.setCurrentItem(4);
+                        pager.setCurrentItem(1);
+                        title.setText("我的");
                         break;
                 }
             }
         });
 
+
     }
 
     private List<Fragment> getData() {
         fragments = new ArrayList<Fragment>();
-        fragments.add(new MessagrFragment());
-        fragments.add(new NewJournalFragment());
-        fragments.add(new LookUpJournalFragment());
-        fragments.add(new ManagerFragment());
+//        fragments.add(new ObjectFragment());
+//        fragments.add(new MessagrFragment());
+        fragments.add(new JournalFragment());
         fragments.add(new MyFragment());
         return fragments;
     }
@@ -107,21 +116,23 @@ public class MainActivity extends AppCompatActivity {
         //当新的页面被选中时调用
         public void onPageSelected(int position) {
             switch (position) {
+//                case 0:
+//                    object.setChecked(true);
+//                    title.setVisibility(View.GONE);
+//                    break;
+//                case 1:
+//                    message.setChecked(true);
+//                    title.setText("消息");
+//                    break;
                 case 0:
-                    message.setChecked(true);
+                    journal.setChecked(true);
+                    title.setText("日志");
                     break;
                 case 1:
-                    newjournal.setChecked(true);
-                    break;
-                case 2:
-                    lookup.setChecked(true);
-                    break;
-                case 3:
-                    manager.setChecked(true);
-                    break;
-                case 4:
                     my.setChecked(true);
+                    title.setText("我的");
                     break;
+
             }
         }
     }

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:title=""
+        android:id="@+id/id_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:textColor="#fff"
+            android:id="@+id/main_tv_title"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="写日报"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!--<Button-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:background="#fff"
+        android:id="@+id/new_journal_today"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_margin="10dp"
+            android:textColor="#000"
+            android:text="今日完成工作"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginRight="10dp"
+            android:background="#fff"
+            android:layout_marginTop="10dp"
+            android:textColor="#000"
+            android:hint="请填写工作内容"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:background="#d9d9d9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+    <LinearLayout
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_margin="10dp"
+            android:textColor="#000"
+            android:text="尚未完成工作"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginRight="10dp"
+            android:background="#fff"
+            android:layout_marginTop="10dp"
+            android:textColor="#000"
+            android:hint="请填写工作内容"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:background="#d9d9d9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+    <LinearLayout
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_margin="10dp"
+            android:textColor="#000"
+            android:text="需要协调工作"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_marginRight="10dp"
+            android:background="#fff"
+            android:layout_marginTop="10dp"
+            android:textColor="#000"
+            android:hint="请填写工作内容"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:background="#d9d9d9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+    <EditText
+        android:background="#fff"
+        android:textCursorDrawable="@color/primary"
+        android:layout_margin="10dp"
+        android:textColor="#000"
+        android:minHeight="60dp"
+        android:gravity="left"
+        android:hint="备注"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:background="#d9d9d9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+    <LinearLayout
+        android:background="#fff"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:text="附件"
+            android:id="@+id/new_journal_tv_fj"
+            android:textColor="#000"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_hand"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+    <GridLayout
+        android:columnCount="4"
+        android:id="@+id/new_journal_gl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:background="#d9d9d9"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp" />
+
+    <Button
+        android:textColor="@color/selector_textcolor"
+        android:id="@+id/new_journal_tj"
+        android:background="@drawable/selector_bg_login_button"
+        android:layout_margin="10dp"
+        android:text="提交"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/journal_item_imv"
+            android:src="@mipmap/ic_head_portrait"
+            android:layout_margin="10dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp" />
+
+        <TextView
+            android:id="@+id/journal_item_tv_name"
+            android:layout_marginTop="5dp"
+            android:textSize="17sp"
+            android:textColor="#333333"
+            android:text="屈冰霄"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/journal_item_imv"
+            android:layout_toRightOf="@+id/journal_item_imv"
+            android:layout_toEndOf="@+id/journal_item_imv" />
+
+        <TextView
+            android:id="@+id/journal_item_tv_time"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/journal_item_tv_name"
+            android:textSize="15sp"
+            android:textColor="#8D8A8A"
+            android:text="2017-05-04 16:40:15"
+            android:layout_toRightOf="@+id/journal_item_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_below="@id/journal_item_imv"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/journal_item_tv_finish"
+                android:lineSpacingExtra="12dp"
+                android:textSize="14sp"
+                android:textColor="#999999"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/journal_item_tv_unfinish"
+                android:lineSpacingExtra="12dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textColor="#999999"
+                android:text="未完成工作："
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/journal_item_tv_nedhellp"
+                android:lineSpacingExtra="12dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textColor="#999999"
+                android:text="需协调工作："
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

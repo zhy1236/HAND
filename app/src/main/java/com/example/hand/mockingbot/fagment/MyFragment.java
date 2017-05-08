@@ -15,6 +15,8 @@ import com.example.hand.mockingbot.R;
  */
 
 public class MyFragment extends Fragment {
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class MyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.activity_fragment_my, container,false);
-        return inflate;
+        View view = inflater.inflate(R.layout.fragment_my, container,false);
+        return view;
     }
 }
