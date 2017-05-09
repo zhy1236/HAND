@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#FFF"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/attauch_item_iv"
+        android:background="@mipmap/ic_iv"
+        android:layout_margin="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/attauch_item_field_name"
+        android:text="我是图片.jpg"
+        android:textSize="14sp"
+        android:textColor="#4C5E70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/attauch_item_iv"
+        android:layout_toRightOf="@+id/attauch_item_iv"/>
+
+    <TextView
+        android:id="@+id/attauch_item_field_sise"
+        android:textSize="14sp"
+        android:textColor="#804C5E70"
+        android:text="1.1k"
+        android:layout_below="@id/attauch_item_field_name"
+        android:layout_toRightOf="@id/attauch_item_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/attauch_item_field_delete"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/ic_delete"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:background="#FAFAFA"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/attauch_item_iv"
+        android:layout_alignStart="@+id/attauch_item_iv" />
+
+</RelativeLayout>

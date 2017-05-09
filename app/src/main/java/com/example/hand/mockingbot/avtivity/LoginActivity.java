@@ -24,6 +24,7 @@ import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.utils.Fields;
 import com.example.hand.mockingbot.utils.SpUtils;
+import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,8 +60,12 @@ public class LoginActivity extends AppCompatActivity {
             ViewCompat.setFitsSystemWindows(mChildView, false);
         }
         setContentView(R.layout.actovity_login);
-
+        upData();
         initView();
+    }
+
+    private void upData() {
+        PgyUpdateManager.register(this);
     }
 
     private void initView() {

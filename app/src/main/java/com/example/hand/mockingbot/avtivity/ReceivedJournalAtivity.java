@@ -58,7 +58,7 @@ public class ReceivedJournalAtivity extends AppCompatActivity implements Adapter
         ListAdapter<JournalBean> listAdapter = new ListAdapter<JournalBean>(list,R.layout.journal_item) {
             @Override
             public void bindView(ViewHolder holder, JournalBean obj) {
-                String str = "今日完成工作：<font color='#333333'>今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作</font>";
+                String str = "今日完成工作：<font color='#333333'>" + "今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作，今日完成工作" + "</font>";
                 holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(str));
             }
         };

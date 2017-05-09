@@ -5,15 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.MyFragmentPagerAdapter;
 import com.example.hand.mockingbot.fagment.JournalFragment;
+import com.example.hand.mockingbot.fagment.MessagrFragment;
 import com.example.hand.mockingbot.fagment.MyFragment;
+import com.example.hand.mockingbot.fagment.ObjectFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,30 +26,16 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton journal;
     private RadioButton my;
     private ViewPager pager;
-    private Toolbar toolbar;
-    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.id_toolbar);
-        toolbar.setTitle("");
-        //设置左侧图标和点击事件
-//        toolbar.setNavigationIcon(R.mipmap.ic_back);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
-
         initView();
     }
 
     private void initView() {
         pager = (ViewPager) findViewById(R.id.fl_content);
-        title = (TextView) findViewById(R.id.main_tv_title);
         fragments = getData();
         FragmentManager fm = getSupportFragmentManager();
         MyFragmentPagerAdapter mfpa = new MyFragmentPagerAdapter(fm, fragments);
@@ -60,26 +46,22 @@ public class MainActivity extends AppCompatActivity {
         object = (RadioButton) findViewById(R.id.rb_main_object);
         message=(RadioButton) findViewById(R.id.rb_main_message);
         journal=(RadioButton) findViewById(R.id.rb_main_journal);
-        journal.setChecked(true);
-        title.setText("日志");
+        object.setChecked(true);
         my = (RadioButton) findViewById(R.id.rb_main_my);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-//                    case R.id.rb_main_object:
-//                        pager.setCurrentItem(0);//选择某一页
-//                        break;
-//                    case R.id.rb_main_message:
-//                        pager.setCurrentItem(1);
-//                        title.setText("消息");
-//                        break;
+                    case R.id.rb_main_object:
+                        pager.setCurrentItem(0);//选择某一页
+                        break;
+                    case R.id.rb_main_message:
+                        pager.setCurrentItem(1);
+                        break;
                     case R.id.rb_main_journal:
-                        pager.setCurrentItem(0);
-                        title.setText("日志");
+                        pager.setCurrentItem(2);
                         break;
                     case R.id.rb_main_my:
-                        pager.setCurrentItem(1);
-                        title.setText("我的");
+                        pager.setCurrentItem(3);
                         break;
                 }
             }
@@ -90,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Fragment> getData() {
         fragments = new ArrayList<Fragment>();
-//        fragments.add(new ObjectFragment());
-//        fragments.add(new MessagrFragment());
+        fragments.add(new ObjectFragment());
+        fragments.add(new MessagrFragment());
         fragments.add(new JournalFragment());
         fragments.add(new MyFragment());
         return fragments;
@@ -116,21 +98,17 @@ public class MainActivity extends AppCompatActivity {
         //当新的页面被选中时调用
         public void onPageSelected(int position) {
             switch (position) {
-//                case 0:
-//                    object.setChecked(true);
-//                    title.setVisibility(View.GONE);
-//                    break;
-//                case 1:
-//                    message.setChecked(true);
-//                    title.setText("消息");
-//                    break;
                 case 0:
-                    journal.setChecked(true);
-                    title.setText("日志");
+                    object.setChecked(true);
                     break;
                 case 1:
+                    message.setChecked(true);
+                    break;
+                case 2:
+                    journal.setChecked(true);
+                    break;
+                case 3:
                     my.setChecked(true);
-                    title.setText("我的");
                     break;
 
             }

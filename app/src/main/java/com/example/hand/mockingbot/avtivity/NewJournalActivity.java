@@ -11,15 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.datamanage.HttpManager;
-import com.example.hand.mockingbot.utils.DataUtil;
-import com.example.hand.mockingbot.utils.RoundRecTransform;
-import com.squareup.picasso.Picasso;
+import com.example.hand.mockingbot.entity.AttauchBean;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhy on 2017/5/5.
@@ -30,6 +33,7 @@ public class NewJournalActivity extends AppCompatActivity {
     public static final int CHOOSE_PICTURE = 1;
     private Toolbar toolbar;
     private GridLayout gl;
+    private List<AttauchBean> attauchlist = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class NewJournalActivity extends AppCompatActivity {
     }
 
     private void initview() {
-        TextView btn = (TextView) findViewById(R.id.new_journal_tv_fj);
+        LinearLayout btn = (LinearLayout) findViewById(R.id.new_journal_tv_fj);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +89,8 @@ public class NewJournalActivity extends AppCompatActivity {
     }
 
     private void adduri(Uri uri) {
+        AttauchBean attauchBean = new AttauchBean();
+
         Uri u = uri;
         String extension = null;
         String path = null;
@@ -99,18 +105,54 @@ public class NewJournalActivity extends AppCompatActivity {
             u = Uri.fromFile(new File(uri.toString()));
             extension = path.substring(path.lastIndexOf("."));
         }
-        ImageView imageView = new ImageView(getApplicationContext());
-        imageView.setPadding(5,5,5,5);
-        Picasso.with(this).load(uri).resize(200, 200).centerCrop().transform(new RoundRecTransform()).into(imageView);
-        final Uri finalU = u;
-        final String finalExtension = extension;
-        imageView.setOnClickListener(new View.OnClickListener() {
+        attauchBean.setExtension(extension);
+        attauchBean.setUri(u);
+        attauchBean.setFieldName(path.substring(path.lastIndexOf("/") + 1, path.length()));
+        File file = new File(path);
+        int available;
+        try {
+            FileInputStream fis = null;
+            fis = new FileInputStream(file);
+            available = fis.available();
+            attauchBean.setSize(available/1024 + "K");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final View inflate = View.inflate(getApplicationContext(), R.layout.attauch_item, null);
+        TextView name = (TextView) inflate.findViewById(R.id.attauch_item_field_name);
+        name.setText(path.substring(path.lastIndexOf("/") + 1, path.length()));
+        ImageView viewById = (ImageView) inflate.findViewById(R.id.attauch_item_iv);
+        if (extension.endsWith(".jpg")||extension.endsWith(".jpeg")|| extension.endsWith(".png")||extension.endsWith(".bmp")|| extension.endsWith(".gif")){
+            viewById.setImageResource(R.mipmap.ic_iv);
+        }else if (extension.endsWith(".doc")){
+            viewById.setImageResource(R.mipmap.ic_word);
+        }else if (extension.endsWith(".ppt")) {
+            viewById.setImageResource(R.mipmap.ic_ppt);
+        }
+        TextView sise = (TextView) inflate.findViewById(R.id.attauch_item_field_sise);
+        sise.setText(attauchBean.getSize());
+        View delete = inflate.findViewById(R.id.attauch_item_field_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DataUtil.openFile(getApplicationContext(), finalU, finalExtension);
+                gl.removeView(inflate);
             }
         });
-        gl.addView(imageView,0);
+//        ImageView imageView = new ImageView(getApplicationContext());
+//        imageView.setPadding(5,5,5,5);
+//        Picasso.with(this).load(uri).resize(200, 200).centerCrop().transform(new RoundRecTransform()).into(imageView);
+//        final Uri finalU = u;
+//        final String finalExtension = extension;
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String realPathFromUri = HttpManager.getRealPathFromUri(finalU, getApplicationContext());
+//                DataUtil.openFile(getApplicationContext(), Uri.parse(realPathFromUri), finalExtension);
+//            }
+//        });
+        attauchlist.add(attauchBean);
+        gl.addView(inflate);
 
     }
 }

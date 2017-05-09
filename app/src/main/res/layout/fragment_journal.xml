@@ -6,6 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent">
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:text="日志"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:background="#C9C9C9"
         android:orientation="horizontal"
@@ -239,7 +255,7 @@
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
-        
+
         <RelativeLayout
             android:layout_margin="0.5dp"
             android:background="#fff"

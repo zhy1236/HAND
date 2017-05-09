@@ -16,14 +16,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".avtivity.MainActivity"
             android:launchMode="singleTop">
+
+        </activity>
+        <activity android:name=".avtivity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".avtivity.LoginActivity">
-
         </activity>
         <activity android:name=".avtivity.ReceivedJournalAtivity"/>
         <activity android:name=".avtivity.NewJournalActivity"/>
@@ -31,6 +31,10 @@
         <activity android:name=".avtivity.DefectJournalActivity"/>
         <activity android:name=".avtivity.CommentJournalActivity"/>
         <activity android:name=".avtivity.LookUpJournalActivity"/>
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="02998d3e1e105cc45f06dca8b801b50f" >
+        </meta-data>
     </application>
 
 </manifest>
