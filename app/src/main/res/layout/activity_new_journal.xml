@@ -169,7 +169,6 @@
                     android:layout_height="20dp" />
             </LinearLayout>
 
-
             <GridLayout
                 android:columnCount="1"
                 android:id="@+id/new_journal_gl"
@@ -181,7 +180,8 @@
                 android:paddingTop="30dp"
                 android:background="#FFFFFF"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+
                 <Button
                     android:textColor="@color/selector_textcolor"
                     android:id="@+id/new_journal_tj"
@@ -190,9 +190,11 @@
                     android:text="提交"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </RelativeLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 

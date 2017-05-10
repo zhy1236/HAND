@@ -24,12 +24,14 @@
             android:text="日报"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <Button
+        <CheckBox
+            android:button="@null"
             android:gravity="center_vertical"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
             android:id="@+id/main_bt_right"
             android:background="#5AC2E7"
-            android:drawableRight="@mipmap/ic_attention"
+            android:drawableRight="@drawable/btn_check_attention"
             android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -38,7 +40,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -170,155 +173,12 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <HorizontalScrollView
-                android:background="#FFFFFF"
+            <GridLayout
                 android:layout_marginTop="1dp"
+                android:columnCount="1"
+                android:id="@+id/lookup_journal_gl"
                 android:layout_width="match_parent"
-                android:layout_height="72dp">
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:layout_margin="15dp"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_margin="15dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_img_journal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-            </HorizontalScrollView>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:background="#FFFFFF"
-                android:layout_marginTop="1dp"
-                android:layout_width="match_parent"
-                android:layout_height="75dp">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/fields_type"
-                        android:background="@mipmap/ic_word"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp" />
-
-                    <TextView
-                        android:id="@+id/fields_name"
-                        android:textSize="14sp"
-                        android:textColor="#4C5E70"
-                        android:text="我是文档.doc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/fields_type"
-                        android:layout_toRightOf="@+id/fields_type"/>
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#844C5E70"
-                        android:text="1.1k"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/fields_name"
-                        android:layout_toRightOf="@+id/fields_type" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/fields_type2"
-                        android:background="@mipmap/ic_ppt"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp" />
-
-                    <TextView
-                        android:id="@+id/fields_name2"
-                        android:textSize="14sp"
-                        android:textColor="#4C5E70"
-                        android:text="我是文档.ppt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/fields_type2"
-                        android:layout_toRightOf="@+id/fields_type2"/>
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#844C5E70"
-                        android:text="1.1k"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/fields_name2"
-                        android:layout_toRightOf="@+id/fields_type2" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:background="#FFFFFF"
@@ -584,31 +444,38 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-                android:minHeight="55dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:background="#fff"
-                    android:hint="评论"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:minHeight="30dp"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:textSize="14sp"
-                    android:textColor="@color/selector_textcolor"
-                    android:layout_marginLeft="5dp"
-                    android:text="发送"
-                    android:background="@drawable/selector_bg_login_button"
-                    android:layout_width="62dp"
-                    android:layout_height="30dp" />
-            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:minHeight="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:paddingLeft="10dp"
+            android:textSize="12sp"
+            android:textColorHint="#999999"
+            android:background="#fff"
+            android:hint="点击回复\@成员"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:minHeight="30dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textSize="14sp"
+            android:textColor="@color/selector_textcolor"
+            android:layout_marginLeft="5dp"
+            android:text="发送"
+            android:background="@drawable/selector_bg_login_button"
+            android:layout_width="62dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
 
 </LinearLayout>

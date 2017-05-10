@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#F0F0F2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,6 +23,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -33,7 +35,9 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <RelativeLayout
+                    android:background="#FFF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -91,21 +95,31 @@
                 </RelativeLayout>
 
                 <Button
-                    android:drawableRight="@mipmap/ic_icon"
+                    android:padding="10dp"
+                    android:background="#FFF"
+                    android:textColor="#333333"
+                    android:drawableRight="@mipmap/ic_right"
                     android:gravity="left|center_vertical"
                     android:text="账号与安全"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Button
-                    android:drawableRight="@mipmap/ic_icon"
+                    android:layout_marginTop="1dp"
+                    android:padding="10dp"
+                    android:background="#FFF"
+                    android:textColor="#333333"
+                    android:drawableRight="@mipmap/ic_right"
                     android:gravity="left|center_vertical"
                     android:text="密码修改"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:drawableRight="@mipmap/ic_icon"
+                    android:padding="10dp"
+                    android:background="#FFF"
+                    android:textColor="#333"
+                    android:drawableRight="@mipmap/ic_right"
                     android:gravity="left|center_vertical"
                     android:text="我的关注"
                     android:layout_marginTop="20dp"
@@ -113,20 +127,29 @@
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:drawableRight="@mipmap/ic_icon"
+                    android:padding="10dp"
+                    android:background="#FFF"
+                    android:textColor="#333"
+                    android:drawableRight="@mipmap/ic_right"
                     android:gravity="left|center_vertical"
                     android:text="帮助与反馈"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <Button
-                    android:drawableRight="@mipmap/ic_icon"
+                    android:layout_marginTop="1dp"
+                    android:padding="10dp"
+                    android:background="#FFF"
+                    android:textColor="#333"
+                    android:drawableRight="@mipmap/ic_right"
                     android:gravity="left|center_vertical"
                     android:text="关于"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Button
+                    android:id="@+id/my_btn_zx"
                     android:layout_marginTop="20dp"
                     android:background="#5AC2E7"
                     android:layout_marginLeft="10dp"

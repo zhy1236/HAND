@@ -41,7 +41,6 @@ public class NewJournalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_journal);
         toolbar = (Toolbar) findViewById(R.id.id_toolbar);
         toolbar.setTitle("");
-//        设置左侧图标和点击事件
         toolbar.setNavigationIcon(R.mipmap.ic_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +66,6 @@ public class NewJournalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 HttpManager.getInstance().getUrl("http://192.168.11.198:8088/project-mg/daily/downloadAttachment?fileName=1493187497054__1464__Test0d.jpj");
-
             }
         });
         gl = (GridLayout) findViewById(R.id.new_journal_gl);
@@ -133,6 +131,7 @@ public class NewJournalActivity extends AppCompatActivity {
         TextView sise = (TextView) inflate.findViewById(R.id.attauch_item_field_sise);
         sise.setText(attauchBean.getSize());
         View delete = inflate.findViewById(R.id.attauch_item_field_delete);
+        delete.setVisibility(View.VISIBLE);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.LoginEntity;
+import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.Fields;
 import com.example.hand.mockingbot.utils.SpUtils;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -110,8 +111,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
                 SpUtils.saveisBoolean(getApplicationContext(), SAVE_PASSWORD,savepassword.isChecked());
@@ -144,8 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         Map<String, Object> param = new HashMap<>();
         param.put("account",name);
         param.put("password",pass);
-        String url = "http://192.168.11.198:8088/project-mg/login";
-        HttpManager.getInstance().post(url, param, LoginEntity.class, new HttpManager.ResultCallback<LoginEntity>() {
+        HttpManager.getInstance().post(CommonValues.LOGIN, param, LoginEntity.class, new HttpManager.ResultCallback<LoginEntity>() {
             @Override
             public void onSuccess(final String json, final LoginEntity loginentity) throws InterruptedException {
                 runOnUiThread(new Runnable() {
@@ -183,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent();
                         intent.setClass(getApplicationContext(),MainActivity.class);
                         startActivity(intent);
+                        LoginActivity.this.finish();
                     }
                 });
             }

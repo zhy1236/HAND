@@ -2,33 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#f4f4f4"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorAccent"
         android:fitsSystemWindows="true">
 
-        <EditText
-            android:padding="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+        <RelativeLayout
+            android:background="#4dffffff"
+            android:id="@+id/toolbar_edtv_search"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:id="@+id/toolbar_edtv_search"
-            android:drawableLeft="@mipmap/ic_search"
-            android:background="#4dffffff"
-            android:textCursorDrawable="@color/white"
-            android:textColorHint="#FFFFFF"
-            android:textSize="14sp"
-            android:hint="搜索"
-            android:minHeight="25dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+        <Button
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:drawableLeft="@mipmap/ic_search"
+            android:background="#00ffffff"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:text="搜索"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
+
+
 </LinearLayout>
