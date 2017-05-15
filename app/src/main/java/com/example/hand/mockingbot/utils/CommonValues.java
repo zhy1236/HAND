@@ -5,8 +5,8 @@ package com.example.hand.mockingbot.utils;
  */
 
 public class CommonValues {
-    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/proiect-mg-app/app"; //本地环境
-//    public static final String BASE_TEST_HOST = "http://192.168.11.198:8087/proiect-mg-app/app";//测试环境
+//    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/proiect-mg-app/app/daily"; //本地环境
+    public static final String BASE_TEST_HOST = "http://192.168.11.198:8087/proiect-mg-app/app";//测试环境
 
     public static String currentHost = BASE_TEST_HOST;
 

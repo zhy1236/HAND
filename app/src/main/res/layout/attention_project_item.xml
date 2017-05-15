@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFF"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <ImageView
+        android:id="@+id/attention_project_item_iv"
+        android:layout_margin="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textColor="#333"
+        android:id="@+id/attention_project_item_tv"
+        android:layout_toRightOf="@+id/attention_project_item_iv"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:background="#F4F4F4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/attention_project_item_tv"
+        android:layout_alignStart="@+id/attention_project_item_tv" />
+</RelativeLayout>

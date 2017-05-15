@@ -34,8 +34,10 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:focusable="true"
+                android:padding="12dp"
                 android:focusableInTouchMode="true"
                 android:layout_marginTop="1dp"
                 android:background="#fff"
@@ -44,21 +46,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_gravity="top"
-                    android:layout_margin="12dp"
+                    android:layout_gravity="start"
                     android:textSize="14sp"
+                    android:layout_marginRight="12dp"
                     android:textColor="#333333"
                     android:text="今日完成工作"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:gravity="start"
                     android:minHeight="40dp"
                     android:background="#00ffffff"
-                    android:textCursorDrawable="@color/primary"
                     android:textColorHint="#999999"
                     android:textSize="14sp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="12dp"
                     android:textColor="#333333"
                     android:hint="请填写工作内容"
                     android:layout_width="match_parent"
@@ -70,21 +70,21 @@
                 android:focusableInTouchMode="true"
                 android:layout_marginTop="1dp"
                 android:background="#fff"
+                android:padding="12dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_margin="12dp"
+                    android:layout_gravity="start"
+                    android:layout_marginRight="12dp"
                     android:textColor="#333333"
                     android:text="尚未完成工作"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:gravity="start"
                     android:background="#00ffffff"
-                    android:textCursorDrawable="@color/primary"
                     android:textColorHint="#999999"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="12dp"
                     android:textColor="#333333"
                     android:textSize="14sp"
                     android:hint="请填写工作内容"
@@ -98,21 +98,21 @@
                 android:focusableInTouchMode="true"
                 android:layout_marginTop="1dp"
                 android:background="#fff"
+                android:padding="12dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_margin="12dp"
+                    android:layout_gravity="start"
+                    android:layout_marginRight="12dp"
                     android:textColor="#333333"
                     android:text="需要协调工作"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:gravity="start"
                     android:background="#00ffffff"
-                    android:textCursorDrawable="@color/primary"
                     android:textColorHint="#999999"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="12dp"
                     android:textColor="#333333"
                     android:minHeight="40dp"
                     android:textSize="14sp"
@@ -132,7 +132,6 @@
                 <EditText
                     android:layout_margin="12dp"
                     android:background="#00ffffff"
-                    android:textCursorDrawable="@color/primary"
                     android:textColorHint="#999999"
                     android:textColor="#333333"
                     android:minHeight="80dp"
@@ -169,7 +168,16 @@
                     android:layout_height="20dp" />
             </LinearLayout>
 
+            <!--<com.example.hand.mockingbot.view.NoScrollListview-->
+                <!--android:id="@+id/new_journal_lv"-->
+                <!--android:background="#fff"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!---->
+            <!--</com.example.hand.mockingbot.view.NoScrollListview>-->
+
             <GridLayout
+                android:animateLayoutChanges="true"
                 android:columnCount="1"
                 android:id="@+id/new_journal_gl"
                 android:layout_width="match_parent"
@@ -183,13 +191,15 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    android:layout_margin="10dp"
                     android:textColor="@color/selector_textcolor"
                     android:id="@+id/new_journal_tj"
                     android:background="@drawable/selector_bg_login_button"
-                    android:layout_margin="10dp"
+                    android:textSize="14sp"
+                    android:gravity="center"
                     android:text="提交"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="35dp" />
 
             </RelativeLayout>
 

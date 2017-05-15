@@ -44,7 +44,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:background="#52ffffff"
+            android:background="@drawable/edtext_bg_login"
             android:layout_width="230dp"
             android:layout_height="40dp">
             <ImageView
@@ -64,20 +64,11 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
 
-            <Button
-                android:layout_margin="10dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:background="#00ffffff"
-                android:text="X"
-                android:textColor="#f00"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_marginTop="2.5dp"
-            android:background="#52ffffff"
+            android:background="@drawable/edtext_bg_login"
             android:layout_width="230dp"
             android:layout_height="40dp">
             <ImageView
@@ -111,8 +102,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:id="@+id/login_btn_login"
-            android:textColor="@color/selector_textcolor"
-            android:background="@drawable/selector_bg_login_button"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_bg_login"
             android:textSize="15sp"
             android:enabled="false"
             android:text="登陆"

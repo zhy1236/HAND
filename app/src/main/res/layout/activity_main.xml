@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#f4f4f4"
     android:id="@+id/activity_main"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
@@ -15,23 +16,22 @@
         android:layout_weight="1"/>
     <TextView
         android:id="@+id/fgx"
-        android:background="#2630C790"
+        android:background="#26000000"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="0.5dp" />
 
     <RadioGroup
-        android:background="#F8F8F8"
+        android:background="#F4F4F4"
         android:id="@+id/bottom_bar"
-        android:backgroundTint="#FAFAFA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <RadioButton
             android:layout_marginTop="1dp"
-            android:id="@+id/rb_main_object"
+            android:id="@+id/rb_main_project"
             style="@style/BottomBarItem"
-            android:drawableTop="@mipmap/ic_object_true"
+            android:drawableTop="@mipmap/ic_project_true"
             android:checked="true"
             android:text="项目" />
 
@@ -46,10 +46,10 @@
             android:drawableTop="@drawable/btn_check_journal"
             android:id="@+id/rb_main_journal"
             style="@style/BottomBarItem"
-            android:text="日志" />
+            android:text="日报" />
 
         <RadioButton
-            android:drawableTop="@mipmap/ic_my"
+            android:drawableTop="@drawable/btn_check_my"
             style="@style/BottomBarItem"
             android:id="@+id/rb_main_my"
             android:text="我的" />

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".avtivity.MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleInstance">
 
         </activity>
         <activity android:name=".avtivity.LoginActivity">

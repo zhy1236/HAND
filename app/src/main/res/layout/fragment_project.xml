@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#f4f4f4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:background="#4dffffff"
+            android:id="@+id/toolbar_edtv_search"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+        <Button
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:drawableLeft="@mipmap/ic_search"
+            android:background="#00ffffff"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:text="搜索"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/project_sl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:columnCount="4"
+                android:background="#FFF"
+                android:paddingBottom="17dp"
+                android:id="@+id/project_gl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:background="#FFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/project_tv_latest_announcement"
+                    android:layout_margin="10dp"
+                    android:textColor="#DC0E17"
+                    android:textSize="15sp"
+                    android:text="最新公告"
+                    android:maxEms="2"
+                    android:lines="2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:background="#26000000"
+                    android:layout_toRightOf="@+id/project_tv_latest_announcement"
+                    android:layout_width="1dp"
+                    android:layout_height="25dp" />
+
+                <TextView
+                    android:id="@+id/project_tv_urgent"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"
+                    android:textColor="#DA0A17"
+                    android:text="急"
+                    android:layout_toRightOf="@+id/project_tv_latest_announcement"
+                    android:layout_alignTop="@+id/project_tv_latest_announcement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/project__tv_news"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12sp"
+                    android:textColor="#3AC493"
+                    android:text="新"
+                    android:layout_toRightOf="@+id/project_tv_latest_announcement"
+                    android:layout_alignBottom="@+id/project_tv_latest_announcement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="9dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/project_tv_urgent"
+                    android:textSize="13sp"
+                    android:lines="1"
+                    android:textColor="#333"
+                    android:text="项目紧急，特此通知特此通知特此通知特此通知特此通知特此通知"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/project__tv_news"
+                    android:textSize="13sp"
+                    android:lines="1"
+                    android:textColor="#333"
+                    android:text="最新项目，特此通知特此通知特此通知特此通知特此通知特此通知特此通知特此通知"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="#FFF"
+                android:layout_marginBottom="1dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:background="@mipmap/ic_my_concern"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="关注的项目"
+                    android:textSize="15sp"
+                    android:textColor="#333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <com.example.hand.mockingbot.view.NoScrollListview
+                android:background="#fff"
+                android:focusable="false"
+                android:id="@+id/project_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

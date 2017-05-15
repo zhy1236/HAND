@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#F0F0F2"
+    android:background="#F4F4F4"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,7 +23,6 @@
     </RelativeLayout>
 
     <ScrollView
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -37,126 +36,318 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:paddingLeft="5dp"
                     android:background="#FFF"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginTop="20dp"
-                        android:textColor="#000"
-                        android:layout_toRightOf="@+id/my_igv"
-                        android:text="张三"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    android:layout_height="110dp">
+
                     <ImageView
                         android:id="@+id/my_igv"
-                        android:layout_margin="10dp"
-                        android:src="@mipmap/ic_hand"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp" />
-                    <TextView
-                        android:layout_margin="10dp"
-                        android:id="@+id/my_tv_id"
-                        android:layout_below="@+id/my_igv"
-                        android:textColor="#000"
-                        android:text="工号:098765"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:layout_below="@+id/my_igv"
-                        android:layout_toRightOf="@+id/my_tv_id"
-                        android:text="|"
-                        android:textColor="#000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_margin="10dp"
-                        android:layout_below="@+id/my_igv"
-                        android:layout_toRightOf="@+id/my_tv_id"
-                        android:text="职位:研发工程师"
-                        android:textColor="#000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/my_tv_zw"
-                        android:layout_margin="10dp"
-                        android:textColor="#000"
-                        android:text="部门:企业数据事业服务部"
-                        android:layout_below="@+id/my_tv_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:background="#BBBBBB"
-                        android:layout_marginTop="20dp"
-                        android:layout_below="@+id/my_tv_zw"
+                        android:layout_margin="20dp"
+                        android:src="@mipmap/ic_head_portrait"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp" />
+
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/my_igv"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp" />
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/my_name"
+                            android:textColor="#59C2E6"
+                            android:textSize="17sp"
+                            android:text="张三（12208）"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:text="职位：研发工程师"
+                            android:id="@+id/my_tv_zw"
+                            android:textColor="#8D8A8A"
+                            android:textSize="13sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/my_tv_bm"
+                            android:textSize="13sp"
+                            android:textColor="#8D8A8A"
+                            android:text="部门：企业数据事业服务部"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
                 </RelativeLayout>
 
-                <Button
-                    android:padding="10dp"
+                <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:background="#FFF"
-                    android:textColor="#333333"
-                    android:drawableRight="@mipmap/ic_right"
-                    android:gravity="left|center_vertical"
-                    android:text="账号与安全"
-                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <Button
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_safe"
+                        android:layout_margin="10dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:text="账号与安全"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@mipmap/ic_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_marginTop="1dp"
-                    android:padding="10dp"
                     android:background="#FFF"
-                    android:textColor="#333333"
-                    android:drawableRight="@mipmap/ic_right"
-                    android:gravity="left|center_vertical"
-                    android:text="密码修改"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="40dp">
 
-                <Button
-                    android:padding="10dp"
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_password"
+                        android:layout_margin="10dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:text="密码修改"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@mipmap/ic_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:background="#FFF"
-                    android:textColor="#333"
-                    android:drawableRight="@mipmap/ic_right"
-                    android:gravity="left|center_vertical"
-                    android:text="我的关注"
-                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="40dp">
 
-                <Button
-                    android:padding="10dp"
-                    android:background="#FFF"
-                    android:textColor="#333"
-                    android:drawableRight="@mipmap/ic_right"
-                    android:gravity="left|center_vertical"
-                    android:text="帮助与反馈"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_my_concern"
+                        android:layout_margin="10dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
 
-                <Button
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:text="我的关注"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@mipmap/ic_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_marginTop="1dp"
-                    android:padding="10dp"
                     android:background="#FFF"
-                    android:textColor="#333"
-                    android:drawableRight="@mipmap/ic_right"
-                    android:gravity="left|center_vertical"
-                    android:text="关于"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_attention_true"
+                        android:layout_margin="10dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:text="收藏日报"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@mipmap/ic_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:background="#FFF"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_help_and_feedback"
+                        android:layout_margin="10dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:text="帮助与反馈"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@mipmap/ic_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="1dp"
+                    android:background="#FFF"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_about"
+                        android:layout_margin="10dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:text="关于"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:background="@mipmap/ic_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!--<Button-->
+                    <!--android:drawableLeft="@mipmap/ic_safe"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:background="#FFF"-->
+                    <!--android:textColor="#333333"-->
+                    <!--android:drawableRight="@mipmap/ic_right"-->
+                    <!--android:gravity="left|center_vertical"-->
+                    <!--android:text="账号与安全"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp" />-->
+                <!--<Button-->
+                    <!--android:layout_marginTop="1dp"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:background="#FFF"-->
+                    <!--android:textColor="#333333"-->
+                    <!--android:drawableRight="@mipmap/ic_right"-->
+                    <!--android:gravity="left|center_vertical"-->
+                    <!--android:text="密码修改"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp" />-->
+
+                <!--<Button-->
+                    <!--android:padding="10dp"-->
+                    <!--android:background="#FFF"-->
+                    <!--android:textColor="#333"-->
+                    <!--android:drawableRight="@mipmap/ic_right"-->
+                    <!--android:gravity="left|center_vertical"-->
+                    <!--android:text="我的关注"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp" />-->
+
+                <!--<Button-->
+                    <!--android:padding="10dp"-->
+                    <!--android:background="#FFF"-->
+                    <!--android:textColor="#333"-->
+                    <!--android:drawableRight="@mipmap/ic_right"-->
+                    <!--android:gravity="left|center_vertical"-->
+                    <!--android:text="帮助与反馈"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp" />-->
+
+                <!--<Button-->
+                    <!--android:layout_marginTop="1dp"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:background="#FFF"-->
+                    <!--android:textColor="#333"-->
+                    <!--android:drawableRight="@mipmap/ic_right"-->
+                    <!--android:gravity="left|center_vertical"-->
+                    <!--android:text="关于"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp" />-->
 
                 <Button
                     android:id="@+id/my_btn_zx"
-                    android:layout_marginTop="20dp"
-                    android:background="#5AC2E7"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/white"
                     android:text="注销"
+                    android:textColor="#F13E2B"
+                    android:textSize="15sp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="40dp" />
             </LinearLayout>
 
         </LinearLayout>

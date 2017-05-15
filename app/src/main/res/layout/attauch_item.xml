@@ -7,14 +7,12 @@
 
     <ImageView
         android:id="@+id/attauch_item_iv"
-        android:background="@mipmap/ic_iv"
         android:layout_margin="10dp"
         android:layout_width="30dp"
         android:layout_height="30dp" />
 
     <TextView
         android:id="@+id/attauch_item_field_name"
-        android:text="我是图片.jpg"
         android:textSize="14sp"
         android:textColor="#4C5E70"
         android:layout_width="wrap_content"
@@ -34,14 +32,13 @@
 
     <ImageView
         android:id="@+id/attauch_item_field_delete"
-        android:padding="10dp"
         android:visibility="gone"
         android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:background="@mipmap/ic_delete"
+        android:background="@mipmap/ic_attauch_delete"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="15dp"
+        android:layout_height="15dp" />
 
     <ProgressBar
         android:id="@+id/attauch_item_pb"

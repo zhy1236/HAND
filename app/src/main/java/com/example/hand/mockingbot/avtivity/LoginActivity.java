@@ -113,6 +113,11 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rotation = ofFloat(rl, "rotation", 0.0F, 360.0F);
+                rotation.setDuration(1000);
+                rotation.setRepeatMode(ValueAnimator.RESTART);
+                rotation.setRepeatCount(ObjectAnimator.INFINITE);
+                rotation.start();
                 SpUtils.saveisBoolean(getApplicationContext(), SAVE_PASSWORD,savepassword.isChecked());
                 SpUtils.saveString(getApplicationContext(), USERID, mUsername.getText().toString());
                 if (savepassword.isChecked()){
@@ -126,11 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 login.setEnabled(false);
                 mUsername.setEnabled(false);
                 mPassword.setEnabled(false);
-                rotation = ofFloat(rl, "rotation", 0.0F, 360.0F);
-                rotation.setDuration(1000);
-                rotation.setRepeatMode(ValueAnimator.RESTART);
-                rotation.setRepeatCount(ObjectAnimator.INFINITE);
-                rotation.start();
+                login.setEnabled(false);
                 login(mUsername.getText().toString(), mPassword.getText().toString());
 
             }
@@ -150,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         rotation.end();
+                        login.setEnabled(true);
                         savepassword.setEnabled(true);
                         login.setEnabled(true);
                         mUsername.setEnabled(true);
@@ -159,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent();
                             intent.setClass(getApplicationContext(),MainActivity.class);
                             startActivity(intent);
+                            LoginActivity.this.finish();
                         }else {
                             Toast.makeText(getApplicationContext(),loginentity.getError().getMessage(),Toast.LENGTH_SHORT).show();
                         }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/project_item_iv"
+        android:background="@mipmap/ic_project_overview"
+        android:layout_marginLeft="24.5dp"
+        android:layout_marginRight="24.5dp"
+        android:layout_marginTop="17dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:textSize="13sp"
+        android:textColor="#333"
+        android:text="项目概览"
+        android:id="@+id/project_item_tv"
+        android:layout_below="@+id/project_item_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
