@@ -31,6 +31,7 @@
         <activity android:name=".avtivity.DefectJournalActivity"/>
         <activity android:name=".avtivity.CommentJournalActivity"/>
         <activity android:name=".avtivity.LookUpJournalActivity"/>
+        <activity android:name=".avtivity.MyCollectionActivity"/>
         <meta-data
             android:name="PGYER_APPID"
             android:value="02998d3e1e105cc45f06dca8b801b50f" >

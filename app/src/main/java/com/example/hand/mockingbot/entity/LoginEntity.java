@@ -44,6 +44,9 @@ public class LoginEntity {
             private String password;
             private String realname;
             private String authPermission;
+            private String position;
+            private String headPortrait;
+            private String department;  //部门
 
             public String getId() {
                 return id;
@@ -83,6 +86,30 @@ public class LoginEntity {
 
             public void setAuthPermission(String authPermission) {
                 this.authPermission = authPermission;
+            }
+
+            public String getPosition() {
+                return position;
+            }
+
+            public void setPosition(String position) {
+                this.position = position;
+            }
+
+            public String getHeadPortrait() {
+                return headPortrait;
+            }
+
+            public void setHeadPortrait(String headPortrait) {
+                this.headPortrait = headPortrait;
+            }
+
+            public String getDepartment() {
+                return department;
+            }
+
+            public void setDepartment(String department) {
+                this.department = department;
             }
         }
     }

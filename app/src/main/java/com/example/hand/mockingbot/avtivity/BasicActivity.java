@@ -4,21 +4,21 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.utils.SystemBarTintManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * Created by zhy on 2017/5/5.
+ * Created by zhy on 2017/5/16.
  */
 
-public class CommentJournalActivity extends BasicActivity {
-    private Toolbar toolbar;
-
+public class BasicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,17 +28,6 @@ public class CommentJournalActivity extends BasicActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.colorAccent);
-        setContentView(R.layout.activity_comment_journal);
-        toolbar = (Toolbar) findViewById(R.id.id_toolbar);
-        toolbar.setTitle("");
-//        设置左侧图标和点击事件
-        toolbar.setNavigationIcon(R.mipmap.ic_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
     }
 
     @TargetApi(19)
@@ -53,4 +42,18 @@ public class CommentJournalActivity extends BasicActivity {
         }
         win.setAttributes(winParams);
     }
+
+    public String getData(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        String str = formatter.format(curDate);
+        return str;
+    }
+
+    public String getTime(long submitDate){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String str = formatter.format(submitDate);
+        return str;
+    }
 }
+

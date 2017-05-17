@@ -9,7 +9,7 @@ import android.os.StrictMode;
 import com.example.hand.mockingbot.entity.LoginEntity;
 
 
-public class GeelyApp extends Application {
+public class HandApp extends Application {
     //handler
     public static Handler mainHandler;
 
@@ -45,7 +45,7 @@ public class GeelyApp extends Application {
     }
 
     public static void setLoginEntity(LoginEntity loginEntity) {
-        GeelyApp.loginEntity = loginEntity;
+        HandApp.loginEntity = loginEntity;
     }
 
 

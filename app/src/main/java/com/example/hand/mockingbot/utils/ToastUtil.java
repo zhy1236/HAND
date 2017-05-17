@@ -10,7 +10,7 @@ public class ToastUtil {
      */
     public static void showToast(String text){
         if(toast==null){
-            toast = Toast.makeText(GeelyApp.context, text, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(HandApp.context, text, Toast.LENGTH_SHORT);
         }else {
             toast.setText(text);//如果不为空，则直接改变当前toast的文本
         }

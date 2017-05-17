@@ -79,11 +79,11 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/lookup_journal_finishwork"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:textSize="14sp"
                     android:textColor="#333333"
-                    android:text="拉沙德拉克将收到货拉开说句话的拉开说句话的拉开几点睡啦开始节点离开时间打哈里斯就当哈利收款打虎山路大口径安徽水利打开就爱上得利卡几点睡啦卡就是的话"
                     android:lineSpacingExtra="7dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -106,6 +106,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/lookup_journal_unfinishwork"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:lines="2"
@@ -134,6 +135,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/lookup_journal_coordinationWork"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:lines="2"
@@ -162,6 +164,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/lookup_journal_remark"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:lines="2"
@@ -202,7 +205,7 @@
                     android:textSize="14sp"
                     android:drawablePadding="5dp"
                     android:drawableRight="@mipmap/ic_right"
-                    android:text="2人"
+                    android:text="1人"
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -216,246 +219,6 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="屈冰霄"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="肖珊"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="屈冰霄"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="肖珊"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="屈冰霄"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="肖珊"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="屈冰霄"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="肖珊"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="屈冰霄"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:background="@mipmap/ic_head_portrait"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp" />
-
-                            <TextView
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:textColor="#333333"
-                                android:text="肖珊"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -473,175 +236,175 @@
                 <TextView
                     android:textColor="#999999"
                     android:textSize="14sp"
-                    android:text="共有3条回复"
+                    android:text="暂无回复"
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                    <ImageView
-                        android:id="@+id/pl_iv1"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@mipmap/ic_head_portrait"
-                        android:layout_marginTop="2dp"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/pl_iv1"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:background="@mipmap/ic_head_portrait"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp" />-->
 
-                    <TextView
-                        android:id="@+id/pl_name1"
-                        android:layout_marginTop="7dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="屈冰霄"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/pl_iv1"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_name1"-->
+                        <!--android:layout_marginTop="7dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="屈冰霄"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_toRightOf="@+id/pl_iv1"/>-->
 
-                    <TextView
-                        android:id="@+id/pl_content1"
-                        android:layout_marginTop="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="很好！特别好，很好，很好！"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/pl_name1"
-                        android:layout_toRightOf="@+id/pl_iv1"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_content1"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="很好！特别好，很好，很好！"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/pl_name1"-->
+                        <!--android:layout_toRightOf="@+id/pl_iv1"/>-->
 
-                    <TextView
-                        android:id="@+id/pl_time1"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="2017-4-11 21:12:12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/pl_name1"
-                        android:layout_alignParentRight="true" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_time1"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="2017-4-11 21:12:12"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignTop="@+id/pl_name1"-->
+                        <!--android:layout_alignParentRight="true" />-->
 
-                    <TextView
-                        android:layout_marginTop="12dp"
-                        android:layout_below="@+id/pl_content1"
-                        android:background="#F4F4F4"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignLeft="@+id/pl_content1" />
+                    <!--<TextView-->
+                        <!--android:layout_marginTop="12dp"-->
+                        <!--android:layout_below="@+id/pl_content1"-->
+                        <!--android:background="#F4F4F4"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_alignLeft="@+id/pl_content1" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                    <ImageView
-                        android:id="@+id/pl_iv2"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@mipmap/ic_head_portrait"
-                        android:layout_marginTop="2dp"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/pl_iv2"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:background="@mipmap/ic_head_portrait"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp" />-->
 
-                    <TextView
-                        android:id="@+id/pl_name2"
-                        android:layout_marginTop="7dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="肖珊"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/pl_iv2"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_name2"-->
+                        <!--android:layout_marginTop="7dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="肖珊"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_toRightOf="@+id/pl_iv2"/>-->
 
-                    <TextView
-                        android:id="@+id/pl_content2"
-                        android:layout_marginTop="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="\@屈冰霄 哈哈！ 谢谢 谢谢！"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/pl_name2"
-                        android:layout_toRightOf="@+id/pl_iv2"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_content2"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="\@屈冰霄 哈哈！ 谢谢 谢谢！"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/pl_name2"-->
+                        <!--android:layout_toRightOf="@+id/pl_iv2"/>-->
 
-                    <TextView
-                        android:id="@+id/pl_time2"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="2017-4-11 21:12:12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/pl_name2"
-                        android:layout_alignParentRight="true" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_time2"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="2017-4-11 21:12:12"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignTop="@+id/pl_name2"-->
+                        <!--android:layout_alignParentRight="true" />-->
 
-                    <TextView
-                        android:layout_marginTop="12dp"
-                        android:layout_below="@+id/pl_content2"
-                        android:background="#F4F4F4"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignLeft="@+id/pl_content2" />
+                    <!--<TextView-->
+                        <!--android:layout_marginTop="12dp"-->
+                        <!--android:layout_below="@+id/pl_content2"-->
+                        <!--android:background="#F4F4F4"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_alignLeft="@+id/pl_content2" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                    <ImageView
-                        android:id="@+id/pl_iv3"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@mipmap/ic_head_portrait"
-                        android:layout_marginTop="2dp"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/pl_iv3"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:background="@mipmap/ic_head_portrait"-->
+                        <!--android:layout_marginTop="2dp"-->
+                        <!--android:layout_width="30dp"-->
+                        <!--android:layout_height="30dp" />-->
 
-                    <TextView
-                        android:id="@+id/pl_name3"
-                        android:layout_marginTop="7dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="肖珊珊"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/pl_iv3"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_name3"-->
+                        <!--android:layout_marginTop="7dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="肖珊珊"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_toRightOf="@+id/pl_iv3"/>-->
 
-                    <TextView
-                        android:id="@+id/pl_content3"
-                        android:layout_marginTop="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="很好！很好！"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/pl_name3"
-                        android:layout_toRightOf="@+id/pl_iv3"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_content3"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="很好！很好！"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/pl_name3"-->
+                        <!--android:layout_toRightOf="@+id/pl_iv3"/>-->
 
-                    <TextView
-                        android:id="@+id/pl_time3"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#333333"
-                        android:text="2017-4-11 21:12:12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/pl_name3"
-                        android:layout_alignParentRight="true" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/pl_time3"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textColor="#333333"-->
+                        <!--android:text="2017-4-11 21:12:12"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignTop="@+id/pl_name3"-->
+                        <!--android:layout_alignParentRight="true" />-->
 
-                    <TextView
-                        android:layout_marginTop="12dp"
-                        android:layout_below="@+id/pl_content3"
-                        android:background="#F4F4F4"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignLeft="@+id/pl_content3" />
+                    <!--<TextView-->
+                        <!--android:layout_marginTop="12dp"-->
+                        <!--android:layout_below="@+id/pl_content3"-->
+                        <!--android:background="#F4F4F4"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_alignLeft="@+id/pl_content3" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
             </LinearLayout>
 

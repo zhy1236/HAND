@@ -31,14 +31,14 @@
             android:layout_marginTop="1dp"
             android:id="@+id/rb_main_project"
             style="@style/BottomBarItem"
-            android:drawableTop="@mipmap/ic_project_true"
+            android:drawableTop="@drawable/btn_check_journal"
             android:checked="true"
             android:text="项目" />
 
         <RadioButton
             android:background="@color/white"
             android:id="@+id/rb_main_message"
-            android:drawableTop="@drawable/btn_check_journal"
+            android:drawableTop="@drawable/btn_check_message"
             style="@style/BottomBarItem"
             android:text="消息" />
 

@@ -8,10 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.avtivity.LoginActivity;
+import com.example.hand.mockingbot.avtivity.MyCollectionActivity;
+import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.utils.Fields;
+import com.example.hand.mockingbot.utils.HandApp;
 import com.example.hand.mockingbot.utils.SpUtils;
 
 
@@ -24,6 +29,16 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
 
     private Button zx;
+    private LinearLayout account_security;
+    private LinearLayout modify_password;
+    private LinearLayout my_concern;
+    private LinearLayout my_attention;
+    private LinearLayout help_feedback;
+    private LinearLayout about;
+    private TextView my_name;
+    private LoginEntity.ResultBean.DataBean data;
+    private TextView position;
+    private TextView department;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,18 +49,51 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container,false);
+        data = HandApp.getLoginEntity().getResult().getData();
+        my_name = (TextView) view.findViewById(R.id.my_name);
+        my_name.setText(data.getRealname());
+        position = (TextView) view.findViewById(R.id.my_tv_zw);
+        position.setText(data.getPosition());
+        department = (TextView) view.findViewById(R.id.my_tv_bm);
+        department.setText(data.getDepartment());
         zx = (Button) view.findViewById(R.id.my_btn_zx);
         zx.setOnClickListener(this);
+        account_security = (LinearLayout) view.findViewById(R.id.my_account_and_security);
+        account_security.setOnClickListener(this);
+        modify_password = (LinearLayout) view.findViewById(R.id.my_modify_password);
+        modify_password.setOnClickListener(this);
+        my_attention = (LinearLayout) view.findViewById(R.id.my_attention);
+        my_attention.setOnClickListener(this);
+        my_concern = (LinearLayout) view.findViewById(R.id.my_concern);
+        my_concern.setOnClickListener(this);
+        help_feedback = (LinearLayout) view.findViewById(R.id.my_help_and_feedback);
+        help_feedback.setOnClickListener(this);
+        about = (LinearLayout) view.findViewById(R.id.my_about);
+        about.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.my_account_and_security:
+                break;
+            case R.id.my_modify_password:
+                break;
+            case R.id.my_attention:
+                break;
+            case R.id.my_concern:
+                intent.setClass(getContext(), MyCollectionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.my_help_and_feedback:
+                break;
+            case R.id.my_about:
+                break;
             case R.id.my_btn_zx:
                 SpUtils.saveString(getContext(),Fields.PASSWORD,"");
                 SpUtils.saveisBoolean(getContext(),Fields.SAVE_PASSWORD,false);
-                Intent intent = new Intent();
                 intent.setClass(getContext(), LoginActivity.class);
                 startActivity(intent);
                 MyFragment.this.getActivity().finish();

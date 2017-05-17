@@ -59,27 +59,51 @@
                             android:id="@+id/my_name"
                             android:textColor="#59C2E6"
                             android:textSize="17sp"
-                            android:text="张三（12208）"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
-                        <TextView
+                        <LinearLayout
                             android:layout_marginTop="10dp"
-                            android:text="职位：研发工程师"
-                            android:id="@+id/my_tv_zw"
-                            android:textColor="#8D8A8A"
-                            android:textSize="13sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <TextView
+                            <TextView
+                                android:text="职位："
+                                android:textColor="#8D8A8A"
+                                android:textSize="13sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/my_tv_zw"
+                                android:textColor="#8D8A8A"
+                                android:textSize="13sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_marginTop="10dp"
-                            android:id="@+id/my_tv_bm"
-                            android:textSize="13sp"
-                            android:textColor="#8D8A8A"
-                            android:text="部门：企业数据事业服务部"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textSize="13sp"
+                                android:textColor="#8D8A8A"
+                                android:text="部门："
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/my_tv_bm"
+                                android:textSize="13sp"
+                                android:textColor="#8D8A8A"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -87,6 +111,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/my_account_and_security"
                     android:layout_marginTop="10dp"
                     android:background="#FFF"
                     android:orientation="horizontal"
@@ -95,7 +120,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_safe"
+                        android:src="@mipmap/ic_safe"
                         android:layout_margin="10dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
@@ -120,6 +145,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/my_modify_password"
                     android:layout_marginTop="1dp"
                     android:background="#FFF"
                     android:orientation="horizontal"
@@ -128,7 +154,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_password"
+                        android:src="@mipmap/ic_password"
                         android:layout_margin="10dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
@@ -153,6 +179,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/my_attention"
                     android:layout_marginTop="10dp"
                     android:background="#FFF"
                     android:orientation="horizontal"
@@ -161,7 +188,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_my_concern"
+                        android:src="@mipmap/ic_attention_true"
                         android:layout_margin="10dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
@@ -186,6 +213,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/my_concern"
                     android:layout_marginTop="1dp"
                     android:background="#FFF"
                     android:orientation="horizontal"
@@ -194,7 +222,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_attention_true"
+                        android:src="@mipmap/ic_my_concern"
                         android:layout_margin="10dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
@@ -219,6 +247,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/my_help_and_feedback"
                     android:layout_marginTop="10dp"
                     android:background="#FFF"
                     android:orientation="horizontal"
@@ -227,7 +256,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_help_and_feedback"
+                        android:src="@mipmap/ic_help_and_feedback"
                         android:layout_margin="10dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
@@ -252,6 +281,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/my_about"
                     android:layout_marginTop="1dp"
                     android:background="#FFF"
                     android:orientation="horizontal"
@@ -260,7 +290,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_about"
+                        android:src="@mipmap/ic_about"
                         android:layout_margin="10dp"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />

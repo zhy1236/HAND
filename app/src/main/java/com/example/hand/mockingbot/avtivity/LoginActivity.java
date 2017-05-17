@@ -24,6 +24,7 @@ import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.Fields;
+import com.example.hand.mockingbot.utils.HandApp;
 import com.example.hand.mockingbot.utils.SpUtils;
 import com.pgyersdk.update.PgyUpdateManager;
 
@@ -128,10 +129,9 @@ public class LoginActivity extends AppCompatActivity {
                     SpUtils.saveisBoolean(getApplicationContext(),Fields.SAVE_PASSWORD,false);
                 }
                 savepassword.setEnabled(false);
-                login.setEnabled(false);
+//                login.setEnabled(false);
                 mUsername.setEnabled(false);
                 mPassword.setEnabled(false);
-                login.setEnabled(false);
                 login(mUsername.getText().toString(), mPassword.getText().toString());
 
             }
@@ -157,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                         mUsername.setEnabled(true);
                         mPassword.setEnabled(true);
                         rl.clearAnimation();
+                        HandApp.setLoginEntity(loginentity);
                         if (loginentity.getResult() != null){
                             Intent intent = new Intent();
                             intent.setClass(getApplicationContext(),MainActivity.class);
@@ -189,18 +190,19 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+
     }
 
     private void onUsernameChanged() {
-        if (mUsername.length() > 0 && mPassword.length() > 0) {
-            login.setEnabled(true);
-        } else {
-            login.setEnabled(false);
-        }
+//        if (mUsername.length() > 0 && mPassword.length() > 0) {
+//            login.setEnabled(true);
+//        } else {
+//            login.setEnabled(false);
+//        }
     }
 
     private void onPasswordChanged() {
-        onUsernameChanged();
+//        onUsernameChanged();
     }
 
 }

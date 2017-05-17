@@ -44,42 +44,41 @@ public class HttpManager {
     private static final HttpManager sHttpManager = new HttpManager();
 
     public static HttpManager getInstance() {
-
         return sHttpManager;
     }
 
     //从网络获取数据
     //get方式
-//    public <T> T get(String url, Class<T> clazz) {
-//        //1. 优先从网络获取数据
-//
-//        String content = sHttpManager.dataGet(url);
-//
-//       /* System.out.println("当前网络获取的数据:"+content);
-//
-//
-//        if (TextUtils.isEmpty(content)) {
-//            //2. 如果网络数据为空
-//            //去缓存 获取数据
-//            content = CacheManger.getInstance().getData(url);
-//            System.out.println("得到缓存数据");
-//
-//        } else {
-//            //3. 保存数据
-//            CacheManger.getInstance().saveData(url,content);
-//
-//        }*/
-//
-//        //解析json数据
-//
-//        Object obj = parseJson(content, clazz);
-//        return parseJson(content, clazz);
-//    }
-//
-//    public String get(String url) {
-//        String content = sHttpManager.dataGet(url);
-//        return content;
-//    }
+    public <T> T get(String url, Class<T> clazz) {
+        //1. 优先从网络获取数据
+
+        String content = sHttpManager.dataGet(url);
+
+       /* System.out.println("当前网络获取的数据:"+content);
+
+
+        if (TextUtils.isEmpty(content)) {
+            //2. 如果网络数据为空
+            //去缓存 获取数据
+            content = CacheManger.getInstance().getData(url);
+            System.out.println("得到缓存数据");
+
+        } else {
+            //3. 保存数据
+            CacheManger.getInstance().saveData(url,content);
+
+        }*/
+
+        //解析json数据
+
+        Object obj = parseJson(content, clazz);
+        return parseJson(content, clazz);
+    }
+
+    public String get(String url) {
+        String content = sHttpManager.dataGet(url);
+        return content;
+    }
 
 //    public <T> T requestResultFormSync(final String url, final Map<String, Object> map, final Class<T> clazz) {
 //

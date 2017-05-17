@@ -105,7 +105,6 @@
             android:textColor="@color/white"
             android:background="@drawable/btn_bg_login"
             android:textSize="15sp"
-            android:enabled="false"
             android:text="登陆"
             android:layout_width="230dp"
             android:layout_height="40dp" />
