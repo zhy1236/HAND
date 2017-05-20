@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <CheckBox
+            android:visibility="gone"
             android:button="@null"
             android:gravity="center_vertical"
             android:layout_marginRight="10dp"
@@ -35,6 +36,16 @@
             android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/lookup_journal_btn"
+            android:visibility="gone"
+            android:background="#5AC2E7"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="修改"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -176,10 +187,10 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <GridLayout
+            <com.example.hand.mockingbot.view.NoScrollListview
                 android:layout_marginTop="1dp"
-                android:columnCount="1"
-                android:id="@+id/lookup_journal_gl"
+                android:background="#fff"
+                android:id="@+id/lookup_journal_attauch_lv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -203,9 +214,9 @@
                     android:layout_alignParentRight="true"
                     android:textColor="#999999"
                     android:textSize="14sp"
+                    android:id="@+id/lookup_journal_tv_count"
                     android:drawablePadding="5dp"
                     android:drawableRight="@mipmap/ic_right"
-                    android:text="1人"
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -216,9 +227,10 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/lookup_journal_ll_yd"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                     </LinearLayout>
 
@@ -234,6 +246,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/lookup_journal_tv_count_num"
                     android:textColor="#999999"
                     android:textSize="14sp"
                     android:text="暂无回复"
@@ -241,170 +254,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/pl_iv1"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:background="@mipmap/ic_head_portrait"-->
-                        <!--android:layout_marginTop="2dp"-->
-                        <!--android:layout_width="30dp"-->
-                        <!--android:layout_height="30dp" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_name1"-->
-                        <!--android:layout_marginTop="7dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="屈冰霄"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_toRightOf="@+id/pl_iv1"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_content1"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="很好！特别好，很好，很好！"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_below="@+id/pl_name1"-->
-                        <!--android:layout_toRightOf="@+id/pl_iv1"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_time1"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="2017-4-11 21:12:12"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignTop="@+id/pl_name1"-->
-                        <!--android:layout_alignParentRight="true" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_marginTop="12dp"-->
-                        <!--android:layout_below="@+id/pl_content1"-->
-                        <!--android:background="#F4F4F4"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:layout_alignLeft="@+id/pl_content1" />-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/pl_iv2"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:background="@mipmap/ic_head_portrait"-->
-                        <!--android:layout_marginTop="2dp"-->
-                        <!--android:layout_width="30dp"-->
-                        <!--android:layout_height="30dp" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_name2"-->
-                        <!--android:layout_marginTop="7dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="肖珊"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_toRightOf="@+id/pl_iv2"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_content2"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="\@屈冰霄 哈哈！ 谢谢 谢谢！"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_below="@+id/pl_name2"-->
-                        <!--android:layout_toRightOf="@+id/pl_iv2"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_time2"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="2017-4-11 21:12:12"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignTop="@+id/pl_name2"-->
-                        <!--android:layout_alignParentRight="true" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_marginTop="12dp"-->
-                        <!--android:layout_below="@+id/pl_content2"-->
-                        <!--android:background="#F4F4F4"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:layout_alignLeft="@+id/pl_content2" />-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/pl_iv3"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:background="@mipmap/ic_head_portrait"-->
-                        <!--android:layout_marginTop="2dp"-->
-                        <!--android:layout_width="30dp"-->
-                        <!--android:layout_height="30dp" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_name3"-->
-                        <!--android:layout_marginTop="7dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="肖珊珊"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_toRightOf="@+id/pl_iv3"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_content3"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="很好！很好！"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_below="@+id/pl_name3"-->
-                        <!--android:layout_toRightOf="@+id/pl_iv3"/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/pl_time3"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:textColor="#333333"-->
-                        <!--android:text="2017-4-11 21:12:12"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignTop="@+id/pl_name3"-->
-                        <!--android:layout_alignParentRight="true" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_marginTop="12dp"-->
-                        <!--android:layout_below="@+id/pl_content3"-->
-                        <!--android:background="#F4F4F4"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="1dp"-->
-                        <!--android:layout_alignLeft="@+id/pl_content3" />-->
-
-                <!--</RelativeLayout>-->
+                <com.example.hand.mockingbot.view.NoScrollListview
+                    android:id="@+id/lookup_journal_lv_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -422,9 +275,11 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/lookup_journal_ed_comment"
             android:paddingLeft="10dp"
             android:textSize="12sp"
             android:textColorHint="#999999"
+            android:textColor="#333333"
             android:background="@drawable/bg_white"
             android:hint="点击回复\@成员"
             android:layout_width="0dp"
@@ -433,6 +288,7 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:id="@+id/lookup_journal_btn_addcomment"
             android:textSize="14sp"
             android:textColor="@color/selector_textcolor"
             android:layout_marginLeft="5dp"

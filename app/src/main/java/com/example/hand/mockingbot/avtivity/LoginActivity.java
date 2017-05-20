@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             ViewCompat.setFitsSystemWindows(mChildView, false);
         }
         setContentView(R.layout.actovity_login);
-        upData();
+//        upData();
         initView();
     }
 
@@ -181,11 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                         login.setEnabled(true);
                         mUsername.setEnabled(true);
                         mPassword.setEnabled(true);
-//                        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent();
-                        intent.setClass(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);
-                        LoginActivity.this.finish();
+                        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
                     }
                 });
             }

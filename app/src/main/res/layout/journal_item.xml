@@ -39,6 +39,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/journal_item_tv_yd"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="17dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:background="#F4F4F4"
+            android:textSize="14sp"
+            android:textColor="#999"
+            android:text="已读"
+            android:layout_width="35dp"
+            android:layout_height="20dp" />
+
         <ImageView
             android:visibility="gone"
             android:id="@+id/journal_iv_delete"
@@ -70,7 +84,6 @@
                 android:layout_marginTop="10dp"
                 android:textSize="14sp"
                 android:textColor="#999999"
-                android:text="未完成工作："
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -80,7 +93,16 @@
                 android:layout_marginTop="10dp"
                 android:textSize="14sp"
                 android:textColor="#999999"
-                android:text="需协调工作："
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/journal_item_tv_remark"
+                android:lineSpacingExtra="12dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:textColor="#999999"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -17,7 +17,6 @@
         android:layout_marginTop="5dp"
         android:textSize="17sp"
         android:textColor="#333333"
-        android:text="屈冰霄"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/journal_item_imv"
@@ -30,7 +29,6 @@
         android:layout_below="@+id/journal_item_tv_name"
         android:textSize="15sp"
         android:textColor="#8D8A8A"
-        android:text="2017-05-04 16:40:15"
         android:layout_toRightOf="@+id/journal_item_imv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

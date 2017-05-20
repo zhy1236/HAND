@@ -26,7 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".avtivity.ReceivedJournalAtivity"/>
-        <activity android:name=".avtivity.NewJournalActivity"/>
+        <activity android:name=".avtivity.NewJournalActivity">
+
+        </activity>
         <activity android:name=".avtivity.SendJournalActivity"/>
         <activity android:name=".avtivity.DefectJournalActivity"/>
         <activity android:name=".avtivity.CommentJournalActivity"/>

@@ -9,6 +9,15 @@ import java.util.List;
 public class JournalBean {
 
     private ResultBean result;
+    private ErrorBean error;
+
+    public ErrorBean getError() {
+        return error;
+    }
+
+    public void setError(ErrorBean error) {
+        this.error = error;
+    }
 
     public ResultBean getResult() {
         return result;

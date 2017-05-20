@@ -6,12 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
@@ -33,7 +35,13 @@ public class ProjectFragment extends Fragment {
 
     private List<AttentionProject> list = new ArrayList<>();
     private ListView lv;
-    private ListAdapter<AttentionProject> listAdapter;
+    private ListAdapter<AttentionProject> listAdapter = new ListAdapter<AttentionProject>(list, R.layout.attention_project_item) {
+        @Override
+        public void bindView(ViewHolder holder, AttentionProject obj) {
+            holder.setText(R.id.attention_project_item_tv,obj.getProjectName());
+            holder.setImageResource(R.id.attention_project_item_iv,obj.getProjectImage());
+        }
+    };
     private ScrollView sl;
 
     @Override
@@ -62,14 +70,18 @@ public class ProjectFragment extends Fragment {
         }
         initlist();
         lv = (ListView) view.findViewById(R.id.project_lv);
-        listAdapter = new ListAdapter<AttentionProject>(list, R.layout.attention_project_item) {
-            @Override
-            public void bindView(ViewHolder holder, AttentionProject obj) {
-                holder.setText(R.id.attention_project_item_tv,obj.getProjectName());
-                holder.setImageResource(R.id.attention_project_item_iv,obj.getProjectImage());
-            }
-        };
         lv.setAdapter(listAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(),"第" + i + "条数据被点击了",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
         lv.setFocusable(false);
         sl = (ScrollView) view.findViewById(R.id.project_sl);
         return view;

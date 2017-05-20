@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.GsonUtil;
 
 import java.io.File;
@@ -359,7 +360,7 @@ public class HttpManager {
     }
 
 
-     public void getUrl(String url) {
+     public static void getUrl(String url, final String fileName, final Callback callback) {
 
             Request request = new Request.Builder()
                     .url(url)
@@ -368,11 +369,11 @@ public class HttpManager {
 
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d("h_bl", "onFailure");
+                    callback.onFailure(call,e);
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
+                public void onResponse(Call call, Response response) {
                     InputStream is = null;
                     byte[] buf = new byte[2048];
                     int len = 0;
@@ -381,7 +382,7 @@ public class HttpManager {
                     try {
                         is = response.body().byteStream();
                         long total = response.body().contentLength();
-                        File file = new File(SDPath, "1493187497054__1464__Test0d.jpj");
+                        File file = new File(SDPath, fileName);
                         fos = new FileOutputStream(file);
                         long sum = 0;
                         while ((len = is.read(buf)) != -1) {
@@ -391,9 +392,9 @@ public class HttpManager {
                             Log.d("h_bl", "progress=" + progress);
                         }
                         fos.flush();
-                        Log.d("h_bl", "文件下载成功");
+                        callback.onResponse(call,response);
                     } catch (Exception e) {
-                        Log.d("h_bl", "文件下载失败");
+                        callback.onFailure(call, (IOException) e);
                     } finally {
                         try {
                             if (is != null)
@@ -501,8 +502,8 @@ public class HttpManager {
      * 上传文件
      * @param file
      */
-    public void postAsynFile(File file) {
-        final String url = "http://192.168.11.198:8088/project-mg/daily/uploadAttachment";
+    public void postAsynFile(File file, final Callback callback) {
+        final String url = CommonValues.UP_LOAD_ATTAUCHMENT;
         RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"),file);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -523,14 +524,17 @@ public class HttpManager {
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("asd", "uploadMultiFile() e=" + e);
+                callback.onFailure(call,e);
             }
 
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
-                Log.e("asd", "uploadMultiFile() response=" + string);
+            public void onResponse(Call call, Response response) {
+                try {
+                    callback.onResponse(call,response);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

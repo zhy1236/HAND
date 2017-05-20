@@ -25,4 +25,8 @@ public class NoScrollListview extends ListView {
 
     }
 
+    @Override
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        super.setOnItemClickListener(listener);
+    }
 }

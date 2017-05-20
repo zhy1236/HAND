@@ -28,6 +28,7 @@
         android:orientation="horizontal" >
 
         <RadioButton
+            android:visibility="gone"
             android:layout_marginTop="1dp"
             android:id="@+id/rb_main_project"
             style="@style/BottomBarItem"
@@ -36,6 +37,7 @@
             android:text="项目" />
 
         <RadioButton
+            android:visibility="gone"
             android:background="@color/white"
             android:id="@+id/rb_main_message"
             android:drawableTop="@drawable/btn_check_message"

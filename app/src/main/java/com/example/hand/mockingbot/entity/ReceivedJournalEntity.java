@@ -12,6 +12,15 @@ public class ReceivedJournalEntity {
      */
 
     private ResultBean result;
+    private ErrorBean error;
+
+    public ErrorBean getError() {
+        return error;
+    }
+
+    public void setError(ErrorBean error) {
+        this.error = error;
+    }
 
     public ResultBean getResult() {
         return result;
@@ -98,22 +107,6 @@ public class ReceivedJournalEntity {
         }
 
         public static class DataBean {
-            /**
-             * finishWork : 项目管理平台
-             1.app接口调试
-             * unfinishWork :
-             * isReadFlag : 0
-             * submitDate : 1494927000000
-             * coordinationWork :
-             * focus : 0
-             * remark :
-             * dailyId : 252
-             * userId : 107
-             * value : 后端开发
-             * commentCount : 1
-             * realname : 韩西德
-             * enclosureUrl : 1493368992992__1509888__201702-04-项目综合管理平台需求规格说明书-V2.1.doc,1493804529345__3293274__伊利智能BI app-最新.zip
-             */
 
             private String finishWork;
             private String unfinishWork;

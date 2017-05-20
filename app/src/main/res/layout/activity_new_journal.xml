@@ -54,6 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/new_journal_ed_finishwork"
                     android:gravity="start"
                     android:minHeight="40dp"
                     android:background="#00ffffff"
@@ -82,6 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/new_journal_ed_unfinishwork"
                     android:gravity="start"
                     android:background="#00ffffff"
                     android:textColorHint="#999999"
@@ -110,6 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/new_journal_ed_coordinationwork"
                     android:gravity="start"
                     android:background="#00ffffff"
                     android:textColorHint="#999999"
@@ -130,6 +133,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/new_journal_ed_remark"
                     android:layout_margin="12dp"
                     android:background="#00ffffff"
                     android:textColorHint="#999999"
@@ -168,13 +172,11 @@
                     android:layout_height="20dp" />
             </LinearLayout>
 
-            <!--<com.example.hand.mockingbot.view.NoScrollListview-->
-                <!--android:id="@+id/new_journal_lv"-->
-                <!--android:background="#fff"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-                <!---->
-            <!--</com.example.hand.mockingbot.view.NoScrollListview>-->
+            <com.example.hand.mockingbot.view.NoScrollListview
+                android:id="@+id/new_journal_lv"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <GridLayout
                 android:animateLayoutChanges="true"
@@ -182,6 +184,66 @@
                 android:id="@+id/new_journal_gl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:background="#fff"
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="#333"
+                    android:text="补交日报"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/btn_check_ispayment"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_journal_isPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/new_journal_rl_bj"
+                android:layout_marginTop="1dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_margin="10dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="#333"
+                    android:text="补交时间"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:id="@+id/new_journal_tv_bj"
+                    android:textColor="#333"
+                    android:drawablePadding="10dp"
+                    android:hint="请选择补交时间"
+                    android:textColorHint="#999"
+                    android:layout_marginRight="10dp"
+                    android:drawableRight="@mipmap/ic_right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_marginTop="1dp"

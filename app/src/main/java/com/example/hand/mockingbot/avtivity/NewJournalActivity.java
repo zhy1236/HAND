@@ -1,27 +1,53 @@
 package com.example.hand.mockingbot.avtivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
+import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
+import com.example.hand.mockingbot.entity.AddAttauchEntity;
+import com.example.hand.mockingbot.entity.AddJournalEntity;
 import com.example.hand.mockingbot.entity.AttauchBean;
+import com.example.hand.mockingbot.entity.JournalBean;
+import com.example.hand.mockingbot.utils.CommonValues;
+import com.example.hand.mockingbot.utils.GsonUtil;
+import com.example.hand.mockingbot.utils.HandApp;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by zhy on 2017/5/5.
@@ -32,12 +58,56 @@ public class NewJournalActivity extends BasicActivity {
     public static final int CHOOSE_PICTURE = 1;
     private Toolbar toolbar;
     private GridLayout gl;
+    private boolean ispayment = false;
     private List<AttauchBean> attauchlist = new ArrayList<>();
+    private EditText finishwork;
+    private EditText unfinishwork;
+    private EditText coordinationwork;
+    private EditText remark;
+    private CheckBox isPayment;
+    private JournalBean journalBean;
+    private RelativeLayout bj;
+    private TextView tv_vj;
+    private List<String> data = new ArrayList<>();
+    private String[] split;
+    private DecimalFormat df;
+    private ListAdapter<AttauchBean> attauchBeanListAdapter = new ListAdapter<AttauchBean>(attauchlist,R.layout.attauch_item) {
+        @Override
+        public void bindView(ViewHolder holder, final AttauchBean obj) {
+            holder.setText(R.id.attauch_item_field_name,obj.getFieldName());
+            holder.setText(R.id.attauch_item_field_sise,obj.getSize());
+            if (obj.getFieldName().endsWith(".jpg")||obj.getFieldName().endsWith(".jpeg")|| obj.getFieldName().endsWith(".png")||obj.getFieldName().endsWith(".bmp")|| obj.getFieldName().endsWith(".gif")){
+                holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_iv);
+            }else if (obj.getFieldName().endsWith(".doc")){
+                holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_word);
+            }else if (obj.getFieldName().endsWith(".ppt")){
+                holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_ppt);
+            }
+            holder.setVisibility(R.id.attauch_item_field_delete,View.VISIBLE);
+            holder.setOnClickListener(R.id.attauch_item_field_delete, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for (int i = 0; i < attauchlist.size(); i++) {
+                        if (attauchlist.get(i).getFieldName().equals(obj.getFieldName())){
+                            attauchlist.remove(i);
+                            i--;
+                        }
+                    }
+                }
+            });
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_journal);
+        df = new DecimalFormat("######0.0");
+//        Intent intent = getIntent();
+//        int dailyId = intent.getExtras().getInt("dailyId");
+//        if (dailyId != 0){
+//            loadData(dailyId);
+//        }
         toolbar = (Toolbar) findViewById(R.id.id_toolbar);
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.mipmap.ic_back);
@@ -50,36 +120,174 @@ public class NewJournalActivity extends BasicActivity {
         initview();
     }
 
+    private void loadData(int dailyId) {
+        String str = CommonValues.GET_COMMENT + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId;
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url(str)
+                .build();
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                String message = e.getMessage();
+                Log.e("asdasd",message);
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String string = null;
+                        try {
+                            string = response.body().string();
+                            journalBean = GsonUtil.parseJsonToBean(string, JournalBean.class);
+                            String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
+                            if (enclosureUrl != null && enclosureUrl.length()>0){
+                                split = enclosureUrl.split(",");
+                                for (int i = 0; i < split.length; i++) {
+                                    data.add(split[i]);
+                                    String[] split1 = split[i].split("__");
+                                    AttauchBean attauchBean = new AttauchBean();
+                                    attauchBean.setFieldName(split1[2]);
+                                    Double sise = new Double(split1[1]);
+                                    attauchBean.setSize(df.format(sise/1024) + "k");
+                                    attauchlist.add(attauchBean);
+                                    attauchBeanListAdapter.notifyDataSetChanged();
+//                                    gl.addView(attauchBean);
+                                }
+                            }
+                            finishwork.setText(journalBean.getResult().getData().getFinishWork());
+                            unfinishwork.setText(journalBean.getResult().getData().getUnfinishWork());
+                            coordinationwork.setText(journalBean.getResult().getData().getCoordinationWork());
+                            remark.setText(journalBean.getResult().getData().getRemark());
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+            }
+        });
+    }
+
     private void initview() {
         LinearLayout btn = (LinearLayout) findViewById(R.id.new_journal_tv_fj);
+        finishwork = (EditText) findViewById(R.id.new_journal_ed_finishwork);
+        unfinishwork = (EditText) findViewById(R.id.new_journal_ed_unfinishwork);
+        coordinationwork = (EditText) findViewById(R.id.new_journal_ed_coordinationwork);
+        remark = (EditText) findViewById(R.id.new_journal_ed_remark);
+        bj = (RelativeLayout) findViewById(R.id.new_journal_rl_bj);
+        isPayment = (CheckBox) findViewById(R.id.new_journal_isPayment);
+        isPayment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                bj.setVisibility(b?View.VISIBLE:View.GONE);
+                ispayment = b;
+            }
+        });
+        tv_vj = (TextView) findViewById(R.id.new_journal_tv_bj);
+        tv_vj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateTimePicker(tv_vj,true);
+            }
+        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-                startActivityForResult(intent, CHOOSE_PICTURE);
+                showDialog();
             }
         });
         Button bt = (Button) findViewById(R.id.new_journal_tj);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HttpManager.getInstance().getUrl("http://192.168.11.198:8088/project-mg/daily/downloadAttachment?fileName=1493187497054__1464__Test0d.jpj");
+                addJournal();
             }
         });
         gl = (GridLayout) findViewById(R.id.new_journal_gl);
+    }
+
+    private void addJournal() {
+        Map<String, Object> map = CommonValues.getmap();
+        map.put("finishWork",finishwork.getText().toString());
+        map.put("unfinishWork",unfinishwork.getText().toString());
+        map.put("coordinationWork",coordinationwork.getText().toString());
+        map.put("remark",remark.getText().toString());
+        String stringBuffer = "";
+        for (int i = 0; i < data.size(); i++) {
+            if (i == 0){
+                stringBuffer += data.get(i);
+            }else {
+                stringBuffer += ("," + data.get(i));
+            }
+        }
+        map.put("enclosureUrl",stringBuffer);
+        map.put("isAfterPayment",0);
+        if (ispayment){
+            map.put("isPayment",1);
+            map.put("submitDate",tv_vj.getText());
+
+        }else {
+            map.put("isPayment",0);
+            map.put("submitDate",getData(true));
+        }
+
+        HttpManager.getInstance().post(CommonValues.NEW_JOURNAL,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
+            @Override
+            public void onSuccess(String json, AddJournalEntity add) throws InterruptedException {
+                if (add.getResult().getData().equals("0")){
+                    Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
+                }else if (add.getResult().getData().equals("1")){
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
-            if (requestCode == CHOOSE_PICTURE ){
+            if (requestCode == TAKE_PICTURE) {
+                Bundle extras = data.getExtras();
+                Bitmap b = (Bitmap) extras.get("data");
+                String fileNmae = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GE" + System.currentTimeMillis() + ".jpg";
+                File myCaptureFile = new File(fileNmae);
+                try {
+                    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                        if (!myCaptureFile.getParentFile().exists()) {
+                            myCaptureFile.getParentFile().mkdirs();
+                        }
+                        BufferedOutputStream bos;
+                        bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+                        b.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+                        Uri uri = Uri.fromFile(myCaptureFile);
+                        bos.flush();
+                        bos.close();
+                        upAttauch(uri);
+                    } else {
+                        Toast toast = Toast.makeText(NewJournalActivity.this, "保存失败，SD卡无效", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else if (requestCode == CHOOSE_PICTURE  || requestCode == CHOOSE_FILE){
                 if(data.getData()!=null){
-                    adduri(data.getData());
-//                    String path = HttpManager.getRealPathFromUri(data.getData(), getApplicationContext());
-//                    File file = new File(path);
-//                    HttpManager.getInstance().postAsynFile(file);
+                    upAttauch(data.getData());
                 }
             }
         }
@@ -139,6 +347,41 @@ public class NewJournalActivity extends BasicActivity {
         attauchlist.add(attauchBean);
         gl.addView(inflate);
 
+    }
+
+    private void upAttauch(final Uri uri) {
+        String realPathFromUri = HttpManager.getInstance().getRealPathFromUri(uri, getApplicationContext());
+        File file = new File(realPathFromUri);
+        HttpManager.getInstance().postAsynFile(file, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"附件上传失败，请重新选择！",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adduri(uri);
+                        String string = null;
+                        try {
+                            string = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        AddAttauchEntity addAttauchEntity = GsonUtil.parseJsonToBean(string, AddAttauchEntity.class);
+                        data.add(addAttauchEntity.getResult().getData().get(0));
+                    }
+                });
+
+            }
+        });
     }
 
 }
