@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.GsonUtil;
@@ -389,7 +388,6 @@ public class HttpManager {
                             fos.write(buf, 0, len);
                             sum += len;
                             int progress = (int) (sum * 1.0f / total * 100);
-                            Log.d("h_bl", "progress=" + progress);
                         }
                         fos.flush();
                         callback.onResponse(call,response);

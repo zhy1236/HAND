@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
@@ -22,7 +24,6 @@ import com.example.hand.mockingbot.entity.Entity;
 import com.example.hand.mockingbot.entity.JournalBean;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.DataUtil;
-import com.example.hand.mockingbot.utils.GsonUtil;
 import com.example.hand.mockingbot.utils.HandApp;
 
 import java.io.File;
@@ -34,8 +35,6 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -54,6 +53,7 @@ public class LookUpJournalActivity extends BasicActivity {
     private ListAdapter<AttauchBean> attauchlistadapter = new ListAdapter<AttauchBean>(attauchlist, R.layout.attauch_item) {
         @Override
         public void bindView(final ViewHolder holder, AttauchBean obj) {
+            String fieldName = obj.getFieldName();
             holder.setText(R.id.attauch_item_field_name,obj.getFieldName());
             holder.setText(R.id.attauch_item_field_sise,obj.getSize());
             if (obj.getFieldName().endsWith(".jpg")||obj.getFieldName().endsWith(".jpeg")|| obj.getFieldName().endsWith(".png")||obj.getFieldName().endsWith(".bmp")|| obj.getFieldName().endsWith(".gif")){
@@ -79,6 +79,8 @@ public class LookUpJournalActivity extends BasicActivity {
             holder.setText(R.id.pl_time,obj.getCommentDate());
         }
     };
+    private LinearLayout ll;
+    private RelativeLayout pb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,68 +90,101 @@ public class LookUpJournalActivity extends BasicActivity {
         intent = getIntent();
         dailyId = intent.getExtras().getInt("dailyId");
         initToolbar();
-        initData();
 
     }
 
-    private void initData() {
-        String str = CommonValues.GET_COMMENT + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId;
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url(str)
-                .build();
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                String message = e.getMessage();
-                Log.e("asdasd",message);
-            }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        attauchlist.clear();
+        commentlist.clear();
+        initData();
+    }
 
+    private void initData() {
+        Map<String, Object> getmap = CommonValues.getmap();
+        getmap.put("dailyId",dailyId);
+        HttpManager.getInstance().post(CommonValues.GET_COMMENT, getmap, JournalBean.class, new HttpManager.ResultCallback<JournalBean>() {
             @Override
-            public void onResponse(Call call, final Response response) throws IOException {
+            public void onSuccess(String json, final JournalBean journal) throws InterruptedException {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String string = null;
-                        try {
-                            string = response.body().string();
-                            journalBean = GsonUtil.parseJsonToBean(string, JournalBean.class);
-                            String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
-                            if (enclosureUrl != null && enclosureUrl.length()>0){
-                                split = enclosureUrl.split(",");
-                            }
-                            setView();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
 
+                        journalBean = journal;
+                        String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
+                        if (enclosureUrl != null && enclosureUrl.length()>0){
+                            split = enclosureUrl.split(",");
+                        }
+                        setView();
                     }
                 });
+            }
+
+            @Override
+            public void onFailure(String msg) {
 
             }
         });
+//        String str = CommonValues.GET_COMMENT + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId;
+//        OkHttpClient mOkHttpClient = new OkHttpClient();
+//        final Request request = new Request.Builder()
+//                .url(str)
+//                .build();
+//        Call call = mOkHttpClient.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                String message = e.getMessage();
+//                Log.e("asdasd",message);
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, final Response response) throws IOException {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        String string = null;
+//                        try {
+//                            string = response.body().string();
+//                            journalBean = GsonUtil.parseJsonToBean(string, JournalBean.class);
+//                            String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
+//                            if (enclosureUrl != null && enclosureUrl.length()>0){
+//                                split = enclosureUrl.split(",");
+//                            }
+//                            setView();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                });
+//
+//            }
+//        });
     }
 
 
     private void setView() {
-//        Button button = (Button) findViewById(R.id.lookup_journal_btn);
-//        CheckBox checkBox = (CheckBox) findViewById(R.id.main_bt_right);
-//        boolean my = intent.getExtras().getBoolean("my");
-//        if (my){
-//            button.setVisibility(View.VISIBLE);
-//        }else {
-////            checkBox.setVisibility(View.VISIBLE);
-//        }
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intenttt = new Intent();
-//                intenttt.setClass(getApplicationContext(),NewJournalActivity.class);
-//                intenttt.putExtra("dailyId",dailyId);
-//                startActivity(intenttt);
-//            }
-//        });
+        pb = (RelativeLayout) findViewById(R.id.lookup_journal_pb);
+        pb.setVisibility(View.GONE);
+        ImageView button = (ImageView) findViewById(R.id.lookup_journal_btn);
+        CheckBox checkBox = (CheckBox) findViewById(R.id.main_bt_right);
+        boolean my = intent.getExtras().getBoolean("my");
+        if (my){
+            button.setVisibility(View.VISIBLE);
+        }else {
+//            checkBox.setVisibility(View.VISIBLE);
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intenttt = new Intent();
+                intenttt.setClass(getApplicationContext(),NewJournalActivity.class);
+                intenttt.putExtra("dailyId",dailyId);
+                startActivity(intenttt);
+            }
+        });
         TextView name = (TextView) findViewById(R.id.journal_item_tv_name);
         name.setText(intent.getExtras().getString("name"));
         TextView submittime = (TextView) findViewById(R.id.journal_item_tv_time);
@@ -179,13 +214,20 @@ public class LookUpJournalActivity extends BasicActivity {
         lv_attauch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pb.setVisibility(View.VISIBLE);
+                    }
+                });
                 downAndOpenAttauch(split[i]);
             }
         });
         count = (TextView) findViewById(R.id.lookup_journal_tv_count);
         count.setText(journalBean.getResult().getCount() + "人");
-        LinearLayout ll = (LinearLayout) findViewById(R.id.lookup_journal_ll_yd);
+        ll = (LinearLayout) findViewById(R.id.lookup_journal_ll_yd);
         List<JournalBean.ResultBean.ReaderBean> reader = journalBean.getResult().getReader();
+        ll.removeAllViews();
         for (JournalBean.ResultBean.ReaderBean readerBean : reader) {
             View inflate = View.inflate(getApplicationContext(), R.layout.item_has_look, null);
             TextView reader_name = (TextView) inflate.findViewById(R.id.reader_name);
@@ -228,76 +270,24 @@ public class LookUpJournalActivity extends BasicActivity {
             }
         });
 
-
-//        NoScrollListview gl =  (NoScrollListview) findViewById(R.id.lookup_journal_gl);
-//        for (int i = 0; i < split.length; i++) {
-//            final View inflate = View.inflate(getApplicationContext(), R.layout.attauch_item, null);
-//            TextView fieldname = (TextView) inflate.findViewById(R.id.attauch_item_field_name);
-//            fieldname.setText(split[i].split("_")[2]);
-//            ImageView viewById = (ImageView) inflate.findViewById(R.id.attauch_item_iv);
-//            viewById.setBackgroundResource(R.mipmap.ic_word);
-//        }else if (extension.endsWith(".doc")){
-//            viewById.setImageResource(R.mipmap.ic_word);
-//        }else if (extension.endsWith(".ppt")) {
-//            viewById.setImageResource(R.mipmap.ic_ppt);
-//        }
-//            TextView sise = (TextView) inflate.findViewById(R.id.attauch_item_field_sise);
-//            Integer integer = new Integer(split[i].split("_")[1]);
-//            sise.setText(integer.intValue()/1024 + "k");
-//            final Button btn = (Button) inflate.findViewById(R.id.attauvh_item_btn);
-//            btn.setVisibility(View.VISIBLE);
-//            final ProgressBar pb = (ProgressBar) inflate.findViewById(R.id.attauch_item_pb);
-//            btn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if (btn.getText().equals("下载")){
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(getApplicationContext(),"正在下载",Toast.LENGTH_SHORT).show();
-//                                btn.setVisibility(View.GONE);
-//                                btn.setText("打开");
-//                                pb.setVisibility(View.VISIBLE);
-//                            }
-//                        });
-//                    }else if (btn.getText().equals("打开")){
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(getApplicationContext(),"打开附件",Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//
-//                }
-//            });
-//            pb.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            btn.setVisibility(View.VISIBLE);
-//                            pb.setVisibility(View.GONE);
-//                        }
-//                    });
-//                }
-//            });
-//            gl.addView(inflate,0);
-//        }
-        journalBean.getResult().getComment();
-        journalBean.getResult().getCount();
-
-
     }
 
     private void addComment() {
         final String cont = comment.getText().toString();
+        if (cont.replace(" ", "").isEmpty()){
+            return;
+        }
         Map<String, Object> map = CommonValues.getmap();
         map.put("dailyId",dailyId);
         map.put("content",cont);
         map.put("isReadFlag",0);
         comment.setText("");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pb.setVisibility(View.VISIBLE);
+            }
+        });
         HttpManager.getInstance().post(CommonValues.COMMENT, map, Entity.class, new HttpManager.ResultCallback<Entity>() {
             @Override
             public void onSuccess(String json, Entity entity) throws InterruptedException {
@@ -308,7 +298,12 @@ public class LookUpJournalActivity extends BasicActivity {
 
             @Override
             public void onFailure(String msg) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                    }
+                });
             }
         });
     }
@@ -317,6 +312,7 @@ public class LookUpJournalActivity extends BasicActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                pb.setVisibility(View.GONE);
                 JournalBean.ResultBean.CommentBean commentBean = new JournalBean.ResultBean.CommentBean();
                 commentBean.setRealname(HandApp.getLoginEntity().getResult().getData().getRealname());
                 commentBean.setContent(cont);
@@ -340,6 +336,7 @@ public class LookUpJournalActivity extends BasicActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        pb.setVisibility(View.GONE);
                         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),attauchuri);
                         DataUtil.openFile(getApplicationContext(),file);
 //                        Toast.makeText(getApplicationContext(),"下载完成，正在打开",Toast.LENGTH_SHORT).show();

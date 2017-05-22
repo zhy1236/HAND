@@ -1,7 +1,5 @@
 package com.example.hand.mockingbot.entity;
 
-import android.net.Uri;
-
 /**
  * Created by zhy on 2017/5/9.
  */
@@ -9,9 +7,17 @@ import android.net.Uri;
 public class AttauchBean {
 
     private String FieldName;
-    private Uri uri;
     private String Extension;
     private String Size;
+    private String Path;
+
+    public void setPath(String path) {
+        Path = path;
+    }
+
+    public String getPath() {
+        return Path;
+    }
 
     public void setFieldName(String fieldName){
         this.FieldName = fieldName;
@@ -19,14 +25,6 @@ public class AttauchBean {
 
     public String getFieldName(){
         return FieldName;
-    }
-
-    public void setUri(Uri uri1){
-        this.uri = uri1;
-    }
-
-    public Uri geturi(){
-        return uri;
     }
 
     public void setExtension(String extension){

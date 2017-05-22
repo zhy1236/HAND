@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#F4F4F4"
     android:layout_width="match_parent"
@@ -41,12 +42,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="110dp">
 
-                    <ImageView
-                        android:id="@+id/my_igv"
+                    <com.example.hand.mockingbot.view.RoundImageViewByXfer
                         android:layout_margin="20dp"
+                        android:id="@+id/my_igv"
                         android:src="@mipmap/ic_head_portrait"
+                        zhy:borderRadius="32.5dp"
+                        zhy:type="round"
                         android:layout_width="65dp"
-                        android:layout_height="65dp" />
+                        android:layout_height="65dp"/>
 
                     <LinearLayout
                         android:layout_centerVertical="true"

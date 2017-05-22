@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +30,8 @@ import com.example.hand.mockingbot.entity.AddJournalEntity;
 import com.example.hand.mockingbot.entity.AttauchBean;
 import com.example.hand.mockingbot.entity.JournalBean;
 import com.example.hand.mockingbot.utils.CommonValues;
+import com.example.hand.mockingbot.utils.DataUtil;
 import com.example.hand.mockingbot.utils.GsonUtil;
-import com.example.hand.mockingbot.utils.HandApp;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -39,14 +40,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -65,7 +65,6 @@ public class NewJournalActivity extends BasicActivity {
     private EditText coordinationwork;
     private EditText remark;
     private CheckBox isPayment;
-    private JournalBean journalBean;
     private RelativeLayout bj;
     private TextView tv_vj;
     private List<String> data = new ArrayList<>();
@@ -74,7 +73,11 @@ public class NewJournalActivity extends BasicActivity {
     private ListAdapter<AttauchBean> attauchBeanListAdapter = new ListAdapter<AttauchBean>(attauchlist,R.layout.attauch_item) {
         @Override
         public void bindView(ViewHolder holder, final AttauchBean obj) {
-            holder.setText(R.id.attauch_item_field_name,obj.getFieldName());
+//            if (obj.getFieldName().split("__") != null){
+//                holder.setText(R.id.attauch_item_field_name, obj.getFieldName().split("__")[2]);
+//            }else {
+                holder.setText(R.id.attauch_item_field_name, obj.getFieldName());
+//            }
             holder.setText(R.id.attauch_item_field_sise,obj.getSize());
             if (obj.getFieldName().endsWith(".jpg")||obj.getFieldName().endsWith(".jpeg")|| obj.getFieldName().endsWith(".png")||obj.getFieldName().endsWith(".bmp")|| obj.getFieldName().endsWith(".gif")){
                 holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_iv);
@@ -89,7 +92,15 @@ public class NewJournalActivity extends BasicActivity {
                 public void onClick(View view) {
                     for (int i = 0; i < attauchlist.size(); i++) {
                         if (attauchlist.get(i).getFieldName().equals(obj.getFieldName())){
-                            attauchlist.remove(i);
+                            final int finalI = i;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    data.remove(attauchlist.get(finalI).getFieldName());
+                                    attauchlist.remove(finalI);
+                                    attauchBeanListAdapter.notifyDataSetChanged();
+                                }
+                            });
                             i--;
                         }
                     }
@@ -97,17 +108,24 @@ public class NewJournalActivity extends BasicActivity {
             });
         }
     };
+    private JournalBean mJournalBean;
+    private int dailyId;
+    private ListView lv_attauch;
+    private Button bt;
+    private RelativeLayout pb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_journal);
         df = new DecimalFormat("######0.0");
-//        Intent intent = getIntent();
-//        int dailyId = intent.getExtras().getInt("dailyId");
-//        if (dailyId != 0){
-//            loadData(dailyId);
-//        }
+        Intent intent = getIntent();
+        if (intent.getExtras() != null){
+            dailyId = intent.getExtras().getInt("dailyId");
+            if (dailyId != 0){
+                loadData(dailyId);
+            }
+        }
         toolbar = (Toolbar) findViewById(R.id.id_toolbar);
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.mipmap.ic_back);
@@ -121,61 +139,59 @@ public class NewJournalActivity extends BasicActivity {
     }
 
     private void loadData(int dailyId) {
-        String str = CommonValues.GET_COMMENT + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId;
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url(str)
-                .build();
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
+        Map<String, Object> getmap = CommonValues.getmap();
+        getmap.put("dailyId",dailyId);
+        HttpManager.getInstance().post(CommonValues.GET_COMMENT, getmap, JournalBean.class, new HttpManager.ResultCallback<JournalBean>() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                String message = e.getMessage();
-                Log.e("asdasd",message);
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
+            public void onSuccess(String json, final JournalBean journalBean) throws InterruptedException {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String string = null;
-                        try {
-                            string = response.body().string();
-                            journalBean = GsonUtil.parseJsonToBean(string, JournalBean.class);
-                            String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
-                            if (enclosureUrl != null && enclosureUrl.length()>0){
-                                split = enclosureUrl.split(",");
-                                for (int i = 0; i < split.length; i++) {
-                                    data.add(split[i]);
-                                    String[] split1 = split[i].split("__");
-                                    AttauchBean attauchBean = new AttauchBean();
-                                    attauchBean.setFieldName(split1[2]);
-                                    Double sise = new Double(split1[1]);
-                                    attauchBean.setSize(df.format(sise/1024) + "k");
-                                    attauchlist.add(attauchBean);
-                                    attauchBeanListAdapter.notifyDataSetChanged();
-//                                    gl.addView(attauchBean);
-                                }
+                        pb.setVisibility(View.GONE);
+                        mJournalBean = journalBean;
+                        String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
+                        if (enclosureUrl != null && enclosureUrl.length()>0){
+                            split = enclosureUrl.split(",");
+                            for (int i = 0; i < split.length; i++) {
+                                data.add(split[i]);
+                                String[] split1 = split[i].split("__");
+                                AttauchBean attauchBean = new AttauchBean();
+                                attauchBean.setFieldName(split[i]);
+                                Double sise = new Double(split1[1]);
+                                attauchBean.setSize(df.format(sise/1024) + "k");
+                                attauchlist.add(attauchBean);
+                                attauchBeanListAdapter.notifyDataSetChanged();
                             }
-                            finishwork.setText(journalBean.getResult().getData().getFinishWork());
-                            unfinishwork.setText(journalBean.getResult().getData().getUnfinishWork());
-                            coordinationwork.setText(journalBean.getResult().getData().getCoordinationWork());
-                            remark.setText(journalBean.getResult().getData().getRemark());
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
-
+                        finishwork.setText(journalBean.getResult().getData().getFinishWork());
+                        unfinishwork.setText(journalBean.getResult().getData().getUnfinishWork());
+                        coordinationwork.setText(journalBean.getResult().getData().getCoordinationWork());
+                        remark.setText(journalBean.getResult().getData().getRemark());
                     }
                 });
 
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                    }
+                });
             }
         });
     }
 
     private void initview() {
+        pb = (RelativeLayout) findViewById(R.id.new_journal_pb);
+        pb.setVisibility(View.GONE);
         LinearLayout btn = (LinearLayout) findViewById(R.id.new_journal_tv_fj);
+        RelativeLayout viewById = (RelativeLayout) findViewById(R.id.new_journal_rl_bj_time);
+        if (getIntent().getExtras() != null){
+            viewById.setVisibility(View.GONE);
+        }
         finishwork = (EditText) findViewById(R.id.new_journal_ed_finishwork);
         unfinishwork = (EditText) findViewById(R.id.new_journal_ed_unfinishwork);
         coordinationwork = (EditText) findViewById(R.id.new_journal_ed_coordinationwork);
@@ -202,7 +218,7 @@ public class NewJournalActivity extends BasicActivity {
                 showDialog();
             }
         });
-        Button bt = (Button) findViewById(R.id.new_journal_tj);
+        bt = (Button) findViewById(R.id.new_journal_tj);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,9 +226,38 @@ public class NewJournalActivity extends BasicActivity {
             }
         });
         gl = (GridLayout) findViewById(R.id.new_journal_gl);
+        lv_attauch = (ListView) findViewById(R.id.new_journal_lv);
+        lv_attauch.setAdapter(attauchBeanListAdapter);
+        lv_attauch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (attauchlist.get(i).getPath() == null || attauchlist.get(i).getPath().isEmpty()){
+                    downAndOpenAttauch(i);
+                    pb.setVisibility(View.VISIBLE);
+                }else {
+                    String path = attauchlist.get(i).getPath();
+                    File file = new File(path);
+                    DataUtil.openFile(getApplicationContext(),file);
+                }
+
+            }
+        });
     }
 
     private void addJournal() {
+        pb.setVisibility(View.VISIBLE);
+        bt.setEnabled(false);
+        if (finishwork.getText().toString().replace(" ", "").isEmpty()){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(),"请填写完成工作",Toast.LENGTH_SHORT).show();
+                    bt.setEnabled(true);
+                    pb.setVisibility(View.GONE);
+                    return;
+                }
+            });
+        }
         Map<String, Object> map = CommonValues.getmap();
         map.put("finishWork",finishwork.getText().toString());
         map.put("unfinishWork",unfinishwork.getText().toString());
@@ -236,22 +281,73 @@ public class NewJournalActivity extends BasicActivity {
             map.put("isPayment",0);
             map.put("submitDate",getData(true));
         }
+        if (getIntent().getExtras() == null){
+            HttpManager.getInstance().post(CommonValues.NEW_JOURNAL,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
+                @Override
+                public void onSuccess(String json, final AddJournalEntity add) throws InterruptedException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (add.getResult().getData().equals("0")){
+                                Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
+                            }else if (add.getResult().getData().equals("1")){
+                                finish();
+                            }
+                            bt.setEnabled(true);
+                            pb.setVisibility(View.GONE);
+                        }
+                    });
 
-        HttpManager.getInstance().post(CommonValues.NEW_JOURNAL,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
-            @Override
-            public void onSuccess(String json, AddJournalEntity add) throws InterruptedException {
-                if (add.getResult().getData().equals("0")){
-                    Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
-                }else if (add.getResult().getData().equals("1")){
-                    finish();
                 }
-            }
 
-            @Override
-            public void onFailure(String msg) {
+                @Override
+                public void onFailure(String msg) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            bt.setEnabled(true);
+                            pb.setVisibility(View.GONE);
+                        }
+                    });
 
-            }
-        });
+                }
+            });
+        }else {
+            map.put("dailyId",dailyId);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String str = formatter.format(mJournalBean.getResult().getData().getSubmitDate());
+            map.put("submitDate",str);
+            HttpManager.getInstance().post(CommonValues.UPDATE_DAILY,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
+                @Override
+                public void onSuccess(String json, final AddJournalEntity add) throws InterruptedException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (add.getResult().getData().equals("0")){
+                                Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
+                            }else if (add.getResult().getData().equals("1")){
+                                Toast.makeText(getApplicationContext(),"日报提交成功",Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                            pb.setVisibility(View.GONE);
+                            bt.setEnabled(true);
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pb.setVisibility(View.GONE);
+                            bt.setEnabled(true);
+                        }
+                    });
+                }
+            });
+        }
     }
 
     @Override
@@ -261,7 +357,7 @@ public class NewJournalActivity extends BasicActivity {
             if (requestCode == TAKE_PICTURE) {
                 Bundle extras = data.getExtras();
                 Bitmap b = (Bitmap) extras.get("data");
-                String fileNmae = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GE" + System.currentTimeMillis() + ".jpg";
+                String fileNmae = Environment.getExternalStorageDirectory().getAbsolutePath() + "GE" + System.currentTimeMillis() + ".jpg";
                 File myCaptureFile = new File(fileNmae);
                 try {
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -275,6 +371,7 @@ public class NewJournalActivity extends BasicActivity {
                         bos.flush();
                         bos.close();
                         upAttauch(uri);
+                        pb.setVisibility(View.VISIBLE);
                     } else {
                         Toast toast = Toast.makeText(NewJournalActivity.this, "保存失败，SD卡无效", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -287,6 +384,7 @@ public class NewJournalActivity extends BasicActivity {
                 }
             }else if (requestCode == CHOOSE_PICTURE  || requestCode == CHOOSE_FILE){
                 if(data.getData()!=null){
+                    pb.setVisibility(View.VISIBLE);
                     upAttauch(data.getData());
                 }
             }
@@ -309,8 +407,8 @@ public class NewJournalActivity extends BasicActivity {
             u = Uri.fromFile(new File(uri.toString()));
             extension = path.substring(path.lastIndexOf("."));
         }
+        attauchBean.setPath(path);
         attauchBean.setExtension(extension);
-        attauchBean.setUri(u);
         attauchBean.setFieldName(path.substring(path.lastIndexOf("/") + 1, path.length()));
         File file = new File(path);
         int available;
@@ -345,7 +443,7 @@ public class NewJournalActivity extends BasicActivity {
             }
         });
         attauchlist.add(attauchBean);
-        gl.addView(inflate);
+        attauchBeanListAdapter.notifyDataSetChanged();
 
     }
 
@@ -358,6 +456,7 @@ public class NewJournalActivity extends BasicActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        pb.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(),"附件上传失败，请重新选择！",Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -376,6 +475,7 @@ public class NewJournalActivity extends BasicActivity {
                             e.printStackTrace();
                         }
                         AddAttauchEntity addAttauchEntity = GsonUtil.parseJsonToBean(string, AddAttauchEntity.class);
+                        pb.setVisibility(View.GONE);
                         data.add(addAttauchEntity.getResult().getData().get(0));
                     }
                 });
@@ -383,5 +483,29 @@ public class NewJournalActivity extends BasicActivity {
             }
         });
     }
+
+    private void downAndOpenAttauch(final int i) {
+        HttpManager.getUrl(CommonValues.DOWN_ATTAUCHMENT + "fileName=" + attauchlist.get(i).getFieldName(),attauchlist.get(i).getFieldName(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        attauchlist.get(i).setPath(Environment.getExternalStorageDirectory().getAbsolutePath() + attauchlist.get(i).getFieldName());
+                        pb.setVisibility(View.GONE);
+                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),attauchlist.get(i).getFieldName());
+                        DataUtil.openFile(getApplicationContext(),file);
+//                        Toast.makeText(getApplicationContext(),"下载完成，正在打开",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
 
 }

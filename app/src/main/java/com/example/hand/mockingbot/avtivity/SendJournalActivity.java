@@ -33,7 +33,6 @@ import okhttp3.Response;
 
 public class SendJournalActivity extends BasicActivity implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
-    private int content = 0;
     private Toolbar toolbar;
     private boolean hasMore = true;
     private SimpleListView lv;
@@ -44,27 +43,44 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
     private ListAdapter<MyJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<MyJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
         public void bindView(ViewHolder holder, MyJournalEntity.ResultBean.DataBean obj) {
-            String finishwork = "今日完成工作：<font color='#333333'>" + obj.getFinishWork() + "</font>";
-            String unfinishwork = "今日完成工作：<font color='#333333'>" + obj.getUnfinishWork() + "</font>";
-            String coordinationWork = "今日完成工作：<font color='#333333'>" + obj.getCoordinationWork() + "</font>";
-            String remark = "今日完成工作：<font color='#333333'>" + obj.getRemark() + "</font>";
+            if (obj.getFinishWork() != null){
+                String finishwork = "今日完成工作：<font color='#333333'>" + obj.getFinishWork() + "</font>";
+                holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
+            }else {
+                String finishwork = "今日完成工作：";
+                holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
+            }
+            if (obj.getUnfinishWork() != null){
+                String unfinishwork = "未完成工作：<font color='#333333'>" + obj.getUnfinishWork() + "</font>";
+                holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
+            }else {
+                String unfinishwork = "未完成工作：";
+                holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
+            }
+            if (obj.getCoordinationWork() != null){
+                String coordinationWork = "需要协调工作：<font color='#333333'>" + obj.getCoordinationWork() + "</font>";
+                holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
+            }else {
+                String coordinationWork = "需要协调工作：";
+                holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
+            }
+            if (obj.getRemark() != null){
+                String remark = "备注：<font color='#333333'>" + obj.getRemark() + "</font>";
+                if (!obj.getRemark().replace(" ","").isEmpty()){
+                    holder.setText(R.id.journal_item_tv_remark, Html.fromHtml(remark));
+                    holder.setVisibility(R.id.journal_item_tv_remark,View.VISIBLE);
+                }else {
+                    holder.setVisibility(R.id.journal_item_tv_remark,View.GONE);
+                }
+            }
             String realname = obj.getRealname();
             String time = getTime(obj.getSubmitDate());
-            holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
-            holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
-            holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
             holder.setText(R.id.journal_item_tv_name,realname);
             holder.setText(R.id.journal_item_tv_time,time);
-            if (!remark.isEmpty()){
-                holder.setText(R.id.journal_item_tv_remark, Html.fromHtml(remark));
-                holder.setVisibility(R.id.journal_item_tv_remark,View.VISIBLE);
-            }else {
-                holder.setVisibility(R.id.journal_item_tv_remark,View.GONE);
-            }
             if (obj.getCountSee().equals("0")){
-                holder.setVisibility(R.id.journal_item_tv_yd,View.VISIBLE);
-            }else {
                 holder.setVisibility(R.id.journal_item_tv_yd,View.GONE);
+            }else {
+                holder.setVisibility(R.id.journal_item_tv_yd,View.VISIBLE);
             }
         }
     };
@@ -73,8 +89,6 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_journal);
-        Intent intent = getIntent();
-        content = intent.getExtras().getInt("content");
         initToobar();
         initView();
         loadData(index);
@@ -123,11 +137,13 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
                             list.clear();
                         }
                         list.addAll(receivedJournalEntity.getResult().getData());
-                        if (list.size() == content){
-                            hasMore = false;
-                        }
                         listAdapter.notifyDataSetChanged();
                         hasMore = receivedJournalEntity.getResult().getData().size() > 0;
+                        if (list.size() < receivedJournalEntity.getResult().getPage().getTotal_elements()){
+                            hasMore = true;
+                        }else {
+                            hasMore = false;
+                        }
                         lv.completeRefresh();
                     }
                 });

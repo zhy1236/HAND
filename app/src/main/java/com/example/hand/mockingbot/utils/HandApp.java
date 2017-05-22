@@ -48,5 +48,4 @@ public class HandApp extends Application {
         HandApp.loginEntity = loginEntity;
     }
 
-
 }

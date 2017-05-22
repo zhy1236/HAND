@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
@@ -36,7 +37,6 @@ import okhttp3.Response;
 public class ReceivedJournalAtivity extends BasicActivity implements AdapterView.OnItemClickListener, SimpleListView.OnRefreshListener {
 
     private Toolbar toolbar;
-    private int content = 0;
     private boolean hasMore = true;
     private SimpleListView lv;
     private int index = 1;
@@ -45,32 +45,48 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     private ListAdapter<ReceivedJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<ReceivedJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
         public void bindView(ViewHolder holder, ReceivedJournalEntity.ResultBean.DataBean obj) {
-            String finishwork = "今日完成工作：<font color='#333333'>" + obj.getFinishWork() + "</font>";
-            String unfinishwork = "今日完成工作：<font color='#333333'>" + obj.getUnfinishWork() + "</font>";
-            String coordinationWork = "今日完成工作：<font color='#333333'>" + obj.getCoordinationWork() + "</font>";
-            String remark = "今日完成工作：<font color='#333333'>" + obj.getRemark() + "</font>";
+            if (obj.getFinishWork() != null){
+                String finishwork = "今日完成工作：<font color='#333333'>" + obj.getFinishWork() + "</font>";
+                holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
+            }else {
+                String finishwork = "今日完成工作：";
+                holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
+            }
+            if (obj.getUnfinishWork() != null){
+                String unfinishwork = "未完成工作：<font color='#333333'>" + obj.getUnfinishWork() + "</font>";
+                holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
+            }else {
+                String unfinishwork = "未完成工作：";
+                holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
+            }
+            if (obj.getCoordinationWork() != null){
+                String coordinationWork = "需要协调工作：<font color='#333333'>" + obj.getCoordinationWork() + "</font>";
+                holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
+            }else {
+                String coordinationWork = "需要协调工作：";
+                holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
+            }
+            if (obj.getRemark() != null){
+                String remark = "备注：<font color='#333333'>" + obj.getRemark() + "</font>";
+                if (!obj.getRemark().isEmpty()){
+                    holder.setText(R.id.journal_item_tv_remark, Html.fromHtml(remark));
+                    holder.setVisibility(R.id.journal_item_tv_remark,View.VISIBLE);
+                }else {
+                    holder.setVisibility(R.id.journal_item_tv_remark,View.GONE);
+                }
+            }
             String realname = obj.getRealname();
             String time = getTime(obj.getSubmitDate());
-            holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
-            holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
-            holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
-            if (!remark.isEmpty()){
-                holder.setText(R.id.journal_item_tv_remark, Html.fromHtml(remark));
-                holder.setVisibility(R.id.journal_item_tv_remark,View.VISIBLE);
-            }else {
-                holder.setVisibility(R.id.journal_item_tv_remark,View.GONE);
-            }
             holder.setText(R.id.journal_item_tv_name,realname);
             holder.setText(R.id.journal_item_tv_time,time);
         }
     };
+    private RelativeLayout pb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_received_journal);
-        Intent intent = getIntent();
-        content = intent.getExtras().getInt("content");
         initToolbar();
         initView();
         loadData(index);
@@ -90,6 +106,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        pb.setVisibility(View.GONE);
                         lv.completeRefresh();
                     }
                 });
@@ -104,15 +121,18 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            pb.setVisibility(View.GONE);
                             if (index == 1){
                                 list.clear();
                             }
                             list.addAll(receivedJournalEntity.getResult().getData());
-                            if (list.size() == content){
+                            hasMore = receivedJournalEntity.getResult().getData().size() > 0;
+                            if (list.size() < receivedJournalEntity.getResult().getPage().getTotal_elements()){
+                                hasMore = true;
+                            }else {
                                 hasMore = false;
                             }
                             listAdapter.notifyDataSetChanged();
-                            hasMore = receivedJournalEntity.getResult().getData().size() > 0;
                             lv.completeRefresh();
                         }
                     });
@@ -141,6 +161,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         lv.setOnRefreshListener(this);
         lv.setAdapter(listAdapter);
         lv.setOnItemClickListener(this);
+        pb = (RelativeLayout) findViewById(R.id.journal_receiver_pb);
 
     }
 
@@ -149,6 +170,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         if (lv.isPullRefreshed()){
             return;
         }else {
+            pb.setVisibility(View.VISIBLE);
             adddailySee(i-1);
         }
     }
@@ -166,6 +188,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        pb.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(),"日志信息获取失败，请重试！",Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -181,6 +204,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                pb.setVisibility(View.GONE);
                                 toLookUpJournal(i);
                             }
                         });
@@ -209,6 +233,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         hasMore = true;
         index = 1;
         loadData(index);
+        pb.setVisibility(View.VISIBLE);
     }
 
     @Override

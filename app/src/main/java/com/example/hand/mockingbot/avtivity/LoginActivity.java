@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ import static com.example.hand.mockingbot.utils.Fields.USERID;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final int CHOOSE_PICTURE = 1;
     private Button login;
     private EditText mUsername;
     private EditText mPassword;
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private RelativeLayout rl;
     private ObjectAnimator rotation;
     private CheckBox save;
+    private ImageView iv_photo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                     SpUtils.saveisBoolean(getApplicationContext(),Fields.SAVE_PASSWORD,false);
                 }
                 savepassword.setEnabled(false);
-//                login.setEnabled(false);
+                login.setEnabled(false);
                 mUsername.setEnabled(false);
                 mPassword.setEnabled(false);
                 login(mUsername.getText().toString(), mPassword.getText().toString());
@@ -137,8 +141,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         rl = (RelativeLayout) findViewById(R.id.login_rl);
+        iv_photo = (ImageView) findViewById(R.id.login_iv);
+        iv_photo.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                choosePicture();
+                return true;
+            }
+        });
 
     }
+
+    private void choosePicture() {
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+        startActivityForResult(intent, CHOOSE_PICTURE);
+    }
+
 
     private void login(String name, String pass) {
         Map<String, Object> param = new HashMap<>();
@@ -190,15 +209,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onUsernameChanged() {
-//        if (mUsername.length() > 0 && mPassword.length() > 0) {
-//            login.setEnabled(true);
-//        } else {
-//            login.setEnabled(false);
-//        }
+        if (mUsername.length() > 0 && mPassword.length() > 0) {
+            login.setEnabled(true);
+        } else {
+            login.setEnabled(false);
+        }
     }
 
     private void onPasswordChanged() {
-//        onUsernameChanged();
+        onUsernameChanged();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK){
+            if (requestCode == CHOOSE_PICTURE){
+                if (data.getData() != null) {
+                    iv_photo.setImageURI(data.getData());
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }

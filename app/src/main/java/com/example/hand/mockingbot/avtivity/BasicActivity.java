@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -14,9 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import com.example.hand.mockingbot.R;
-import com.example.hand.mockingbot.utils.SystemBarTintManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,12 +32,12 @@ public class BasicActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { //系统版本大于19
-            setTranslucentStatus(true);
-        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorAccent);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { //系统版本大于19
+//            setTranslucentStatus(true);
+//        }
+//        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//        tintManager.setStatusBarTintEnabled(true);
+//        tintManager.setStatusBarTintResource(R.color.colorAccent);
     }
 
     @TargetApi(19)
@@ -79,27 +75,27 @@ public class BasicActivity extends AppCompatActivity {
     }
 
     public void showDialog() {
-//        if (dialog == null) {
-//            dialog = new AlertDialog.Builder(this).setItems(new CharSequence[]{"相机","相册","手机文件"}, new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    if (which == 0) {
-//                        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                        startActivityForResult(it, 0);
-//                    } else if (which == 1) {
+        if (dialog == null) {
+            dialog = new AlertDialog.Builder(this).setItems(new CharSequence[]{"相机","相册","手机文件"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which == 0) {
+                        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(it, 0);
+                    } else if (which == 1) {
                         choosePicture();
-//                    } else {
-//                        chooseFile();
-//                    }
-//                }
-//            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                }
-//            }).create();
-//        }
-//        dialog.show();
+                    } else {
+                        chooseFile();
+                    }
+                }
+            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).create();
+        }
+        dialog.show();
     }
 
     private void choosePicture() {

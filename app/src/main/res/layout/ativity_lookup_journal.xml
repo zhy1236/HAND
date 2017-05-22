@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="#F4F4F4"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -37,19 +36,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/lookup_journal_btn"
+        <ImageView
             android:visibility="gone"
-            android:background="#5AC2E7"
+            android:id="@+id/lookup_journal_btn"
+            android:padding="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/ic_change"
             android:layout_gravity="right"
-            android:gravity="center"
-            android:text="修改"
             android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+            android:layout_height="wrap_content" />
 
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
+        android:layout_above="@+id/lookup_journal_ll_bottom"
+        android:layout_below="@+id/id_toolbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -120,7 +121,6 @@
                     android:id="@+id/lookup_journal_unfinishwork"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:lines="2"
                     android:ellipsize="end"
                     android:textSize="14sp"
                     android:textColor="#333333"
@@ -149,7 +149,6 @@
                     android:id="@+id/lookup_journal_coordinationWork"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:lines="2"
                     android:ellipsize="end"
                     android:textSize="14sp"
                     android:textColor="#333333"
@@ -178,7 +177,6 @@
                     android:id="@+id/lookup_journal_remark"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:lines="2"
                     android:ellipsize="end"
                     android:textSize="14sp"
                     android:textColor="#333333"
@@ -266,11 +264,12 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/lookup_journal_ll_bottom"
+        android:layout_alignParentBottom="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
         android:layout_margin="10dp"
-        android:minHeight="55dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -298,4 +297,15 @@
             android:layout_height="30dp" />
     </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/lookup_journal_pb"
+        android:background="#11ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

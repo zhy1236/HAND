@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@mipmap/ic_login"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.example.hand.mockingbot.view.RoundImageViewByXfer
         android:id="@+id/login_iv"
         android:layout_marginTop="157dp"
-
-        android:background="@mipmap/ic_login_photo"
+        android:src="@mipmap/ic_login_photo"
+        zhy:borderRadius="40dp"
+        zhy:type="round"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"/>
@@ -60,6 +62,8 @@
                 android:textSize="15sp"
                 android:hint="用户名"
                 android:lines="1"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
@@ -82,6 +86,8 @@
                 android:background="#00ffffff"
                 android:layout_gravity="center_vertical"
                 android:textSize="15sp"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:password="true"
                 android:hint="密码"
                 android:lines="1"
@@ -103,9 +109,9 @@
             android:gravity="center"
             android:id="@+id/login_btn_login"
             android:textColor="@color/white"
-            android:background="@drawable/btn_bg_login"
+            android:background="@drawable/selector_bg_login_button"
             android:textSize="15sp"
-            android:text="登陆"
+            android:text="登录"
             android:layout_width="230dp"
             android:layout_height="40dp" />
     </LinearLayout>

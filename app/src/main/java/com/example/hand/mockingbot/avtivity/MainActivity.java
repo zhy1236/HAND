@@ -1,7 +1,6 @@
 package com.example.hand.mockingbot.avtivity;
 
 import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +15,6 @@ import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.MyFragmentPagerAdapter;
 import com.example.hand.mockingbot.fagment.JournalFragment;
 import com.example.hand.mockingbot.fagment.MyFragment;
-import com.example.hand.mockingbot.utils.StatusBarUtils;
-import com.example.hand.mockingbot.utils.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +31,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { //系统版本大于19
-            setTranslucentStatus(true);
-        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorAccent);//设置标题栏颜色，此颜色在color中声明
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { //系统版本大于19
+//            setTranslucentStatus(true);
+//        }
+//        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//        tintManager.setStatusBarTintEnabled(true);
+//        tintManager.setStatusBarTintResource(R.color.colorAccent);//设置标题栏颜色，此颜色在color中声明
         setContentView(R.layout.activity_main);
-        StatusBarUtils.setWindowStatusBarColor(this,R.color.colorAccent);
+//        StatusBarUtils.setWindowStatusBarColor(this,R.color.colorAccent);
         initView();
     }
     @TargetApi(19)
@@ -105,39 +102,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-/**
- * 页卡改变事件
- */
-public class TabOnPageChangeListener implements ViewPager.OnPageChangeListener {
+    /**
+     * 页卡改变事件
+     */
+    public class TabOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
-    //当滑动状态改变时调用
-    public void onPageScrollStateChanged(int state) {
+        //当滑动状态改变时调用
+        public void onPageScrollStateChanged(int state) {
 
-    }
+        }
 
-    //当前页面被滑动时调用
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        //当前页面被滑动时调用
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-    }
+        }
 
-    //当新的页面被选中时调用
-    public void onPageSelected(int position) {
-        switch (position) {
+        //当新的页面被选中时调用
+        public void onPageSelected(int position) {
+            switch (position) {
 //            case 0:
 //                project.setChecked(true);
 //                break;
 //            case 1:
 //                message.setChecked(true);
 //                break;
-            case 0:
-                journal.setChecked(true);
-                break;
-            case 1:
-                my.setChecked(true);
-                break;
+                case 0:
+                    journal.setChecked(true);
+                    break;
+                case 1:
+                    my.setChecked(true);
+                    break;
 
+            }
         }
     }
-}
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

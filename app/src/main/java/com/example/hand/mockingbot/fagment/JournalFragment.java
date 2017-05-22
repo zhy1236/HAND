@@ -47,6 +47,11 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadData();
     }
 
@@ -115,10 +120,10 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
         mJournal_new.setOnClickListener(this);
         mJournal_send = (RelativeLayout) view.findViewById(R.id.journal_send);
         mJournal_send.setOnClickListener(this);
-        mJournal_defect = (RelativeLayout) view.findViewById(R.id.journal_defect);
-        mJournal_defect.setOnClickListener(this);
-        mJournal_comment = (RelativeLayout) view.findViewById(R.id.journal_comment);
-        mJournal_comment.setOnClickListener(this);
+//        mJournal_defect = (RelativeLayout) view.findViewById(R.id.journal_defect);
+//        mJournal_defect.setOnClickListener(this);
+//        mJournal_comment = (RelativeLayout) view.findViewById(R.id.journal_comment);
+//        mJournal_comment.setOnClickListener(this);
         return view;
     }
 

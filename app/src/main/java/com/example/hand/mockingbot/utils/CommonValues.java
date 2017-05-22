@@ -79,15 +79,26 @@ public class CommonValues {
     public static final String NEW_JOURNAL = currentHost + "/daily/addDaily";
 
     /**
+     * 修改日报
+     *
+     */
+    public static final String UPDATE_DAILY = currentHost + "/daily/updateDaily";
+
+    /**
      * 上传附件
      */
     public static final String UP_LOAD_ATTAUCHMENT = currentHost + "/daily/uploadAttachment";
 
     /**
      * 下载附件
-     *
      */
     public static final String DOWN_ATTAUCHMENT = currentHost + "/daily/downloadAttachment?";
+
+    /**
+     * 获取所有对我的评论
+     * userId
+     */
+    public static final String GET_ALL_COMMENT= currentHost + "/daily/getDailyComment";
 
     public static Map<String,Object> getmap(){
         Map<String, Object> param = new HashMap<>();

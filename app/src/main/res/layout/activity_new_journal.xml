@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -26,6 +25,7 @@
 
     </android.support.v7.widget.Toolbar>
     <ScrollView
+        android:layout_below="@+id/id_toolbar"
         android:background="#FAFAFAFA"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -186,6 +186,7 @@
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                android:id="@+id/new_journal_rl_bj_time"
                 android:background="#fff"
                 android:layout_marginTop="1dp"
                 android:layout_width="match_parent"
@@ -269,5 +270,15 @@
 
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/new_journal_pb"
+        android:background="#11ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
