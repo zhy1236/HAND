@@ -9,21 +9,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
+import com.example.hand.mockingbot.entity.AddDailySeeEntivy;
 import com.example.hand.mockingbot.entity.AttauchBean;
 import com.example.hand.mockingbot.entity.Entity;
 import com.example.hand.mockingbot.entity.JournalBean;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.DataUtil;
+import com.example.hand.mockingbot.utils.GsonUtil;
 import com.example.hand.mockingbot.utils.HandApp;
 
 import java.io.File;
@@ -35,6 +39,8 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -53,7 +59,6 @@ public class LookUpJournalActivity extends BasicActivity {
     private ListAdapter<AttauchBean> attauchlistadapter = new ListAdapter<AttauchBean>(attauchlist, R.layout.attauch_item) {
         @Override
         public void bindView(final ViewHolder holder, AttauchBean obj) {
-            String fieldName = obj.getFieldName();
             holder.setText(R.id.attauch_item_field_name,obj.getFieldName());
             holder.setText(R.id.attauch_item_field_sise,obj.getSize());
             if (obj.getFieldName().endsWith(".jpg")||obj.getFieldName().endsWith(".jpeg")|| obj.getFieldName().endsWith(".png")||obj.getFieldName().endsWith(".bmp")|| obj.getFieldName().endsWith(".gif")){
@@ -81,6 +86,8 @@ public class LookUpJournalActivity extends BasicActivity {
     };
     private LinearLayout ll;
     private RelativeLayout pb;
+    private ImageView button;
+    private CheckBox checkBox;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +96,7 @@ public class LookUpJournalActivity extends BasicActivity {
         setContentView(R.layout.ativity_lookup_journal);
         intent = getIntent();
         dailyId = intent.getExtras().getInt("dailyId");
+        adddailySee();
         initToolbar();
 
     }
@@ -110,7 +118,6 @@ public class LookUpJournalActivity extends BasicActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
                         journalBean = journal;
                         String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
                         if (enclosureUrl != null && enclosureUrl.length()>0){
@@ -168,14 +175,41 @@ public class LookUpJournalActivity extends BasicActivity {
     private void setView() {
         pb = (RelativeLayout) findViewById(R.id.lookup_journal_pb);
         pb.setVisibility(View.GONE);
-        ImageView button = (ImageView) findViewById(R.id.lookup_journal_btn);
-        CheckBox checkBox = (CheckBox) findViewById(R.id.main_bt_right);
+        button = (ImageView) findViewById(R.id.lookup_journal_btn);
+        checkBox = (CheckBox) findViewById(R.id.main_bt_right);
         boolean my = intent.getExtras().getBoolean("my");
         if (my){
             button.setVisibility(View.VISIBLE);
         }else {
-//            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setVisibility(View.VISIBLE);
+            if (intent.getExtras().getString("focus").equals("1")){
+                checkBox.setChecked(true);
+            }
         }
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
+                String url = CommonValues.FOCUS + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId + "&state=" + (b?1:0);
+                HttpManager.getInstance().get(url, Entity.class, new HttpManager.ResultCallback<Entity>() {
+                    @Override
+                    public void onSuccess(String json, Entity entity) throws InterruptedException {
+                        if (entity.getResult().getData().equals("1")){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),b?"收藏成功":"删除收藏成功",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -358,5 +392,40 @@ public class LookUpJournalActivity extends BasicActivity {
             }
         });
         right = (Button) findViewById(R.id.main_bt_right);
+    }
+
+    private void adddailySee() {
+        String url = CommonValues.ADD_DAILYSEE + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId;
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                String string = null;
+                try {
+                    string = response.body().string();
+                    AddDailySeeEntivy addDailySeeEntivy = GsonUtil.parseJsonToBean(string, AddDailySeeEntivy.class);
+                    if (addDailySeeEntivy.getError() == null){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                pb.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 }

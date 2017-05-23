@@ -100,6 +100,13 @@ public class CommonValues {
      */
     public static final String GET_ALL_COMMENT= currentHost + "/daily/getDailyComment";
 
+    /**
+     * 收藏日志
+     * :userId,dailyId,state状态 关注日报1 ,取消关注日报 0
+     */
+    public static final String FOCUS = currentHost + "/daily/dailyFocus?";
+
+
     public static Map<String,Object> getmap(){
         Map<String, Object> param = new HashMap<>();
         param.put("userId",HandApp.getLoginEntity().getResult().getData().getId());

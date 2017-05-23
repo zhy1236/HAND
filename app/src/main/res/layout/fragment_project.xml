@@ -61,14 +61,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <ImageView
+                    android:src="@mipmap/ic_news"
                     android:id="@+id/project_tv_latest_announcement"
                     android:layout_margin="10dp"
-                    android:textColor="#DC0E17"
-                    android:textSize="15sp"
-                    android:text="最新公告"
-                    android:maxEms="2"
-                    android:lines="2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

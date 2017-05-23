@@ -27,10 +27,18 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:dividerHeight="10dp"
+    <com.example.hand.mockingbot.view.SimpleListView
+        android:layout_marginTop="1dp"
         android:id="@+id/collection_journal_lv"
+        android:divider="@null"
+        android:smoothScrollbar="true"
+        android:layoutAnimation="@anim/list_item_in"
+        android:fastScrollEnabled="false"
+        android:choiceMode="singleChoice"
+        android:headerDividersEnabled="true"
+        android:footerDividersEnabled="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:dividerHeight="10dp"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

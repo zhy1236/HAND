@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.avtivity.LoginActivity;
+import com.example.hand.mockingbot.avtivity.MyCollectionActivity;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.utils.Fields;
 import com.example.hand.mockingbot.utils.HandApp;
@@ -86,8 +87,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.my_attention:
                 break;
             case R.id.my_concern:
-//                intent.setClass(getContext(), MyCollectionActivity.class);
-//                startActivity(intent);
+                intent.setClass(getContext(), MyCollectionActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_help_and_feedback:
                 break;

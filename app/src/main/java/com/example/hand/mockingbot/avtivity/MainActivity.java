@@ -1,6 +1,7 @@
 package com.example.hand.mockingbot.avtivity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -140,5 +141,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            fragments.get(fragments.size()-1).onActivityResult(requestCode,resultCode,data);
     }
 }

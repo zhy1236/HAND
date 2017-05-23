@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -47,32 +46,27 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
             if (HandApp.getPhotoUri() != null){
                 ImageView iv = holder.getView(R.id.journal_item_imv);
                 iv.setImageURI(HandApp.getPhotoUri());
+            }else {
+                holder.setImageResource(R.id.journal_item_imv,R.mipmap.ic_head_portrait);
             }
             if (obj.getFinishWork() != null){
-                String finishwork = "今日完成工作：<font color='#333333'>" + obj.getFinishWork() + "</font>";
-                holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
+                holder.setText(R.id.journal_item_tv_finish, obj.getFinishWork());
             }else {
-                String finishwork = "今日完成工作：";
-                holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
+                holder.setText(R.id.journal_item_tv_finish, "");
             }
             if (obj.getUnfinishWork() != null){
-                String unfinishwork = "未完成工作：<font color='#333333'>" + obj.getUnfinishWork() + "</font>";
-                holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
+                holder.setText(R.id.journal_item_tv_unfinish, obj.getUnfinishWork());
             }else {
-                String unfinishwork = "未完成工作：";
-                holder.setText(R.id.journal_item_tv_unfinish, Html.fromHtml(unfinishwork));
+                holder.setText(R.id.journal_item_tv_unfinish, "");
             }
             if (obj.getCoordinationWork() != null){
-                String coordinationWork = "需要协调工作：<font color='#333333'>" + obj.getCoordinationWork() + "</font>";
-                holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
+                holder.setText(R.id.journal_item_tv_nedhellp, obj.getCoordinationWork());
             }else {
-                String coordinationWork = "需要协调工作：";
-                holder.setText(R.id.journal_item_tv_nedhellp, Html.fromHtml(coordinationWork));
+                holder.setText(R.id.journal_item_tv_nedhellp, "");
             }
             if (obj.getRemark() != null){
-                String remark = "备注：<font color='#333333'>" + obj.getRemark() + "</font>";
                 if (!obj.getRemark().replace(" ","").isEmpty()){
-                    holder.setText(R.id.journal_item_tv_remark, Html.fromHtml(remark));
+                    holder.setText(R.id.journal_item_tv_remark, obj.getRemark());
                     holder.setVisibility(R.id.journal_item_tv_remark,View.VISIBLE);
                 }else {
                     holder.setVisibility(R.id.journal_item_tv_remark,View.GONE);
