@@ -20,14 +20,13 @@ import com.example.hand.mockingbot.utils.HandApp;
 import com.example.hand.mockingbot.utils.SpUtils;
 
 
-
 /**
  * Created by zhy on 2017/4/24.
  */
 
 public class MyFragment extends Fragment implements View.OnClickListener {
 
-
+    public static final int CHOOSE_PICTURE = 1;
     private Button zx;
     private LinearLayout account_security;
     private LinearLayout modify_password;
@@ -39,6 +38,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private LoginEntity.ResultBean.DataBean data;
     private TextView position;
     private TextView department;
+    private ImageView my_photo;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +49,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container,false);
-        ImageView my_photo = (ImageView) view.findViewById(R.id.my_igv);
+        my_photo = (ImageView) view.findViewById(R.id.my_igv);
+        my_photo.setImageURI(HandApp.getPhotoUri());
         data = HandApp.getLoginEntity().getResult().getData();
         my_name = (TextView) view.findViewById(R.id.my_name);
         my_name.setText(data.getRealname());
@@ -100,4 +101,5 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 MyFragment.this.getActivity().finish();
         }
     }
+
 }

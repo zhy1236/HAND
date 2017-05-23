@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -9,19 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.example.hand.mockingbot.view.RoundImageViewByXfer
             android:id="@+id/journal_item_imv"
-            android:src="@mipmap/ic_head_portrait"
             android:layout_margin="10dp"
+            android:src="@mipmap/ic_head_portrait"
+            zhy:borderRadius="27.5dp"
+            zhy:type="round"
             android:layout_width="55dp"
-            android:layout_height="55dp" />
+            android:layout_height="55dp"/>
 
         <TextView
             android:id="@+id/journal_item_tv_name"
             android:layout_marginTop="5dp"
             android:textSize="17sp"
             android:textColor="#333333"
-            android:text="屈冰霄"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/journal_item_imv"

@@ -3,6 +3,8 @@ package com.example.hand.mockingbot.avtivity;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -66,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             ViewCompat.setFitsSystemWindows(mChildView, false);
         }
         setContentView(R.layout.actovity_login);
-//        upData();
+        upData();
         initView();
     }
 
@@ -142,6 +144,9 @@ public class LoginActivity extends AppCompatActivity {
         });
         rl = (RelativeLayout) findViewById(R.id.login_rl);
         iv_photo = (ImageView) findViewById(R.id.login_iv);
+        String string = SpUtils.getString(getApplicationContext(), Fields.PHOTO_PATH);
+        HandApp.setPhotoUri(getPathForUri(string));
+        iv_photo.setImageURI(HandApp.getPhotoUri());
         iv_photo.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -226,10 +231,33 @@ public class LoginActivity extends AppCompatActivity {
             if (requestCode == CHOOSE_PICTURE){
                 if (data.getData() != null) {
                     iv_photo.setImageURI(data.getData());
+                    HandApp.setPhotoUri(data.getData());
+                    SpUtils.saveString(getApplicationContext(),Fields.PHOTO_PATH,HttpManager.getRealPathFromUri(data.getData(), getApplicationContext()));
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private Uri getPathForUri(String path) {
+        Uri mUri = Uri.parse("content://media/external/images/media");
+        Uri mImageUri = null;
+        Cursor cursor = managedQuery(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null,
+                null, MediaStore.Images.Media.DEFAULT_SORT_ORDER);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String str = cursor.getString(cursor
+                    .getColumnIndex(MediaStore.MediaColumns.DATA));
+            if (path.equals(str)) {
+                int ringtoneID = cursor.getInt(cursor
+                        .getColumnIndex(MediaStore.MediaColumns._ID));
+                mImageUri = Uri.withAppendedPath(mUri, ""+ ringtoneID);
+                break;
+            }
+            cursor.moveToNext();
+        }
+        return mImageUri;
+    }
+
 
 }

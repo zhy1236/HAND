@@ -7,11 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
+import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.AddDailySeeEntivy;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.entity.ReceivedJournalEntity;
@@ -45,6 +47,12 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     private ListAdapter<ReceivedJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<ReceivedJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
         public void bindView(ViewHolder holder, ReceivedJournalEntity.ResultBean.DataBean obj) {
+            if (obj.getRealname().equals(HandApp.getLoginEntity().getResult().getData().getRealname())){
+                if (HandApp.getPhotoUri() != null){
+                    ImageView iv = holder.getView(R.id.journal_item_imv);
+                    iv.setImageURI(HandApp.getPhotoUri());
+                }
+            }
             if (obj.getFinishWork() != null){
                 String finishwork = "今日完成工作：<font color='#333333'>" + obj.getFinishWork() + "</font>";
                 holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));
@@ -95,14 +103,32 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     private void loadData(final int index) {
         LoginEntity.ResultBean.DataBean data = HandApp.getLoginEntity().getResult().getData();
         String url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData(true) + "&state=0&pageNo=" + index + "&pageSize=10";
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
+        HttpManager.getInstance().get(url, ReceivedJournalEntity.class, new HttpManager.ResultCallback<ReceivedJournalEntity>() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onSuccess(String json, ReceivedJournalEntity receivedJournal) throws InterruptedException {
+                receivedJournalEntity = receivedJournal;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                        if (index == 1){
+                            list.clear();
+                        }
+                        list.addAll(receivedJournalEntity.getResult().getData());
+                        hasMore = receivedJournalEntity.getResult().getData().size() > 0;
+                        if (list.size() < receivedJournalEntity.getResult().getPage().getTotal_elements()){
+                            hasMore = true;
+                        }else {
+                            hasMore = false;
+                        }
+                        listAdapter.notifyDataSetChanged();
+                        lv.completeRefresh();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String msg) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -110,35 +136,6 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                         lv.completeRefresh();
                     }
                 });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                String string = null;
-                try {
-                    string = response.body().string();
-                    receivedJournalEntity = GsonUtil.parseJsonToBean(string, ReceivedJournalEntity.class);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            pb.setVisibility(View.GONE);
-                            if (index == 1){
-                                list.clear();
-                            }
-                            list.addAll(receivedJournalEntity.getResult().getData());
-                            hasMore = receivedJournalEntity.getResult().getData().size() > 0;
-                            if (list.size() < receivedJournalEntity.getResult().getPage().getTotal_elements()){
-                                hasMore = true;
-                            }else {
-                                hasMore = false;
-                            }
-                            listAdapter.notifyDataSetChanged();
-                            lv.completeRefresh();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }

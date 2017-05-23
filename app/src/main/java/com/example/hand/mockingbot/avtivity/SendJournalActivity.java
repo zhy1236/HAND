@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
@@ -43,6 +44,10 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
     private ListAdapter<MyJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<MyJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
         public void bindView(ViewHolder holder, MyJournalEntity.ResultBean.DataBean obj) {
+            if (HandApp.getPhotoUri() != null){
+                ImageView iv = holder.getView(R.id.journal_item_imv);
+                iv.setImageURI(HandApp.getPhotoUri());
+            }
             if (obj.getFinishWork() != null){
                 String finishwork = "今日完成工作：<font color='#333333'>" + obj.getFinishWork() + "</font>";
                 holder.setText(R.id.journal_item_tv_finish, Html.fromHtml(finishwork));

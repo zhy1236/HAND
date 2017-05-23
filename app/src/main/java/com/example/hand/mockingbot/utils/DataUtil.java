@@ -11,7 +11,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -313,7 +312,5 @@ public class DataUtil {
     public static Map<String,String> getMapMIME(){
         return mapMIME;
     };
-
-
 
 }

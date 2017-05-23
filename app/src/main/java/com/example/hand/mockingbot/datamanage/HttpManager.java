@@ -49,36 +49,36 @@ public class HttpManager {
 
     //从网络获取数据
     //get方式
-    public <T> T get(String url, Class<T> clazz) {
-        //1. 优先从网络获取数据
-
-        String content = sHttpManager.dataGet(url);
-
-       /* System.out.println("当前网络获取的数据:"+content);
-
-
-        if (TextUtils.isEmpty(content)) {
-            //2. 如果网络数据为空
-            //去缓存 获取数据
-            content = CacheManger.getInstance().getData(url);
-            System.out.println("得到缓存数据");
-
-        } else {
-            //3. 保存数据
-            CacheManger.getInstance().saveData(url,content);
-
-        }*/
-
-        //解析json数据
-
-        Object obj = parseJson(content, clazz);
-        return parseJson(content, clazz);
-    }
-
-    public String get(String url) {
-        String content = sHttpManager.dataGet(url);
-        return content;
-    }
+//    public <T> T get(String url, Class<T> clazz) {
+//        //1. 优先从网络获取数据
+//
+//        String content = sHttpManager.dataGet(url);
+//
+//       /* System.out.println("当前网络获取的数据:"+content);
+//
+//
+//        if (TextUtils.isEmpty(content)) {
+//            //2. 如果网络数据为空
+//            //去缓存 获取数据
+//            content = CacheManger.getInstance().getData(url);
+//            System.out.println("得到缓存数据");
+//
+//        } else {
+//            //3. 保存数据
+//            CacheManger.getInstance().saveData(url,content);
+//
+//        }*/
+//
+//        //解析json数据
+//
+//        Object obj = parseJson(content, clazz);
+//        return parseJson(content, clazz);
+//    }
+//
+//    public String get(String url) {
+//        String content = sHttpManager.dataGet(url);
+//        return content;
+//    }
 
 //    public <T> T requestResultFormSync(final String url, final Map<String, Object> map, final Class<T> clazz) {
 //
@@ -342,21 +342,21 @@ public class HttpManager {
         return res;
     }
 //
-    public String dataGet(String url) {
-        try {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            response = okHttpClient.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return response.body().string();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return e.toString();
-        }
-        return response.toString();
-    }
+//    public String dataGet(String url) {
+//        try {
+//            Request request = new Request.Builder()
+//                    .url(url)
+//                    .build();
+//            response = okHttpClient.newCall(request).execute();
+//            if (response.isSuccessful()) {
+//                return response.body().string();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return e.toString();
+//        }
+//        return response.toString();
+//    }
 
 
      public static void getUrl(String url, final String fileName, final Callback callback) {
@@ -446,6 +446,43 @@ public class HttpManager {
 
     public void destroy() {
         okHttpClient = null;
+    }
+
+    public <T> void get(String url,final Class<T> clazz,final ResultCallback<T> callback){
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                T t = null;
+                String content = "";
+                try {
+                    content = response.body().string();
+                    setJson(content);
+                    t = GsonUtil.parseJsonToBean(content, clazz);
+                    if (t != null) {
+                        callback.onSuccess(content, t);
+                    } else {
+                        callback.onFailure("转换Bean失败");
+                    }
+                    return;
+                } catch (Exception e) {
+                    try{
+                        callback.onFailure(e.getMessage());
+                    }catch (NullPointerException ex){
+
+                    }
+                }
+            }
+        });
     }
 
     public <T>  void post(String url,  Map<String, Object> map,final Class<T> clazz, final ResultCallback<T> callback){

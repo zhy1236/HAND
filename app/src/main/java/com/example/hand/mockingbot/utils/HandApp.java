@@ -2,6 +2,7 @@ package com.example.hand.mockingbot.utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.StrictMode;
@@ -14,6 +15,8 @@ public class HandApp extends Application {
     public static Handler mainHandler;
 
     public static Context context;
+
+    public static Uri PhotoUri;
 
     private static String Language;
 
@@ -48,4 +51,11 @@ public class HandApp extends Application {
         HandApp.loginEntity = loginEntity;
     }
 
+    public static void setPhotoUri(Uri data) {
+        HandApp.PhotoUri = data;
+    }
+
+    public static Uri getPhotoUri() {
+        return PhotoUri;
+    }
 }
