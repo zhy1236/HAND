@@ -160,7 +160,6 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:visibility="invisible"
                 android:id="@+id/journal_iv_defect"
                 android:layout_marginTop="12dp"
                 android:background="@mipmap/ic_defect"
@@ -169,7 +168,6 @@
                 android:layout_height="45dp" />
 
             <TextView
-                android:visibility="invisible"
                 android:layout_margin="8dp"
                 android:gravity="center"
                 android:textColor="#4C5E70"
@@ -203,7 +201,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:background="#08DDDDDD"
         android:orientation="horizontal"
         android:layout_width="match_parent"

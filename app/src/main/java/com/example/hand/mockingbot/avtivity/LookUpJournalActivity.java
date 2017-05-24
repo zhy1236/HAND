@@ -21,13 +21,11 @@ import android.widget.Toast;
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
-import com.example.hand.mockingbot.entity.AddDailySeeEntivy;
 import com.example.hand.mockingbot.entity.AttauchBean;
 import com.example.hand.mockingbot.entity.Entity;
 import com.example.hand.mockingbot.entity.JournalBean;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.DataUtil;
-import com.example.hand.mockingbot.utils.GsonUtil;
 import com.example.hand.mockingbot.utils.HandApp;
 
 import java.io.File;
@@ -39,8 +37,6 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -59,14 +55,14 @@ public class LookUpJournalActivity extends BasicActivity {
     private ListAdapter<AttauchBean> attauchlistadapter = new ListAdapter<AttauchBean>(attauchlist, R.layout.attauch_item) {
         @Override
         public void bindView(final ViewHolder holder, AttauchBean obj) {
-            holder.setText(R.id.attauch_item_field_name,obj.getFieldName());
-            holder.setText(R.id.attauch_item_field_sise,obj.getSize());
-            if (obj.getFieldName().endsWith(".jpg")||obj.getFieldName().endsWith(".jpeg")|| obj.getFieldName().endsWith(".png")||obj.getFieldName().endsWith(".bmp")|| obj.getFieldName().endsWith(".gif")){
-                holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_iv);
-            }else if (obj.getFieldName().endsWith(".doc")){
-                holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_word);
-            }else if (obj.getFieldName().endsWith(".ppt")){
-                holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_ppt);
+            holder.setText(R.id.attauch_item_field_name, obj.getFieldName());
+            holder.setText(R.id.attauch_item_field_sise, obj.getSize());
+            if (obj.getFieldName().endsWith(".jpg") || obj.getFieldName().endsWith(".jpeg") || obj.getFieldName().endsWith(".png") || obj.getFieldName().endsWith(".bmp") || obj.getFieldName().endsWith(".gif")) {
+                holder.setImageResource(R.id.attauch_item_iv, R.mipmap.ic_iv);
+            } else if (obj.getFieldName().endsWith(".doc")) {
+                holder.setImageResource(R.id.attauch_item_iv, R.mipmap.ic_word);
+            } else if (obj.getFieldName().endsWith(".ppt")) {
+                holder.setImageResource(R.id.attauch_item_iv, R.mipmap.ic_ppt);
             }
         }
     };
@@ -79,9 +75,9 @@ public class LookUpJournalActivity extends BasicActivity {
     private ListAdapter<JournalBean.ResultBean.CommentBean> commentlistadapter = new ListAdapter<JournalBean.ResultBean.CommentBean>(commentlist, R.layout.item_content) {
         @Override
         public void bindView(ViewHolder holder, JournalBean.ResultBean.CommentBean obj) {
-            holder.setText(R.id.pl_name,obj.getRealname());
-            holder.setText(R.id.pl_content,obj.getContent());
-            holder.setText(R.id.pl_time,obj.getCommentDate());
+            holder.setText(R.id.pl_name, obj.getRealname());
+            holder.setText(R.id.pl_content, obj.getContent());
+            holder.setText(R.id.pl_time, obj.getCommentDate());
         }
     };
     private LinearLayout ll;
@@ -96,7 +92,6 @@ public class LookUpJournalActivity extends BasicActivity {
         setContentView(R.layout.ativity_lookup_journal);
         intent = getIntent();
         dailyId = intent.getExtras().getInt("dailyId");
-        adddailySee();
         initToolbar();
 
     }
@@ -111,7 +106,7 @@ public class LookUpJournalActivity extends BasicActivity {
 
     private void initData() {
         Map<String, Object> getmap = CommonValues.getmap();
-        getmap.put("dailyId",dailyId);
+        getmap.put("dailyId", dailyId);
         HttpManager.getInstance().post(CommonValues.GET_COMMENT, getmap, JournalBean.class, new HttpManager.ResultCallback<JournalBean>() {
             @Override
             public void onSuccess(String json, final JournalBean journal) throws InterruptedException {
@@ -120,7 +115,7 @@ public class LookUpJournalActivity extends BasicActivity {
                     public void run() {
                         journalBean = journal;
                         String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
-                        if (enclosureUrl != null && enclosureUrl.length()>0){
+                        if (enclosureUrl != null && enclosureUrl.length() > 0) {
                             split = enclosureUrl.split(",");
                         }
                         setView();
@@ -133,71 +128,45 @@ public class LookUpJournalActivity extends BasicActivity {
 
             }
         });
-//        String str = CommonValues.GET_COMMENT + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId;
-//        OkHttpClient mOkHttpClient = new OkHttpClient();
-//        final Request request = new Request.Builder()
-//                .url(str)
-//                .build();
-//        Call call = mOkHttpClient.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                String message = e.getMessage();
-//                Log.e("asdasd",message);
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, final Response response) throws IOException {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        String string = null;
-//                        try {
-//                            string = response.body().string();
-//                            journalBean = GsonUtil.parseJsonToBean(string, JournalBean.class);
-//                            String enclosureUrl = journalBean.getResult().getData().getEnclosureUrl();
-//                            if (enclosureUrl != null && enclosureUrl.length()>0){
-//                                split = enclosureUrl.split(",");
-//                            }
-//                            setView();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                });
-//
-//            }
-//        });
+
     }
 
 
     private void setView() {
+        TextView textView = (TextView) findViewById(R.id.main_tv_title);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attauchlist.clear();
+                commentlist.clear();
+                initData();
+            }
+        });
         pb = (RelativeLayout) findViewById(R.id.lookup_journal_pb);
         pb.setVisibility(View.GONE);
         button = (ImageView) findViewById(R.id.lookup_journal_btn);
         checkBox = (CheckBox) findViewById(R.id.main_bt_right);
         boolean my = intent.getExtras().getBoolean("my");
-        if (my){
+        if (my) {
             button.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             checkBox.setVisibility(View.VISIBLE);
-            if (intent.getExtras().getString("focus").equals("1")){
+            if (intent.getExtras().getString("focus").equals("1")) {
                 checkBox.setChecked(true);
             }
         }
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
-                String url = CommonValues.FOCUS + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId + "&state=" + (b?1:0);
+                String url = CommonValues.FOCUS + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId + "&state=" + (b ? 1 : 0);
                 HttpManager.getInstance().get(url, Entity.class, new HttpManager.ResultCallback<Entity>() {
                     @Override
                     public void onSuccess(String json, Entity entity) throws InterruptedException {
-                        if (entity.getResult().getData().equals("1")){
+                        if (entity.getResult().getData().equals("1")) {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getApplicationContext(),b?"收藏成功":"删除收藏成功",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), b ? "收藏成功" : "删除收藏成功", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -214,8 +183,9 @@ public class LookUpJournalActivity extends BasicActivity {
             @Override
             public void onClick(View view) {
                 Intent intenttt = new Intent();
-                intenttt.setClass(getApplicationContext(),NewJournalActivity.class);
-                intenttt.putExtra("dailyId",dailyId);
+                intenttt.setClass(getApplicationContext(), NewJournalActivity.class);
+                intenttt.putExtra("submitTimeDate",journalBean.getResult().getData().getSubmitDate());
+                intenttt.putExtra("dailyId", dailyId);
                 startActivity(intenttt);
             }
         });
@@ -223,21 +193,21 @@ public class LookUpJournalActivity extends BasicActivity {
         name.setText(intent.getExtras().getString("name"));
         TextView submittime = (TextView) findViewById(R.id.journal_item_tv_time);
         submittime.setText(intent.getExtras().getString("time"));
-        TextView finishwork =  (TextView) findViewById(R.id.lookup_journal_finishwork);
+        TextView finishwork = (TextView) findViewById(R.id.lookup_journal_finishwork);
         finishwork.setText(journalBean.getResult().getData().getFinishWork());
-        TextView unfinishwork =  (TextView) findViewById(R.id.lookup_journal_unfinishwork);
+        TextView unfinishwork = (TextView) findViewById(R.id.lookup_journal_unfinishwork);
         unfinishwork.setText(journalBean.getResult().getData().getUnfinishWork());
-        TextView coordinationWork =  (TextView) findViewById(R.id.lookup_journal_coordinationWork);
+        TextView coordinationWork = (TextView) findViewById(R.id.lookup_journal_coordinationWork);
         coordinationWork.setText(journalBean.getResult().getData().getCoordinationWork());
         TextView remark = (TextView) findViewById(R.id.lookup_journal_remark);
         remark.setText(journalBean.getResult().getData().getRemark());
-        if (split != null && split.length > 0){
+        if (split != null && split.length > 0) {
             for (int i = 0; i < split.length; i++) {
                 String[] split1 = split[i].split("__");
                 AttauchBean attauchBean = new AttauchBean();
                 attauchBean.setFieldName(split1[2]);
                 Double sise = new Double(split1[1]);
-                attauchBean.setSize(df.format(sise/1024) + "k");
+                attauchBean.setSize(df.format(sise / 1024) + "k");
                 attauchlist.add(attauchBean);
             }
         }
@@ -278,14 +248,14 @@ public class LookUpJournalActivity extends BasicActivity {
             }
         });
         final List<JournalBean.ResultBean.CommentBean> comm = journalBean.getResult().getComment();
-        if (comm.size() > 0){
+        if (comm.size() > 0) {
             commentlist.addAll(journalBean.getResult().getComment());
         }
 
         TextView content_num = (TextView) findViewById(R.id.lookup_journal_tv_count_num);
-        if (comm.size() > 0){
+        if (comm.size() > 0) {
             content_num.setText("共有" + comm.size() + "条回复");
-        }else {
+        } else {
             content_num.setText("暂无回复");
         }
         lv_comment = (ListView) findViewById(R.id.lookup_journal_lv_comment);
@@ -308,13 +278,13 @@ public class LookUpJournalActivity extends BasicActivity {
 
     private void addComment() {
         final String cont = comment.getText().toString();
-        if (cont.replace(" ", "").isEmpty()){
+        if (cont.replace(" ", "").isEmpty()) {
             return;
         }
         Map<String, Object> map = CommonValues.getmap();
-        map.put("dailyId",dailyId);
-        map.put("content",cont);
-        map.put("isReadFlag",0);
+        map.put("dailyId", dailyId);
+        map.put("content", cont);
+        map.put("isReadFlag", 0);
         comment.setText("");
         runOnUiThread(new Runnable() {
             @Override
@@ -325,7 +295,7 @@ public class LookUpJournalActivity extends BasicActivity {
         HttpManager.getInstance().post(CommonValues.COMMENT, map, Entity.class, new HttpManager.ResultCallback<Entity>() {
             @Override
             public void onSuccess(String json, Entity entity) throws InterruptedException {
-                if (entity.getResult().getData().equals("1")){
+                if (entity.getResult().getData().equals("1")) {
                     addcontent(cont);
                 }
             }
@@ -359,7 +329,7 @@ public class LookUpJournalActivity extends BasicActivity {
     }
 
     private void downAndOpenAttauch(final String attauchuri) {
-        HttpManager.getUrl(CommonValues.DOWN_ATTAUCHMENT + "fileName=" + attauchuri,attauchuri, new Callback() {
+        HttpManager.getUrl(CommonValues.DOWN_ATTAUCHMENT + "fileName=" + attauchuri, attauchuri, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -371,8 +341,8 @@ public class LookUpJournalActivity extends BasicActivity {
                     @Override
                     public void run() {
                         pb.setVisibility(View.GONE);
-                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),attauchuri);
-                        DataUtil.openFile(getApplicationContext(),file);
+                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), attauchuri);
+                        DataUtil.openFile(getApplicationContext(), file);
 //                        Toast.makeText(getApplicationContext(),"下载完成，正在打开",Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -394,38 +364,4 @@ public class LookUpJournalActivity extends BasicActivity {
         right = (Button) findViewById(R.id.main_bt_right);
     }
 
-    private void adddailySee() {
-        String url = CommonValues.ADD_DAILYSEE + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId;
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                String string = null;
-                try {
-                    string = response.body().string();
-                    AddDailySeeEntivy addDailySeeEntivy = GsonUtil.parseJsonToBean(string, AddDailySeeEntivy.class);
-                    if (addDailySeeEntivy.getError() == null){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                pb.setVisibility(View.GONE);
-                            }
-                        });
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
 }

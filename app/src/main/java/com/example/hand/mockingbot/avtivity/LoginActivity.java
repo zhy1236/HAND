@@ -226,6 +226,7 @@ public class LoginActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK){
             if (requestCode == CHOOSE_PICTURE){
                 if (data.getData() != null) {
+//                    Picasso.with(getApplicationContext()).load("http://edb2.hand-china.com:8088/project-mg-app/app/daily/downloadAttachment?fileName=1495595794553__60015__191049591-394c648b1229b806.jpg").centerCrop().transform(new RoundRecTransform()).into(iv_photo);
                     iv_photo.setImageURI(data.getData());
                     HandApp.setPhotoUri(data.getData());
                     SpUtils.saveString(getApplicationContext(),Fields.PHOTO_PATH,HttpManager.getRealPathFromUri(data.getData(), getApplicationContext()));

@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -57,7 +55,6 @@ public class NewJournalActivity extends BasicActivity {
 
     public static final int CHOOSE_PICTURE = 1;
     private Toolbar toolbar;
-    private GridLayout gl;
     private boolean ispayment = false;
     private List<AttauchBean> attauchlist = new ArrayList<>();
     private EditText finishwork;
@@ -113,13 +110,14 @@ public class NewJournalActivity extends BasicActivity {
     private ListView lv_attauch;
     private Button bt;
     private RelativeLayout pb;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_journal);
         df = new DecimalFormat("######0.0");
-        Intent intent = getIntent();
+        intent = getIntent();
         if (intent.getExtras() != null){
             dailyId = intent.getExtras().getInt("dailyId");
             if (dailyId != 0){
@@ -225,7 +223,6 @@ public class NewJournalActivity extends BasicActivity {
                 addJournal();
             }
         });
-        gl = (GridLayout) findViewById(R.id.new_journal_gl);
         lv_attauch = (ListView) findViewById(R.id.new_journal_lv);
         lv_attauch.setAdapter(attauchBeanListAdapter);
         lv_attauch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -275,7 +272,11 @@ public class NewJournalActivity extends BasicActivity {
         map.put("isAfterPayment",0);
         if (ispayment){
             map.put("isPayment",1);
-            map.put("submitDate",tv_vj.getText());
+//            if (intent.getExtras().getString("submitTimeDate") != null){
+//                map.put("submitTimeDate",intent.getExtras().getString("submitTimeDate"));
+//            }else {
+                map.put("submitDate",tv_vj.getText());
+//            }
 
         }else {
             map.put("isPayment",0);
@@ -420,28 +421,6 @@ public class NewJournalActivity extends BasicActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        final View inflate = View.inflate(getApplicationContext(), R.layout.attauch_item, null);
-        TextView name = (TextView) inflate.findViewById(R.id.attauch_item_field_name);
-        name.setText(path.substring(path.lastIndexOf("/") + 1, path.length()));
-        ImageView viewById = (ImageView) inflate.findViewById(R.id.attauch_item_iv);
-        if (extension.endsWith(".jpg")||extension.endsWith(".jpeg")|| extension.endsWith(".png")||extension.endsWith(".bmp")|| extension.endsWith(".gif")){
-            viewById.setImageResource(R.mipmap.ic_iv);
-        }else if (extension.endsWith(".doc")){
-            viewById.setImageResource(R.mipmap.ic_word);
-        }else if (extension.endsWith(".ppt")) {
-            viewById.setImageResource(R.mipmap.ic_ppt);
-        }
-        TextView sise = (TextView) inflate.findViewById(R.id.attauch_item_field_sise);
-        sise.setText(attauchBean.getSize());
-        View delete = inflate.findViewById(R.id.attauch_item_field_delete);
-        delete.setVisibility(View.VISIBLE);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gl.removeView(inflate);
-            }
-        });
         attauchlist.add(attauchBean);
         attauchBeanListAdapter.notifyDataSetChanged();
 

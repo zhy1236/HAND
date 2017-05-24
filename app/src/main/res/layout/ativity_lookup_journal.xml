@@ -48,7 +48,8 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+    <com.example.hand.mockingbot.view.ObservableScrollView
+        android:id="@+id/lookup_journal_sl"
         android:layout_above="@+id/lookup_journal_ll_bottom"
         android:layout_below="@+id/id_toolbar"
         android:layout_width="match_parent"
@@ -58,6 +59,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <RelativeLayout
                 android:background="#FFFFFF"
                 android:layout_width="match_parent"
@@ -261,7 +263,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.example.hand.mockingbot.view.ObservableScrollView>
 
     <LinearLayout
         android:id="@+id/lookup_journal_ll_bottom"

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
+import com.example.hand.mockingbot.entity.AddDailySeeEntivy;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.entity.ReceivedJournalEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
@@ -160,6 +161,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
             return;
         }else {
             pb.setVisibility(View.VISIBLE);
+            adddailySee(list.get(i-1).getDailyId());
             toLookUpJournal(i-1);
         }
     }
@@ -197,5 +199,20 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     @Override
     public void onScrollOutside() {
 
+    }
+
+    private void adddailySee(int id) {
+        String url = CommonValues.ADD_DAILYSEE + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + id;
+        HttpManager.getInstance().get(url, AddDailySeeEntivy.class, new HttpManager.ResultCallback<AddDailySeeEntivy>() {
+            @Override
+            public void onSuccess(String json, AddDailySeeEntivy addDailySeeEntivy) throws InterruptedException {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 }

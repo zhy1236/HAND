@@ -11,23 +11,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
+import com.example.hand.mockingbot.avtivity.CommentJournalActivity;
+import com.example.hand.mockingbot.avtivity.DefectJournalActivity;
 import com.example.hand.mockingbot.avtivity.NewJournalActivity;
 import com.example.hand.mockingbot.avtivity.ReceivedJournalAtivity;
 import com.example.hand.mockingbot.avtivity.SendJournalActivity;
+import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.GetDailyStatisticalEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
-import com.example.hand.mockingbot.utils.GsonUtil;
 import com.example.hand.mockingbot.utils.HandApp;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import static com.example.hand.mockingbot.R.id.journal_receiver;
 
@@ -57,53 +52,39 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
 
     private void loadData() {
         String url = CommonValues.JOURNAL_DAILY_STATISTICAL + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyTime=" + getData();
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
+        HttpManager.getInstance().get(url, GetDailyStatisticalEntity.class, new HttpManager.ResultCallback<GetDailyStatisticalEntity>() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onSuccess(String json, GetDailyStatisticalEntity getDailyStatistical) throws InterruptedException {
+                getDailyStatisticalEntity = getDailyStatistical;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() > 0){
+                            received_num.setVisibility(View.VISIBLE);
+                            received_num.setText(getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() + ""):"99+");
+                        }
+                        if (getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() > 0){
+                            send_num.setVisibility(View.VISIBLE);
+                            send_num.setText(getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() + ""):"99+");
+                        }
+                        if (getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() > 0){
+                            defect_num.setVisibility(View.VISIBLE);
+                            defect_num.setText(getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() + ""):"99+");
+                        }
+                        if (getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() > 0){
+                            comment_num.setVisibility(View.VISIBLE);
+                            comment_num.setText(getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() + ""):"99+");
+                        }
                     }
                 });
             }
 
             @Override
-            public void onResponse(Call call, Response response) {
-                String string = null;
-                try {
-                    string = response.body().string();
-                    getDailyStatisticalEntity = GsonUtil.parseJsonToBean(string, GetDailyStatisticalEntity.class);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() > 0){
-                                received_num.setVisibility(View.VISIBLE);
-                                received_num.setText(getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() + ""):"99+");
-                            }
-                            if (getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() > 0){
-                                send_num.setVisibility(View.VISIBLE);
-                                send_num.setText(getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() + ""):"99+");
-                            }
-//                            if (getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() > 0){
-//                                defect_num.setVisibility(View.VISIBLE);
-//                                defect_num.setText(getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() + ""):"99+");
-//                            }
-//                            if (getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() > 0){
-//                                comment_num.setVisibility(View.VISIBLE);
-//                                comment_num.setText(getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() + ""):"99+");
-//                            }
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onFailure(String msg) {
+
             }
         });
+
     }
 
     @Nullable
@@ -120,10 +101,10 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
         mJournal_new.setOnClickListener(this);
         mJournal_send = (RelativeLayout) view.findViewById(R.id.journal_send);
         mJournal_send.setOnClickListener(this);
-//        mJournal_defect = (RelativeLayout) view.findViewById(R.id.journal_defect);
-//        mJournal_defect.setOnClickListener(this);
-//        mJournal_comment = (RelativeLayout) view.findViewById(R.id.journal_comment);
-//        mJournal_comment.setOnClickListener(this);
+        mJournal_defect = (RelativeLayout) view.findViewById(R.id.journal_defect);
+        mJournal_defect.setOnClickListener(this);
+        mJournal_comment = (RelativeLayout) view.findViewById(R.id.journal_comment);
+        mJournal_comment.setOnClickListener(this);
         return view;
     }
 
@@ -142,12 +123,12 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
                 intent.setClass(getContext(), SendJournalActivity.class);
                 intent.putExtra("content",getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum());
                 break;
-//            case R.id.journal_defect:
-//                intent.setClass(getContext(), DefectJournalActivity.class);
-//                break;
-//            case R.id.journal_comment:
-//                intent.setClass(getContext(), CommentJournalActivity.class);
-//                break;
+            case R.id.journal_defect:
+                intent.setClass(getContext(), DefectJournalActivity.class);
+                break;
+            case R.id.journal_comment:
+                intent.setClass(getContext(), CommentJournalActivity.class);
+                break;
         }
         startActivity(intent);
     }
