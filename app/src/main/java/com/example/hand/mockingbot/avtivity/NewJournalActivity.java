@@ -242,7 +242,6 @@ public class NewJournalActivity extends BasicActivity {
     }
 
     private void addJournal() {
-        pb.setVisibility(View.VISIBLE);
         bt.setEnabled(false);
         if (finishwork.getText().toString().replace(" ", "").isEmpty()){
             runOnUiThread(new Runnable() {
@@ -250,105 +249,110 @@ public class NewJournalActivity extends BasicActivity {
                 public void run() {
                     Toast.makeText(getApplicationContext(),"请填写完成工作",Toast.LENGTH_SHORT).show();
                     bt.setEnabled(true);
-                    pb.setVisibility(View.GONE);
-                    return;
                 }
             });
-        }
-        Map<String, Object> map = CommonValues.getmap();
-        map.put("finishWork",finishwork.getText().toString());
-        map.put("unfinishWork",unfinishwork.getText().toString());
-        map.put("coordinationWork",coordinationwork.getText().toString());
-        map.put("remark",remark.getText().toString());
-        String stringBuffer = "";
-        for (int i = 0; i < data.size(); i++) {
-            if (i == 0){
-                stringBuffer += data.get(i);
+        }else {
+            Map<String, Object> map = CommonValues.getmap();
+            map.put("finishWork",finishwork.getText().toString());
+            map.put("unfinishWork",unfinishwork.getText().toString());
+            map.put("coordinationWork",coordinationwork.getText().toString());
+            map.put("remark",remark.getText().toString());
+            String stringBuffer = "";
+            for (int i = 0; i < data.size(); i++) {
+                if (i == 0){
+                    stringBuffer += data.get(i);
+                }else {
+                    stringBuffer += ("," + data.get(i));
+                }
+            }
+            map.put("enclosureUrl",stringBuffer);
+            map.put("isAfterPayment",0);
+            if (ispayment){
+                map.put("isPayment",1);
+                map.put("submitDate",tv_vj.getText());
+
             }else {
-                stringBuffer += ("," + data.get(i));
+                map.put("isPayment",0);
+                if (intent.getExtras().getString("submitTimeDate") != null){
+                    map.put("submitTimeDate",intent.getExtras().getString("submitTimeDate"));
+                }else {
+                    map.put("submitDate",getData(true));
+                }
+            }
+            pb.setVisibility(View.VISIBLE);
+            if (getIntent().getExtras() == null){
+                HttpManager.getInstance().post(CommonValues.NEW_JOURNAL,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
+                    @Override
+                    public void onSuccess(String json, final AddJournalEntity add) throws InterruptedException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (add.getResult().getData().equals("0")){
+                                    Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
+                                }else if (add.getResult().getData().equals("1")){
+                                    finish();
+                                }else {
+                                    Toast.makeText(getApplicationContext(),add.getResult().getData(),Toast.LENGTH_SHORT).show();
+                                }
+                                bt.setEnabled(true);
+                                pb.setVisibility(View.GONE);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                bt.setEnabled(true);
+                                pb.setVisibility(View.GONE);
+                            }
+                        });
+
+                    }
+                });
+            }else {
+                map.put("dailyId",dailyId);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String str = formatter.format(mJournalBean.getResult().getData().getSubmitDate());
+                map.put("submitDate",str);
+                HttpManager.getInstance().post(CommonValues.UPDATE_DAILY,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
+                    @Override
+                    public void onSuccess(String json, final AddJournalEntity add) throws InterruptedException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (add.getResult().getData().equals("0")){
+                                    Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
+                                }else if (add.getResult().getData().equals("1")){
+                                    Toast.makeText(getApplicationContext(),"日报提交成功",Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }else {
+                                    Toast.makeText(getApplicationContext(),add.getResult().getData(),Toast.LENGTH_SHORT).show();
+                                }
+                                pb.setVisibility(View.GONE);
+                                bt.setEnabled(true);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                pb.setVisibility(View.GONE);
+                                bt.setEnabled(true);
+                            }
+                        });
+                    }
+                });
             }
         }
-        map.put("enclosureUrl",stringBuffer);
-        map.put("isAfterPayment",0);
-        if (ispayment){
-            map.put("isPayment",1);
-//            if (intent.getExtras().getString("submitTimeDate") != null){
-//                map.put("submitTimeDate",intent.getExtras().getString("submitTimeDate"));
-//            }else {
-                map.put("submitDate",tv_vj.getText());
-//            }
 
-        }else {
-            map.put("isPayment",0);
-            map.put("submitDate",getData(true));
-        }
-        if (getIntent().getExtras() == null){
-            HttpManager.getInstance().post(CommonValues.NEW_JOURNAL,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
-                @Override
-                public void onSuccess(String json, final AddJournalEntity add) throws InterruptedException {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (add.getResult().getData().equals("0")){
-                                Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
-                            }else if (add.getResult().getData().equals("1")){
-                                finish();
-                            }
-                            bt.setEnabled(true);
-                            pb.setVisibility(View.GONE);
-                        }
-                    });
-
-                }
-
-                @Override
-                public void onFailure(String msg) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            bt.setEnabled(true);
-                            pb.setVisibility(View.GONE);
-                        }
-                    });
-
-                }
-            });
-        }else {
-            map.put("dailyId",dailyId);
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String str = formatter.format(mJournalBean.getResult().getData().getSubmitDate());
-            map.put("submitDate",str);
-            HttpManager.getInstance().post(CommonValues.UPDATE_DAILY,map,AddJournalEntity.class,new HttpManager.ResultCallback<AddJournalEntity>() {
-                @Override
-                public void onSuccess(String json, final AddJournalEntity add) throws InterruptedException {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (add.getResult().getData().equals("0")){
-                                Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
-                            }else if (add.getResult().getData().equals("1")){
-                                Toast.makeText(getApplicationContext(),"日报提交成功",Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                            pb.setVisibility(View.GONE);
-                            bt.setEnabled(true);
-                        }
-                    });
-
-                }
-
-                @Override
-                public void onFailure(String msg) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            pb.setVisibility(View.GONE);
-                            bt.setEnabled(true);
-                        }
-                    });
-                }
-            });
-        }
     }
 
     @Override
@@ -358,7 +362,7 @@ public class NewJournalActivity extends BasicActivity {
             if (requestCode == TAKE_PICTURE) {
                 Bundle extras = data.getExtras();
                 Bitmap b = (Bitmap) extras.get("data");
-                String fileNmae = Environment.getExternalStorageDirectory().getAbsolutePath() + "GE" + System.currentTimeMillis() + ".jpg";
+                String fileNmae = getApplicationContext().getExternalCacheDir().getAbsolutePath() + File.separator + "GE" + System.currentTimeMillis() + ".jpg";
                 File myCaptureFile = new File(fileNmae);
                 try {
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -369,9 +373,9 @@ public class NewJournalActivity extends BasicActivity {
                         bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
                         b.compress(Bitmap.CompressFormat.JPEG, 80, bos);
                         Uri uri = Uri.fromFile(myCaptureFile);
+                        upAttauch(fileNmae,uri);
                         bos.flush();
                         bos.close();
-                        upAttauch(uri);
                         pb.setVisibility(View.VISIBLE);
                     } else {
                         Toast toast = Toast.makeText(NewJournalActivity.this, "保存失败，SD卡无效", Toast.LENGTH_SHORT);
@@ -390,6 +394,42 @@ public class NewJournalActivity extends BasicActivity {
                 }
             }
         }
+    }
+
+    private void upAttauch(String fileNmae, final Uri uri) {
+        File file = new File(fileNmae);
+        HttpManager.getInstance().postAsynFile(file, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(),"附件上传失败，请重新选择！",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adduri(uri);
+                        String string = null;
+                        try {
+                            string = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        AddAttauchEntity addAttauchEntity = GsonUtil.parseJsonToBean(string, AddAttauchEntity.class);
+                        pb.setVisibility(View.GONE);
+                        data.add(addAttauchEntity.getResult().getData().get(0));
+                    }
+                });
+
+            }
+        });
     }
 
     private void adduri(Uri uri) {

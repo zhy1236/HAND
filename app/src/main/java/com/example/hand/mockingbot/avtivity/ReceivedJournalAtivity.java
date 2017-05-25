@@ -32,7 +32,6 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     private boolean hasMore = true;
     private SimpleListView lv;
     private int index = 1;
-    private ReceivedJournalEntity receivedJournalEntity;
     private List<ReceivedJournalEntity.ResultBean.DataBean> list = new ArrayList<>();
     private ListAdapter<ReceivedJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<ReceivedJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
@@ -70,6 +69,11 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                     holder.setVisibility(R.id.journal_item_remark,View.GONE);
                 }
             }
+            if (obj.getIsReadFlag().equals("1")){
+                holder.setVisibility(R.id.journal_item_tv_yd,View.VISIBLE);
+            }else{
+                holder.setVisibility(R.id.journal_item_tv_yd,View.GONE);
+            }
             String realname = obj.getRealname();
             String time = getTime(obj.getSubmitDate());
             holder.setText(R.id.journal_item_tv_name,realname);
@@ -98,8 +102,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         String url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData(true) + "&state=0&pageNo=" + index + "&pageSize=10";
         HttpManager.getInstance().get(url, ReceivedJournalEntity.class, new HttpManager.ResultCallback<ReceivedJournalEntity>() {
             @Override
-            public void onSuccess(String json, ReceivedJournalEntity receivedJournal) throws InterruptedException {
-                receivedJournalEntity = receivedJournal;
+            public void onSuccess(String json, final ReceivedJournalEntity receivedJournalEntity) throws InterruptedException {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

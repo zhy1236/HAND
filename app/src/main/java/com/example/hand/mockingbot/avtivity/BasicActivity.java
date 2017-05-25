@@ -12,7 +12,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -142,6 +144,38 @@ public class BasicActivity extends AppCompatActivity {
         });
         datePickerDialog.show();
 
+    }
+
+    public void showSelector(final Button holder, final String[] args) {
+        showSelector(holder,args,null);
+    }
+
+    protected interface OnSelectedResultCallback {
+        void onSelected(int i,Button holder);
+    }
+
+    public void showSelector(final Button holder, final String[] args, final OnSelectedResultCallback callback) {
+        if (args == null || args.length == 0) {
+            Toast.makeText(getApplicationContext(), "没有数据", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        int defaultIndex = -1;
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].trim().equals(holder.getText())) {
+                defaultIndex = i;
+            }
+        }
+        final int finalDefaultIndex = defaultIndex;
+        ActionSheetActivity.openActionSheet(BasicActivity.this, holder.getText().toString(),args, args[defaultIndex == -1 ? 0 : defaultIndex], new ActionSheetActivity.OnResult() {
+            @Override
+            public void onResult(int index, String value) {
+                if (finalDefaultIndex == index) return;
+                holder.setText(value);
+                if (callback != null) {
+                        callback.onSelected(index, holder);
+                }
+            }
+        });
     }
 
 }

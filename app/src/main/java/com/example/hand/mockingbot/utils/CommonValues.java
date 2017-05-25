@@ -98,7 +98,7 @@ public class CommonValues {
      * 获取所有对我的评论
      * userId
      */
-    public static final String GET_ALL_COMMENT= currentHost + "/daily/getDailyComment";
+    public static final String GET_ALL_COMMENT= currentHost + "/daily/getDailyComment?";
 
     /**
      * 收藏日志

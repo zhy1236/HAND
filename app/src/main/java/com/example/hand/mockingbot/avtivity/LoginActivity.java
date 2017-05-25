@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 //            ViewCompat.setFitsSystemWindows(mChildView, false);
 //        }
         setContentView(R.layout.actovity_login);
-//        upData();
+        upData();
         initView();
     }
 
@@ -140,16 +140,16 @@ public class LoginActivity extends AppCompatActivity {
         });
         rl = (RelativeLayout) findViewById(R.id.login_rl);
         iv_photo = (ImageView) findViewById(R.id.login_iv);
-        String string = SpUtils.getString(getApplicationContext(), Fields.PHOTO_PATH);
-        HandApp.setPhotoUri(getPathForUri(string));
-        iv_photo.setImageURI(HandApp.getPhotoUri());
-        iv_photo.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                choosePicture();
-                return true;
-            }
-        });
+//        String string = SpUtils.getString(getApplicationContext(), Fields.PHOTO_PATH);
+//        HandApp.setPhotoUri(getPathForUri(string));
+//        iv_photo.setImageURI(HandApp.getPhotoUri());
+//        iv_photo.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                choosePicture();
+//                return true;
+//            }
+//        });
 
     }
 

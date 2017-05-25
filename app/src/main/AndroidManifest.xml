@@ -41,6 +41,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".avtivity.MyCollectionActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".avtivity.ActionSheetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom"/>
         <meta-data
             android:name="PGYER_APPID"
             android:value="02998d3e1e105cc45f06dca8b801b50f" >

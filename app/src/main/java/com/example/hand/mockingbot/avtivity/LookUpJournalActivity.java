@@ -184,7 +184,7 @@ public class LookUpJournalActivity extends BasicActivity {
             public void onClick(View view) {
                 Intent intenttt = new Intent();
                 intenttt.setClass(getApplicationContext(), NewJournalActivity.class);
-                intenttt.putExtra("submitTimeDate",journalBean.getResult().getData().getSubmitDate());
+                intenttt.putExtra("submitTimeDate",intent.getExtras().getString("time"));
                 intenttt.putExtra("dailyId", dailyId);
                 startActivity(intenttt);
             }

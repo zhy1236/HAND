@@ -7,9 +7,6 @@ import java.util.List;
  */
 
 public class AddAttauchEntity {
-    /**
-     * result : {"data":["1495171588038__3248__com_example_hand_mockingbot_96x96.png"]}
-     */
 
     private ResultBean result;
     private ErrorBean error;
@@ -21,6 +18,7 @@ public class AddAttauchEntity {
     public void setError(ErrorBean error) {
         this.error = error;
     }
+
     public ResultBean getResult() {
         return result;
     }
