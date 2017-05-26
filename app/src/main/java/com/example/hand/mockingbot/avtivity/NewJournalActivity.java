@@ -239,7 +239,7 @@ public class NewJournalActivity extends BasicActivity {
 
     private void addJournal() {
         bt.setEnabled(false);
-        if (finishwork.getText().toString().replace(" ", "").isEmpty()){
+        if (finishwork.getText().toString().replace(" ", "").replace("\n","").isEmpty()){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -286,6 +286,7 @@ public class NewJournalActivity extends BasicActivity {
                                 if (add.getResult().getData().equals("0")){
                                     Toast.makeText(getApplicationContext(),"日报提交失败，请重新提交",Toast.LENGTH_SHORT).show();
                                 }else if (add.getResult().getData().equals("1")){
+                                    Toast.makeText(getApplicationContext(),"日报提交成功",Toast.LENGTH_SHORT).show();
                                     finish();
                                 }else {
                                     Toast.makeText(getApplicationContext(),add.getResult().getData(),Toast.LENGTH_SHORT).show();
@@ -511,11 +512,9 @@ public class NewJournalActivity extends BasicActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        attauchlist.get(i).setPath(Environment.getExternalStorageDirectory().getAbsolutePath() + attauchlist.get(i).getFieldName());
                         pb.setVisibility(View.GONE);
                         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),attauchlist.get(i).getFieldName());
                         DataUtil.openFile(getApplicationContext(),file);
-//                        Toast.makeText(getApplicationContext(),"下载完成，正在打开",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
