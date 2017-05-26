@@ -70,7 +70,7 @@ public class ActionSheetActivity extends Activity {
             final List<String> mData = Arrays.asList(data);
             ListAdapter<String> adapter = new ListAdapter<String>(mData,R.layout.list_item_checked_text_color) {
                 @Override
-                public void bindView(ViewHolder holder, String obj) {
+                public void bindView(ViewHolder holder, String obj,int position) {
                     holder.setText(R.id.text,obj);
                 }
             };

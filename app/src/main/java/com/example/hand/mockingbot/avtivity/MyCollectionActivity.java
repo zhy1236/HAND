@@ -36,7 +36,7 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
     private List<ReceivedJournalEntity.ResultBean.DataBean> list = new ArrayList<>();
     private ListAdapter<ReceivedJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<ReceivedJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
-        public void bindView(ViewHolder holder, final ReceivedJournalEntity.ResultBean.DataBean obj) {
+        public void bindView(ViewHolder holder, final ReceivedJournalEntity.ResultBean.DataBean obj,int position) {
             if (obj.getRealname().equals(HandApp.getLoginEntity().getResult().getData().getRealname())){
                 if (HandApp.getPhotoUri() != null){
                     ImageView iv = holder.getView(R.id.journal_item_imv);

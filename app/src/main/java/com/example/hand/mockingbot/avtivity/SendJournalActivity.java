@@ -42,7 +42,7 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
     private List<MyJournalEntity.ResultBean.DataBean> basicList;
     private ListAdapter<MyJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<MyJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
-        public void bindView(ViewHolder holder, MyJournalEntity.ResultBean.DataBean obj) {
+        public void bindView(ViewHolder holder, MyJournalEntity.ResultBean.DataBean obj,int position) {
             if (HandApp.getPhotoUri() != null){
                 ImageView iv = holder.getView(R.id.journal_item_imv);
                 iv.setImageURI(HandApp.getPhotoUri());
@@ -90,6 +90,11 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
         setContentView(R.layout.activity_send_journal);
         initToobar();
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadData(index);
     }
 

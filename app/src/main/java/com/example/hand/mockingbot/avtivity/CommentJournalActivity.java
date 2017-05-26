@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
@@ -20,38 +23,65 @@ import java.util.List;
  * Created by zhy on 2017/5/5.
  */
 
-public class CommentJournalActivity extends BasicActivity {
+public class CommentJournalActivity extends BasicActivity implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private Toolbar toolbar;
-    private boolean hasMore = true;
     private SimpleListView lv;
-    private int index = 1;
+    private RelativeLayout pb;
     private List<CommentAllEntity.ResultBean.DataBean> list = new ArrayList<>();
-    private ListAdapter<CommentAllEntity.ResultBean.DataBean> listAdapter = new ListAdapter<CommentAllEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
+    private ListAdapter<CommentAllEntity.ResultBean.DataBean> listAdapter = new ListAdapter<CommentAllEntity.ResultBean.DataBean>(list, R.layout.item_comment) {
         @Override
-        public void bindView(ViewHolder holder, CommentAllEntity.ResultBean.DataBean obj) {
-
+        public void bindView(ViewHolder holder, CommentAllEntity.ResultBean.DataBean obj,int position) {
+            String submitDate = obj.getSubmitDate();
+            String[] split = submitDate.split("-");
+            if (split[1].startsWith("0")){
+                String str = split[1].substring(1) + "月" + split[2] + "日";
+                holder.setText(R.id.item_comment_time,str + obj.getCommentDate().split(" ")[1].substring(0,5));
+                String title = obj.getRealname() + "对" + HandApp.getLoginEntity().getResult().getData().getRealname() + str + "提交的[日报]进行了评论";
+                holder.setText(R.id.item_comment_tv_title,title);
+            }else {
+                String str = split[1] + "月" + split[2] + "日";
+                holder.setText(R.id.item_comment_time,str + obj.getCommentDate().split(" ")[1].substring(0,5));
+                String title = obj.getRealname() + "对" + HandApp.getLoginEntity().getResult().getData().getRealname() + str + "提交的[日报]进行了评论";
+                holder.setText(R.id.item_comment_tv_title,title);
+            }
+            if (position != 0 &&(obj.getCommentDate().split(" ")[1].startsWith(list.get(position-1).getCommentDate().split(" ")[1].substring(0,5)))){
+                holder.setVisibility(R.id.item_comment_time,View.GONE);
+            }else {
+                holder.setVisibility(R.id.item_comment_time,View.VISIBLE);
+            }
+            holder.setText(R.id.item_comment_ed,"评论内容：" + obj.getContent());
         }
     };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment_journal);
+        setContentView(R.layout.activity_received_journal);
         initView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadData(index);
+        loadData();
     }
 
-    private void loadData(int ind) {
+    private void loadData() {
         String url = CommonValues.GET_ALL_COMMENT + "userId=" + HandApp.getLoginEntity().getResult().getData().getId();
         HttpManager.getInstance().get(url, CommentAllEntity.class, new HttpManager.ResultCallback<CommentAllEntity>() {
             @Override
-            public void onSuccess(String json, CommentAllEntity commentAllEntity) throws InterruptedException {
+            public void onSuccess(String json,final CommentAllEntity commentAllEntity) throws InterruptedException {
                 commentAllEntity.getResult().getData();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        list.clear();
+                        pb.setVisibility(View.GONE);
+                        list.addAll(commentAllEntity.getResult().getData());
+                        listAdapter.notifyDataSetChanged();
+                        lv.completeRefresh();
+                    }
+                });
             }
 
             @Override
@@ -72,6 +102,33 @@ public class CommentJournalActivity extends BasicActivity {
                 onBackPressed();
             }
         });
+        TextView textView = (TextView) findViewById(R.id.main_tv_title);
+        textView.setText("评论");
+        lv = (SimpleListView) findViewById(R.id.journal_receiver_lv);
+        lv.setOnRefreshListener(this);
+        lv.setAdapter(listAdapter);
+        lv.setOnItemClickListener(this);
+        pb = (RelativeLayout) findViewById(R.id.journal_receiver_pb);
     }
 
+    @Override
+    public void onPullRefresh() {
+        loadData();
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onLoadingMore() {
+        lv.completeRefresh();
+    }
+
+    @Override
+    public void onScrollOutside() {
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
 }

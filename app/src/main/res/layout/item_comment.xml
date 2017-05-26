@@ -16,16 +16,19 @@
         android:layout_height="wrap_content" />
 
     <ImageView
+        android:layout_below="@+id/item_comment_time"
         android:id="@+id/item_comment_iv"
         android:src="@mipmap/ic_head_portrait"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_width="40dp"
         android:layout_height="40dp" />
 
     <TextView
-        android:layout_marginTop="37dp"
+        android:id="@+id/item_comment_tv"
+        android:layout_below="@+id/item_comment_time"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/item_comment_iv"
         android:textSize="14sp"
         android:textColor="#666"
@@ -34,20 +37,21 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:background="#FFFFFF"
+        android:background="@drawable/ll_bg_comment"
         android:orientation="vertical"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/item_comment_time"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/item_comment_tv"
         android:layout_toRightOf="@+id/item_comment_iv"
         android:layout_width="273dp"
         android:layout_height="wrap_content">
 
         <TextView
-            android:background="#59C2E6"
+            android:background="@drawable/tv_bg_comment"
             android:layout_width="match_parent"
             android:layout_height="3.5dp" />
 
         <TextView
+            android:id="@+id/item_comment_tv_title"
             android:textSize="13sp"
             android:textColor="#666666"
             android:text="肖珊对向芳5月25日提交的[日报]进行了评论"
@@ -58,13 +62,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_marginBottom="10dp"
+        <EditText
+            android:id="@+id/item_comment_ed"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:ellipsize="end"
             android:lineSpacingExtra="3dp"
-            android:singleline="true"
             android:text="评论内容：写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写
             的很好写的很好写的很好写的很好写的很好写的很好写的很好写的写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好"
             android:maxLength="77"

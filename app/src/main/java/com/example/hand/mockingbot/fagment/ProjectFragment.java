@@ -37,7 +37,7 @@ public class ProjectFragment extends Fragment {
     private ListView lv;
     private ListAdapter<AttentionProject> listAdapter = new ListAdapter<AttentionProject>(list, R.layout.attention_project_item) {
         @Override
-        public void bindView(ViewHolder holder, AttentionProject obj) {
+        public void bindView(ViewHolder holder, AttentionProject obj,int position) {
             holder.setText(R.id.attention_project_item_tv,obj.getProjectName());
             holder.setImageResource(R.id.attention_project_item_iv,obj.getProjectImage());
         }

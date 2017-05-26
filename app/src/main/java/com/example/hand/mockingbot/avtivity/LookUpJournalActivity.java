@@ -54,7 +54,7 @@ public class LookUpJournalActivity extends BasicActivity {
     private ListView lv_attauch;
     private ListAdapter<AttauchBean> attauchlistadapter = new ListAdapter<AttauchBean>(attauchlist, R.layout.attauch_item) {
         @Override
-        public void bindView(final ViewHolder holder, AttauchBean obj) {
+        public void bindView(final ViewHolder holder, AttauchBean obj,int position) {
             holder.setText(R.id.attauch_item_field_name, obj.getFieldName());
             holder.setText(R.id.attauch_item_field_sise, obj.getSize());
             if (obj.getFieldName().endsWith(".jpg") || obj.getFieldName().endsWith(".jpeg") || obj.getFieldName().endsWith(".png") || obj.getFieldName().endsWith(".bmp") || obj.getFieldName().endsWith(".gif")) {
@@ -74,7 +74,7 @@ public class LookUpJournalActivity extends BasicActivity {
     private List<JournalBean.ResultBean.CommentBean> commentlist = new ArrayList<>();
     private ListAdapter<JournalBean.ResultBean.CommentBean> commentlistadapter = new ListAdapter<JournalBean.ResultBean.CommentBean>(commentlist, R.layout.item_content) {
         @Override
-        public void bindView(ViewHolder holder, JournalBean.ResultBean.CommentBean obj) {
+        public void bindView(ViewHolder holder, JournalBean.ResultBean.CommentBean obj,int position) {
             holder.setText(R.id.pl_name, obj.getRealname());
             holder.setText(R.id.pl_content, obj.getContent());
             holder.setText(R.id.pl_time, obj.getCommentDate());
@@ -268,6 +268,7 @@ public class LookUpJournalActivity extends BasicActivity {
                     public void run() {
                         String realname = commentlist.get(i).getRealname();
                         comment.setText("@" + realname + " ");
+                        comment.setSelection(comment.getText().length());
                     }
                 });
 
@@ -278,7 +279,7 @@ public class LookUpJournalActivity extends BasicActivity {
 
     private void addComment() {
         final String cont = comment.getText().toString();
-        if (cont.replace(" ", "").isEmpty()) {
+        if (cont.replace(" ", "").replace("\n","").isEmpty()) {
             return;
         }
         Map<String, Object> map = CommonValues.getmap();

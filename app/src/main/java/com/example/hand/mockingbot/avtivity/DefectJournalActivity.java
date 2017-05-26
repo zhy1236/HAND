@@ -34,7 +34,7 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
     private List<DefectEntity.ResultBean.DataBean> list = new ArrayList<>();
     private ListAdapter<DefectEntity.ResultBean.DataBean> listAdapter = new ListAdapter<DefectEntity.ResultBean.DataBean>(list, R.layout.item_defect) {
         @Override
-        public void bindView(ViewHolder holder, DefectEntity.ResultBean.DataBean obj) {
+        public void bindView(ViewHolder holder, DefectEntity.ResultBean.DataBean obj,int position) {
             if (obj == list.get(0)){
                 holder.setVisibility(R.id.item_defect_top,View.VISIBLE);
             }else {

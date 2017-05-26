@@ -69,12 +69,8 @@ public class NewJournalActivity extends BasicActivity {
     private DecimalFormat df;
     private ListAdapter<AttauchBean> attauchBeanListAdapter = new ListAdapter<AttauchBean>(attauchlist,R.layout.attauch_item) {
         @Override
-        public void bindView(ViewHolder holder, final AttauchBean obj) {
-//            if (obj.getFieldName().split("__") != null){
-//                holder.setText(R.id.attauch_item_field_name, obj.getFieldName().split("__")[2]);
-//            }else {
-                holder.setText(R.id.attauch_item_field_name, obj.getFieldName());
-//            }
+        public void bindView(ViewHolder holder, final AttauchBean obj,int position) {
+            holder.setText(R.id.attauch_item_field_name, obj.getFieldName());
             holder.setText(R.id.attauch_item_field_sise,obj.getSize());
             if (obj.getFieldName().endsWith(".jpg")||obj.getFieldName().endsWith(".jpeg")|| obj.getFieldName().endsWith(".png")||obj.getFieldName().endsWith(".bmp")|| obj.getFieldName().endsWith(".gif")){
                 holder.setImageResource(R.id.attauch_item_iv,R.mipmap.ic_iv);
