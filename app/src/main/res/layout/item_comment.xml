@@ -37,6 +37,7 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/item_comment_ll"
         android:background="@drawable/ll_bg_comment"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
@@ -54,7 +55,6 @@
             android:id="@+id/item_comment_tv_title"
             android:textSize="13sp"
             android:textColor="#666666"
-            android:text="肖珊对向芳5月25日提交的[日报]进行了评论"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
@@ -67,9 +67,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:ellipsize="end"
+            android:enabled="false"
             android:lineSpacingExtra="3dp"
-            android:text="评论内容：写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写
-            的很好写的很好写的很好写的很好写的很好写的很好写的很好写的写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好写的很好"
             android:maxLength="77"
             android:textColor="#999999"
             android:textSize="13sp"

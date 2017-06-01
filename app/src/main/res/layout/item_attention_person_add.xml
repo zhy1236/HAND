@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <RelativeLayout
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:orientation="vertical"
@@ -13,22 +12,16 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:padding="10dp"
+            android:src="@mipmap/ic_add_src"
             android:id="@+id/item_has_look_iv"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/ic_head_portrait"
+            android:background="@mipmap/ic_add_bg"
             android:layout_width="40dp"
             android:layout_height="40dp" />
 
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/item_has_look_delete"
-            android:src="@mipmap/ic_attauch_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/item_has_look_iv"
-            android:layout_alignRight="@+id/item_has_look_iv"/>
-
         <TextView
+            android:text="添加用户"
             android:layout_below="@+id/item_has_look_iv"
             android:id="@+id/reader_name"
             android:layout_gravity="center_horizontal"

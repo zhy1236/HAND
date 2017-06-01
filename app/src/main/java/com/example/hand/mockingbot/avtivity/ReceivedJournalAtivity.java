@@ -92,7 +92,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         loadData(index);
     }

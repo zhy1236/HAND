@@ -8,5 +8,7 @@
     <color name="transparent">#00ffffff</color>
     <color name="primary">#FF03A9F4</color>
     <color name="primary_dark">#205AC2E7</color>
+    <color name="indicator_color">#59C2E6</color>
+    <color name="background_tab_pressed">#8859C2E6</color>
     <color name="status_bar_color">@color/primary_dark</color>
 </resources>

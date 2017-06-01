@@ -103,7 +103,7 @@ public class ProjectFragment extends Fragment {
     private void initlist() {
         list.clear();
         AttentionProject attentionProject1 = new AttentionProject();
-        attentionProject1.setProjectName("伊利只能BI平台");
+        attentionProject1.setProjectName("伊利智能BI平台");
         attentionProject1.setProjectImage(R.mipmap.ic_project_yili);
         list.add(attentionProject1);
         AttentionProject attentionProject2 = new AttentionProject();
@@ -119,7 +119,7 @@ public class ProjectFragment extends Fragment {
         attentionProject4.setProjectImage(R.mipmap.ic_hand);
         list.add(attentionProject4);
         AttentionProject attentionProject5 = new AttentionProject();
-        attentionProject5.setProjectName("伊利只能BI平台");
+        attentionProject5.setProjectName("伊利智能BI平台");
         attentionProject5.setProjectImage(R.mipmap.ic_project_yili);
         list.add(attentionProject5);
         AttentionProject attentionProject6 = new AttentionProject();

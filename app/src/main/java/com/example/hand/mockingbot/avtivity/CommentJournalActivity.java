@@ -1,10 +1,10 @@
 package com.example.hand.mockingbot.avtivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by zhy on 2017/5/5.
  */
 
-public class CommentJournalActivity extends BasicActivity implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
+public class CommentJournalActivity extends BasicActivity implements SimpleListView.OnRefreshListener {
 
     private Toolbar toolbar;
     private SimpleListView lv;
@@ -31,7 +31,7 @@ public class CommentJournalActivity extends BasicActivity implements SimpleListV
     private List<CommentAllEntity.ResultBean.DataBean> list = new ArrayList<>();
     private ListAdapter<CommentAllEntity.ResultBean.DataBean> listAdapter = new ListAdapter<CommentAllEntity.ResultBean.DataBean>(list, R.layout.item_comment) {
         @Override
-        public void bindView(ViewHolder holder, CommentAllEntity.ResultBean.DataBean obj,int position) {
+        public void bindView(ViewHolder holder, CommentAllEntity.ResultBean.DataBean obj, final int position) {
             String submitDate = obj.getSubmitDate();
             String[] split = submitDate.split("-");
             if (split[1].startsWith("0")){
@@ -51,6 +51,24 @@ public class CommentJournalActivity extends BasicActivity implements SimpleListV
                 holder.setVisibility(R.id.item_comment_time,View.VISIBLE);
             }
             holder.setText(R.id.item_comment_ed,"评论内容：" + obj.getContent());
+            holder.setOnClickListener(R.id.item_comment_ll, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent();
+                            intent.setClass(getApplicationContext(),LookUpJournalActivity.class);
+                            intent.putExtra("dailyId",list.get(position).getDailyId());
+                            intent.putExtra("time",list.get(position).getCommentDate());
+                            intent.putExtra("name",list.get(position).getRealname());
+                            intent.putExtra("focus","0");
+                            intent.putExtra("my",false);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            });
         }
     };
     @Override
@@ -107,7 +125,6 @@ public class CommentJournalActivity extends BasicActivity implements SimpleListV
         lv = (SimpleListView) findViewById(R.id.journal_receiver_lv);
         lv.setOnRefreshListener(this);
         lv.setAdapter(listAdapter);
-        lv.setOnItemClickListener(this);
         pb = (RelativeLayout) findViewById(R.id.journal_receiver_pb);
     }
 
@@ -127,8 +144,4 @@ public class CommentJournalActivity extends BasicActivity implements SimpleListV
 
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
 }

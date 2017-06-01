@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="67dp">
+
+        <ImageView
+            android:id="@+id/item_attention_project_iv"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:layout_width="42dp"
+            android:layout_height="26dp" />
+
+        <TextView
+            android:id="@+id/item_attention_project_tv"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/item_attention_project_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_margin="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_journal_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:background="#DDDDDD"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="27dp">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_project_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv"
+            android:text="实现阶段"
+            android:textSize="13sp"
+            android:textColor="#999999"
+            android:id="@+id/item_attention_project_schendule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

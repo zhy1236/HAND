@@ -62,18 +62,26 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
                         if (getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() > 0){
                             received_num.setVisibility(View.VISIBLE);
                             received_num.setText(getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum() + ""):"99+");
+                        }else {
+                            received_num.setVisibility(View.GONE);
                         }
                         if (getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() > 0){
                             send_num.setVisibility(View.VISIBLE);
                             send_num.setText(getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum() + ""):"99+");
+                        }else {
+                            send_num.setVisibility(View.GONE);
                         }
                         if (getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() > 0){
                             defect_num.setVisibility(View.VISIBLE);
                             defect_num.setText(getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(3).getIsNotNum() + ""):"99+");
+                        }else {
+                            defect_num.setVisibility(View.GONE);
                         }
                         if (getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() > 0){
                             comment_num.setVisibility(View.VISIBLE);
                             comment_num.setText(getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() < 99?(getDailyStatisticalEntity.getResult().getData().get(4).getIsNotNum() + ""):"99+");
+                        }else {
+                            comment_num.setVisibility(View.GONE);
                         }
                     }
                 });

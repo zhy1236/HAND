@@ -19,6 +19,7 @@ import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.utils.Fields;
 import com.example.hand.mockingbot.utils.HandApp;
 import com.example.hand.mockingbot.utils.SpUtils;
+import com.example.hand.mockingbot.utils.ToastUtil;
 
 
 /**
@@ -81,18 +82,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.my_account_and_security:
-                break;
             case R.id.my_modify_password:
-                break;
             case R.id.my_attention:
+//                intent.setClass(getContext(), MyAttentionActivity.class);
+//                startActivity(intent);
+            case R.id.my_help_and_feedback:
+            case R.id.my_about:
+                ToastUtil.showToast(getContext(),"此功能正在开发中，敬请期待!");
                 break;
             case R.id.my_concern:
                 intent.setClass(getContext(), MyCollectionActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.my_help_and_feedback:
-                break;
-            case R.id.my_about:
                 break;
             case R.id.my_btn_zx:
                 SpUtils.saveString(getContext(),Fields.PASSWORD,"");

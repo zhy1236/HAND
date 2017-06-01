@@ -1,11 +1,15 @@
 package com.example.hand.mockingbot.avtivity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -54,6 +58,7 @@ import okhttp3.Response;
 public class NewJournalActivity extends BasicActivity {
 
     public static final int CHOOSE_PICTURE = 1;
+    private static final int MY_PERMISSION_REQUEST_CODE = 10010;
     private Toolbar toolbar;
     private boolean ispayment = false;
     private List<AttauchBean> attauchlist = new ArrayList<>();
@@ -209,7 +214,24 @@ public class NewJournalActivity extends BasicActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                boolean isAllGranted = checkPermissionAllGranted(
+                        new String[] {
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        }
+                );
+                if (isAllGranted) {
+                    showDialog();
+                }else {
+                    ActivityCompat.requestPermissions(
+                            NewJournalActivity.this,
+                            new String[] {
+                                    Manifest.permission.INTERNET,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            },MY_PERMISSION_REQUEST_CODE
+                    );
+                }
             }
         });
         bt = (Button) findViewById(R.id.new_journal_tj);
@@ -239,14 +261,11 @@ public class NewJournalActivity extends BasicActivity {
 
     private void addJournal() {
         bt.setEnabled(false);
-        if (finishwork.getText().toString().replace(" ", "").replace("\n","").isEmpty()){
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(),"请填写完成工作",Toast.LENGTH_SHORT).show();
-                    bt.setEnabled(true);
-                }
-            });
+        String s = finishwork.getText().toString();
+        boolean empty = s.replace(" ","").replace("\n","").isEmpty();
+        if (empty){
+            Toast.makeText(getApplicationContext(),"请填写完成工作",Toast.LENGTH_SHORT).show();
+            bt.setEnabled(true);
         }else {
             Map<String, Object> map = CommonValues.getmap();
             map.put("finishWork",finishwork.getText().toString());
@@ -269,7 +288,7 @@ public class NewJournalActivity extends BasicActivity {
 
             }else {
                 map.put("isPayment",0);
-                if (intent.getExtras().getString("submitTimeDate") != null){
+                if (intent.getExtras() != null){
                     map.put("submitTimeDate",intent.getExtras().getString("submitTimeDate"));
                 }else {
                     map.put("submitDate",getData(true));
@@ -520,6 +539,25 @@ public class NewJournalActivity extends BasicActivity {
             }
         });
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSION_REQUEST_CODE) {
+            boolean isAllGranted = true;
 
+            // 判断是否所有的权限都已经授予了
+            for (int grant : grantResults) {
+                if (grant != PackageManager.PERMISSION_GRANTED) {
+                    isAllGranted = false;
+                    break;
+                }
+            }
+
+            if (isAllGranted) {
+                // 如果所有的权限都授予了, 则执行备份代码
+                showDialog();
+            }
+        }
+    }
 
 }
