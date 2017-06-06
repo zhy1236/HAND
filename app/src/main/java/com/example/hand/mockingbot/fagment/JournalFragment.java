@@ -143,7 +143,7 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
 
     public String getData(){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        Date curDate = new Date(System.currentTimeMillis() - 24*60*60*1000);//获取前一天日期
         String str = formatter.format(curDate);
         return str;
     }

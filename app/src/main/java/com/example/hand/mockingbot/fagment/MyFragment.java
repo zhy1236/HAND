@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.avtivity.LoginActivity;
+import com.example.hand.mockingbot.avtivity.MyAttentionActivity;
 import com.example.hand.mockingbot.avtivity.MyCollectionActivity;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.utils.Fields;
@@ -82,17 +83,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent();
         switch (view.getId()){
             case R.id.my_account_and_security:
-            case R.id.my_modify_password:
-            case R.id.my_attention:
-//                intent.setClass(getContext(), MyAttentionActivity.class);
-//                startActivity(intent);
-            case R.id.my_help_and_feedback:
-            case R.id.my_about:
                 ToastUtil.showToast(getContext(),"此功能正在开发中，敬请期待!");
+                break;
+            case R.id.my_modify_password:
+                ToastUtil.showToast(getContext(),"此功能正在开发中，敬请期待!");
+                break;
+            case R.id.my_attention:
+                intent.setClass(getContext(), MyAttentionActivity.class);
+                startActivity(intent);
                 break;
             case R.id.my_concern:
                 intent.setClass(getContext(), MyCollectionActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.my_help_and_feedback:
+                ToastUtil.showToast(getContext(),"此功能正在开发中，敬请期待!");
+                break;
+            case R.id.my_about:
+                ToastUtil.showToast(getContext(),"此功能正在开发中，敬请期待!");
                 break;
             case R.id.my_btn_zx:
                 SpUtils.saveString(getContext(),Fields.PASSWORD,"");

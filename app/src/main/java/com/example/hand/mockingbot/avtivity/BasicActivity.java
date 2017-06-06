@@ -60,7 +60,7 @@ public class BasicActivity extends AppCompatActivity {
     public String getData(boolean b){
         if (b){
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+            Date curDate = new Date(System.currentTimeMillis());//获取当前日期
             String str = formatter.format(curDate);
             return str;
         }else {
@@ -70,6 +70,13 @@ public class BasicActivity extends AppCompatActivity {
             return str;
 
         }
+    }
+
+    public String getData(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date curDate = new Date(System.currentTimeMillis() - 24*60*60*1000);//获取前一天日期
+        String str = formatter.format(curDate);
+        return str;
     }
 
     public String getTime(long submitDate){
@@ -116,10 +123,6 @@ public class BasicActivity extends AppCompatActivity {
             startActivityForResult(Intent.createChooser(intent,"请选择要上传的文件"),CHOOSE_FILE);
         }catch (ActivityNotFoundException ex){
         }
-    }
-
-    public enum FileType {
-        IMAGE,WORD,EXCEL,RAR
     }
 
     public void showDateTimePicker(final TextView view, boolean bolean) {

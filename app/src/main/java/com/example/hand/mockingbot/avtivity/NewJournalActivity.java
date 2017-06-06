@@ -1,15 +1,18 @@
 package com.example.hand.mockingbot.avtivity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -281,13 +284,18 @@ public class NewJournalActivity extends BasicActivity {
                 }
             }
             map.put("enclosureUrl",stringBuffer);
-            map.put("isAfterPayment",0);
             if (ispayment){
-                map.put("isPayment",1);
-                map.put("submitDate",tv_vj.getText());
+                if (tv_vj.getText().toString().isEmpty()){
+                    bt.setEnabled(true);
+                    pb.setVisibility(View.GONE);
+                    return;
+                }else {
+                    map.put("isAfterPayment",1);
+                    map.put("submitDate",tv_vj.getText());
+                }
 
             }else {
-                map.put("isPayment",0);
+                map.put("isAfterPayment",0);
                 if (intent.getExtras() != null){
                     map.put("submitTimeDate",intent.getExtras().getString("submitTimeDate"));
                 }else {
@@ -556,8 +564,30 @@ public class NewJournalActivity extends BasicActivity {
             if (isAllGranted) {
                 // 如果所有的权限都授予了, 则执行备份代码
                 showDialog();
+            }else {
+                openAppDetails();
             }
         }
+    }
+
+    private void openAppDetails() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("调用相册或手机文件需要访问 “相册” 和 “外部存储器”，请到 “应用信息 -> 权限” 中授予！");
+        builder.setPositiveButton("去手动授权", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 
 }

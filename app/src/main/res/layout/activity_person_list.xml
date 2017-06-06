@@ -83,8 +83,11 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.example.hand.mockingbot.view.SimpleListView
+
+    <ListView
         android:layout_below="@+id/reader_ll_ss"
+        android:layout_above="@+id/person_list_bottom"
+        android:orientation="vertical"
         android:id="@+id/journal_receiver_lv"
         android:divider="@null"
         android:smoothScrollbar="true"
@@ -94,7 +97,6 @@
         android:headerDividersEnabled="true"
         android:footerDividersEnabled="true"
         android:layout_width="match_parent"
-        android:dividerHeight="10dp"
         android:layout_height="match_parent"/>
 
     <RelativeLayout
@@ -107,6 +109,45 @@
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/person_list_bottom"
+        android:background="@drawable/btn_bg_white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="13sp"
+            android:textColor="#359DF5"
+            android:text="已选择："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerVertical="true"
+            android:textSize="13sp"
+            android:textColor="#359DF5"
+            android:text="0人"
+            android:layout_toRightOf="@+id/tv"
+            android:id="@+id/attention_person_list_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/attention_person_btn"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="确定(0)"
+            android:background="@drawable/selector_bg_login_button"
+            android:layout_width="77dp"
+            android:layout_height="30dp" />
+
     </RelativeLayout>
 
 </RelativeLayout>

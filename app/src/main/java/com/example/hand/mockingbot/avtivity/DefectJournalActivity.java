@@ -63,7 +63,7 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
 
     private void loadData(final int ind) {
         LoginEntity.ResultBean.DataBean data = HandApp.getLoginEntity().getResult().getData();
-        String url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData(true) + "&state=1&pageNo=" + ind + "&pageSize=10";
+        String url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData() + "&state=1&pageNo=" + ind + "&pageSize=10";
         HttpManager.getInstance().get(url, DefectEntity.class, new HttpManager.ResultCallback<DefectEntity>() {
             @Override
             public void onSuccess(String json, final DefectEntity receivedJournal) throws InterruptedException {
@@ -143,4 +143,5 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
     public void onScrollOutside() {
 
     }
+
 }

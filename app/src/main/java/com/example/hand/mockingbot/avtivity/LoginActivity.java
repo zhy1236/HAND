@@ -3,17 +3,20 @@ package com.example.hand.mockingbot.avtivity;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -94,8 +97,6 @@ public class LoginActivity extends AppCompatActivity {
             );
         }
         initView();
-//        String brand = android.os.Build.BRAND;
-//        Toast.makeText(getApplicationContext(),"手机的品牌是" + brand,Toast.LENGTH_SHORT).show();
     }
 
     private void upData() {
@@ -256,7 +257,6 @@ public class LoginActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK){
             if (requestCode == CHOOSE_PICTURE){
                 if (data.getData() != null) {
-//                    Picasso.with(getApplicationContext()).load("http://edb2.hand-china.com:8088/project-mg-app/app/daily/downloadAttachment?fileName=1495595794553__60015__191049591-394c648b1229b806.jpg").centerCrop().transform(new RoundRecTransform()).into(iv_photo);
                     iv_photo.setImageURI(data.getData());
                     HandApp.setPhotoUri(data.getData());
                     SpUtils.saveString(getApplicationContext(),Fields.PHOTO_PATH,HttpManager.getRealPathFromUri(data.getData(), getApplicationContext()));
@@ -313,7 +313,29 @@ public class LoginActivity extends AppCompatActivity {
             if (isAllGranted) {
                 // 如果所有的权限都授予了, 则执行备份代码
                 upData();
+            }else {
+                openAppDetails();
             }
         }
+    }
+
+    private void openAppDetails() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("APP更新需要访问 “网络” ，请到 “应用信息 -> 权限” 中授予！");
+        builder.setPositiveButton("去手动授权", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 }
