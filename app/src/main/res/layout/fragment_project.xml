@@ -132,7 +132,7 @@
 
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:background="@mipmap/ic_my_concern"
+                    android:background="@mipmap/ic_attention"
                     android:layout_margin="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

@@ -88,14 +88,8 @@
         android:layout_below="@+id/reader_ll_ss"
         android:layout_above="@+id/person_list_bottom"
         android:orientation="vertical"
+        android:dividerHeight="0dp"
         android:id="@+id/journal_receiver_lv"
-        android:divider="@null"
-        android:smoothScrollbar="true"
-        android:layoutAnimation="@anim/list_item_in"
-        android:fastScrollEnabled="false"
-        android:choiceMode="singleChoice"
-        android:headerDividersEnabled="true"
-        android:footerDividersEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

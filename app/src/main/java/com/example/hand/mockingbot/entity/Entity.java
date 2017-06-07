@@ -1,39 +1,38 @@
 package com.example.hand.mockingbot.entity;
 
+import java.util.List;
+
 /**
  * Created by zhy on 2017/5/20.
  */
 
 public class Entity {
 
-    private ResultBean result;
-    private ErrorBean error;
+    private String msg;
+    private int code;
+    private List<?> data;
 
-    public ErrorBean getError() {
-        return error;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setError(ErrorBean error) {
-        this.error = error;
-    }
-    public ResultBean getResult() {
-        return result;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public void setResult(ResultBean result) {
-        this.result = result;
+    public int getCode() {
+        return code;
     }
 
-    public static class ResultBean {
+    public void setCode(int code) {
+        this.code = code;
+    }
 
-        private String data;
+    public List<?> getData() {
+        return data;
+    }
 
-        public String getData() {
-            return data;
-        }
-
-        public void setData(String data) {
-            this.data = data;
-        }
+    public void setData(List<?> data) {
+        this.data = data;
     }
 }

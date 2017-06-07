@@ -5,38 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/item_attention_ll"
-        android:background="#FFFFFF"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
-
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:id="@+id/item_users_title"
-            android:gravity="center"
-            android:layout_marginLeft="15dp"
-            android:textSize="14sp"
-            android:textColor="#999999"
-            android:text="A"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:layout_marginRight="20dp"
-            android:background="#F4F4F4"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/item_attention_rl"
         android:background="#FFFFFF"
+        android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
         android:layout_height="58dp">
 
@@ -74,7 +46,6 @@
             android:id="@+id/item_users_zw"
             android:textSize="13sp"
             android:textColor="#8D8A8A"
-            android:text="移动开发"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

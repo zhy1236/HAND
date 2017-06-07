@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="28dp">
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:text="资源占用天数/月:"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ProgressBar
+                android:layout_gravity="center_vertical"
+                android:layout_width="150dp"
+                android:max="100"
+                android:progress="50"
+                android:layout_height="5dp" />
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:textColor="#FF9940"
+                android:textSize="12sp"
+                android:text="17天"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

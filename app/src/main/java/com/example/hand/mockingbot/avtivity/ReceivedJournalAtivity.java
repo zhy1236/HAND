@@ -111,12 +111,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                             list.clear();
                         }
                         list.addAll(receivedJournalEntity.getResult().getData());
-                        hasMore = receivedJournalEntity.getResult().getData().size() > 0;
-                        if (list.size() < receivedJournalEntity.getResult().getPage().getTotal_elements()){
-                            hasMore = true;
-                        }else {
-                            hasMore = false;
-                        }
+                        hasMore = (receivedJournalEntity.getResult().getData().size() > 0);
                         listAdapter.notifyDataSetChanged();
                         lv.completeRefresh();
                     }

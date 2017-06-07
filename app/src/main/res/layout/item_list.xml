@@ -3,8 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:visibility="gone"
+        android:background="#FFFFFF"
+        android:id="@+id/item_list_title"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/ic_item_list_iv"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="2.5dp"
+            android:layout_height="12.5dp" />
+
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:text="我关注的人"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
     <com.example.hand.mockingbot.view.SimpleListView
-        android:layout_below="@+id/reader_ll_ss"
+        android:layout_below="@+id/item_list_title"
+        android:layout_above="@+id/item_list_bottom"
         android:layout_marginTop="1dp"
         android:id="@+id/journal_receiver_lv"
         android:divider="@null"
@@ -17,6 +46,23 @@
         android:layout_width="match_parent"
         android:dividerHeight="10dp"
         android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="#359DF5"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/item_list_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:drawableLeft="@mipmap/ic_item_list_add"
+            android:text=" 添加用户"
+            android:background="#359DF5"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/journal_receiver_pb"

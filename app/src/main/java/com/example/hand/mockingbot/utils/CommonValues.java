@@ -8,9 +8,9 @@ import java.util.Map;
  */
 
 public class CommonValues {
-    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/project-mg-app/app"; //本地环境
 //    public static final String BASE_TEST_HOST = "http://192.168.11.198:8084/project-mg-app/app";//测试环境
-//    public static final String BASE_TEST_HOST  = "http://edb2.hand-china.com:8088/project-mg-app/app"; //正式环境
+//    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/project-mg-app/app"; //本地环境
+    public static final String BASE_TEST_HOST  = "http://edb2.hand-china.com:8088/project-mg-app/app"; //正式环境
 
 
 
@@ -130,6 +130,23 @@ public class CommonValues {
      * state 状态 关注1 ,取消关注 0
      */
     public static final String USER_FOCUS = currentHost+"/my/userFocus";
+
+    /**
+     * 添加关注的人
+     * post
+     * userId  用户ID
+     * memberIds 被管理的人
+     */
+    public static final String ADD_MEBER_USERS = currentHost + "/my/addMemberUsers";
+
+    /**
+     * 查询资源占用情况
+     *
+     */
+    public static final String RESOURCE_LIST = currentHost + "/resource/getResourceList";
+
+
+
 
     public static Map<String,Object> getmap(){
         Map<String, Object> param = new HashMap<>();

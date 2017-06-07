@@ -122,14 +122,13 @@ public class JournalFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()){
             case R.id.journal_receiver:
                 intent.setClass(getContext(), ReceivedJournalAtivity.class);
-                intent.putExtra("content",getDailyStatisticalEntity.getResult().getData().get(0).getIsNotNum());
                 break;
             case R.id.journal_new:
                 intent.setClass(getContext(), NewJournalActivity.class);
                 break;
             case R.id.journal_send:
                 intent.setClass(getContext(), SendJournalActivity.class);
-                intent.putExtra("content",getDailyStatisticalEntity.getResult().getData().get(2).getIsNotNum());
+                intent.putExtra("userId",HandApp.getLoginEntity().getResult().getData().getId());
                 break;
             case R.id.journal_defect:
                 intent.setClass(getContext(), DefectJournalActivity.class);

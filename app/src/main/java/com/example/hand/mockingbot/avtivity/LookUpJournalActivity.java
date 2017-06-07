@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
@@ -27,6 +26,7 @@ import com.example.hand.mockingbot.entity.JournalBean;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.DataUtil;
 import com.example.hand.mockingbot.utils.HandApp;
+import com.example.hand.mockingbot.utils.ToastUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -162,13 +162,8 @@ public class LookUpJournalActivity extends BasicActivity {
                 HttpManager.getInstance().get(url, Entity.class, new HttpManager.ResultCallback<Entity>() {
                     @Override
                     public void onSuccess(String json, Entity entity) throws InterruptedException {
-                        if (entity.getResult().getData().equals("1")) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), b ? "收藏成功" : "删除收藏成功", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        if (entity.getCode() == 100) {
+                            ToastUtil.showToast(getApplicationContext(),b?"收藏成功" : "删除收藏成功");
                         }
                     }
 
@@ -296,7 +291,7 @@ public class LookUpJournalActivity extends BasicActivity {
         HttpManager.getInstance().post(CommonValues.COMMENT, map, Entity.class, new HttpManager.ResultCallback<Entity>() {
             @Override
             public void onSuccess(String json, Entity entity) throws InterruptedException {
-                if (entity.getResult().getData().equals("1")) {
+                if (entity.getCode() == 100) {
                     addcontent(cont);
                 }
             }

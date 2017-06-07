@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <com.example.hand.mockingbot.view.RoundImageViewByXfer
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/item_attention_person_iv"
+            zhy:borderRadius="20dp"
+            zhy:type="round"
+            android:src="@mipmap/ic_head_portrait"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:id="@+id/item_attention_person_name"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/item_attention_person_iv"
+            android:text="肖珊"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/item_attention_person_zw"
+            android:layout_marginTop="10dp"
+            android:text="测试组长"
+            android:textSize="13sp"
+            android:textColor="#8D8A8A"
+            android:layout_below="@+id/item_attention_person_name"
+            android:layout_toRightOf="@+id/item_attention_person_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textColor="#999999"
+            android:textSize="13sp"
+            android:text="日志"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_bg_to_journal"
+            android:layout_centerVertical="true"
+            android:id="@+id/item_attention_person_journal"
+            android:layout_toLeftOf="@+id/item_attention_person_delete"
+            android:layout_width="62dp"
+            android:layout_height="23dp" />
+
+        <Button
+            android:layout_marginRight="10dp"
+            android:textColor="#F13E28"
+            android:textSize="13sp"
+            android:background="@drawable/btn_bg_delete"
+            android:id="@+id/item_attention_person_delete"
+            android:text="删除"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="62dp"
+            android:layout_height="23dp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -3,10 +3,10 @@ package com.example.hand.mockingbot.entity;
 import java.util.List;
 
 /**
- * Created by zhy on 2017/5/11.
+ * Created by zhy on 2017/6/7.
  */
 
-public class AttentionPerson {
+public class ResourceOccupationEntity {
 
     private String msg;
     private int code;
@@ -96,33 +96,19 @@ public class AttentionPerson {
 
     public static class DataBean {
 
-        private int managerId;
-        private int memberId;
+        private int del_flag;
         private String position;
+        private int project;
+        private int days;
+        private String account;
         private String realname;
 
-        public int getManagerId() {
-            return managerId;
+        public int getDel_flag() {
+            return del_flag;
         }
 
-        public void setManagerId(int managerId) {
-            this.managerId = managerId;
-        }
-
-        public int getMemberId() {
-            return memberId;
-        }
-
-        public void setMemberId(int memberId) {
-            this.memberId = memberId;
-        }
-
-        public String getRealname() {
-            return realname;
-        }
-
-        public void setRealname(String realname) {
-            this.realname = realname;
+        public void setDel_flag(int del_flag) {
+            this.del_flag = del_flag;
         }
 
         public String getPosition() {
@@ -131,6 +117,38 @@ public class AttentionPerson {
 
         public void setPosition(String position) {
             this.position = position;
+        }
+
+        public int getProject() {
+            return project;
+        }
+
+        public void setProject(int project) {
+            this.project = project;
+        }
+
+        public int getDays() {
+            return days;
+        }
+
+        public void setDays(int days) {
+            this.days = days;
+        }
+
+        public String getAccount() {
+            return account;
+        }
+
+        public void setAccount(String account) {
+            this.account = account;
+        }
+
+        public String getRealname() {
+            return realname;
+        }
+
+        public void setRealname(String realname) {
+            this.realname = realname;
         }
     }
 }

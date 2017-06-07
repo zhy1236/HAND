@@ -6,26 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
-import com.example.hand.mockingbot.entity.LoginEntity;
+import com.example.hand.mockingbot.datamanage.HttpManager;
+import com.example.hand.mockingbot.entity.AddDailySeeEntivy;
 import com.example.hand.mockingbot.entity.MyJournalEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
-import com.example.hand.mockingbot.utils.GsonUtil;
 import com.example.hand.mockingbot.utils.HandApp;
 import com.example.hand.mockingbot.view.SimpleListView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by zhy on 2017/5/5.
@@ -37,18 +30,10 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
     private boolean hasMore = true;
     private SimpleListView lv;
     private int index = 1;
-    private MyJournalEntity receivedJournalEntity;
     private List<MyJournalEntity.ResultBean.DataBean> list = new ArrayList<>();
-    private List<MyJournalEntity.ResultBean.DataBean> basicList;
     private ListAdapter<MyJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<MyJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
         public void bindView(ViewHolder holder, MyJournalEntity.ResultBean.DataBean obj,int position) {
-            if (HandApp.getPhotoUri() != null){
-                ImageView iv = holder.getView(R.id.journal_item_imv);
-                iv.setImageURI(HandApp.getPhotoUri());
-            }else {
-                holder.setImageResource(R.id.journal_item_imv,R.mipmap.ic_head_portrait);
-            }
             if (obj.getFinishWork() != null){
                 holder.setText(R.id.journal_item_tv_finish, obj.getFinishWork());
             }else {
@@ -83,6 +68,7 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
             }
         }
     };
+    private String userId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,45 +95,37 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
                 onBackPressed();
             }
         });
+        TextView title = (TextView) findViewById(R.id.main_tv_title);
+        if (!getIntent().getExtras().getString("userId").equals(HandApp.getLoginEntity().getResult().getData().getId())){
+            title.setText("所有日志");
+        }
     }
 
     private void loadData(final int index) {
-        LoginEntity.ResultBean.DataBean data = HandApp.getLoginEntity().getResult().getData();
-        String url = CommonValues.MY_JOURNAL + "userId=" + data.getId() + "&pageNo=" + index + "&pageSize=10";
-        OkHttpClient mOkHttpClient = new OkHttpClient();
-        final Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(new Callback() {
+        userId = getIntent().getExtras().getString("userId");
+        String url = CommonValues.MY_JOURNAL + "userId=" + userId + "&pageNo=" + index + "&pageSize=10";
+        HttpManager.getInstance().get(url, MyJournalEntity.class, new HttpManager.ResultCallback<MyJournalEntity>() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lv.completeRefresh();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
-                receivedJournalEntity = GsonUtil.parseJsonToBean(string, MyJournalEntity.class);
+            public void onSuccess(String json, final MyJournalEntity myJournalEntity) throws InterruptedException {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (index == 1){
                             list.clear();
                         }
-                        list.addAll(receivedJournalEntity.getResult().getData());
+                        hasMore = (myJournalEntity.getResult().getData().size() > 0);
+                        list.addAll(myJournalEntity.getResult().getData());
                         listAdapter.notifyDataSetChanged();
-                        hasMore = receivedJournalEntity.getResult().getData().size() > 0;
-                        if (list.size() < receivedJournalEntity.getResult().getPage().getTotal_elements()){
-                            hasMore = true;
-                        }else {
-                            hasMore = false;
-                        }
+                        lv.completeRefresh();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
                         lv.completeRefresh();
                     }
                 });
@@ -168,15 +146,36 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
         if (lv.isPullRefreshed()){
             return;
         }else {
+            adddailySee(list.get(i-1).getDailyId());
             Intent intent = new Intent();
             intent.setClass(getApplicationContext(),LookUpJournalActivity.class);
             intent.putExtra("dailyId",list.get(i-1).getDailyId());
             intent.putExtra("time",getTime(list.get(i-1).getSubmitDate()));
             intent.putExtra("name",list.get(i-1).getRealname());
-            intent.putExtra("my",true);
+            intent.putExtra("focus","0");
+            if (userId.equals(HandApp.getLoginEntity().getResult().getData().getId())){
+                intent.putExtra("my",true);
+            }else {
+                intent.putExtra("my",false);
+            }
             startActivity(intent);
         }
 
+    }
+
+    private void adddailySee(int id) {
+        String url = CommonValues.ADD_DAILYSEE + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + id;
+        HttpManager.getInstance().get(url, AddDailySeeEntivy.class, new HttpManager.ResultCallback<AddDailySeeEntivy>() {
+            @Override
+            public void onSuccess(String json, AddDailySeeEntivy addDailySeeEntivy) throws InterruptedException {
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
     }
 
     @Override

@@ -75,12 +75,7 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
                             list.clear();
                         }
                         list.addAll(receivedJournal.getResult().getData());
-                        hasMore = receivedJournal.getResult().getData().size() > 0;
-                        if (list.size() < receivedJournal.getResult().getPage().getTotal_elements()){
-                            hasMore = true;
-                        }else {
-                            hasMore = false;
-                        }
+                        hasMore = (receivedJournal.getResult().getData().size() > 0);
                         listAdapter.notifyDataSetChanged();
                         lv.completeRefresh();
                     }

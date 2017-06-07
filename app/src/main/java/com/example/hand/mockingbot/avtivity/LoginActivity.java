@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
         if (isAllGranted){
-            upData();
+//            upData();
         }else {
             ActivityCompat.requestPermissions(
                     this,

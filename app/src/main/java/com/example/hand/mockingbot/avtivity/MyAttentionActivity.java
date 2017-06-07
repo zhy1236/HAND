@@ -10,7 +10,6 @@ import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.MainFragmentAdapter;
 import com.example.hand.mockingbot.entity.FragmentInfo;
 import com.example.hand.mockingbot.fagment.AttentionPersonFragment;
-import com.example.hand.mockingbot.fagment.AttentionProjectFragment;
 import com.example.hand.mockingbot.view.PagerSlidingTab;
 
 import java.util.ArrayList;
@@ -48,8 +47,9 @@ public class MyAttentionActivity extends BasicActivity {
         mVpMainShows = (ViewPager) findViewById(R.id.vp_main_shows);
         MainFragmentAdapter fragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         String[] titles = new String[]{"关注项目","关注用户"};
-        mShowItems.add(new FragmentInfo(titles[0], new AttentionProjectFragment()));
         mShowItems.add(new FragmentInfo(titles[1], new AttentionPersonFragment()));
+//        mShowItems.add(new FragmentInfo(titles[0], new AttentionProjectFragment()));
+//        mShowItems.add(new FragmentInfo(titles[1], new AttentionPersonFragment()));
         fragmentAdapter.setShowItems(mShowItems);
         mVpMainShows.setAdapter(fragmentAdapter);
         mPstMainTitle.setViewPager(mVpMainShows);

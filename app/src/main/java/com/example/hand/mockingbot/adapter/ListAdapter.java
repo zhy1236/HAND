@@ -30,6 +30,16 @@ public abstract class ListAdapter<T> extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return super.getViewTypeCount();
+    }
+
+    @Override
     public int getCount() {
         return mData != null ? mData.size() : 0;
     }

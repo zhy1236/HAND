@@ -20,12 +20,11 @@
             android:textSize="18sp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="收到日报"
+            android:text="资源占用"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <Button
-            android:visibility="gone"
             android:id="@+id/journal_receiver_btn_search"
             android:gravity="center_vertical"
             android:layout_marginRight="20dp"
@@ -39,49 +38,72 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:visibility="gone"
+        android:orientation="vertical"
         android:id="@+id/reader_ll_ss"
         android:layout_below="@+id/id_toolbar"
-        android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="60dp">
+
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/resource_occupation_title_iv"
+                android:layout_margin="10dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:textColor="#333333"
+                android:text="2017/05"
+                android:layout_toRightOf="@+id/resource_occupation_title_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_gravity="center"
             android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginTop="1dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_checked_project"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/ic_more"
-                android:text="项目综合管理平台"
-                android:textSize="15sp"
-                android:textColor="#666666"
-                android:background="#F4F4F4"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:textColor="#999999"
+                android:text="工作天数"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:textColor="#FF9940"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:text="22"
+                android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp" />
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/ic_more"
-                android:text="高级筛选"
-                android:textSize="15sp"
-                android:textColor="#666666"
-                android:layout_marginLeft="20dp"
-                android:background="#F4F4F4"
-                android:layout_width="102dp"
-                android:layout_height="35dp" />
+                android:layout_height="match_parent" />
+
         </LinearLayout>
+
     </LinearLayout>
 
     <com.example.hand.mockingbot.view.SimpleListView

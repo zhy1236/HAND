@@ -89,7 +89,7 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
         HttpManager.getInstance().get(url, Entity.class, new HttpManager.ResultCallback<Entity>() {
             @Override
             public void onSuccess(String json, Entity entity) throws InterruptedException {
-                if (entity.getResult().getData().equals("1")){
+                if (entity.getCode() == 100){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -135,12 +135,7 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
                             list.clear();
                         }
                         list.addAll(receivedJournalEntity.getResult().getData());
-                        hasMore = receivedJournalEntity.getResult().getData().size() > 0;
-                        if (list.size() < receivedJournalEntity.getResult().getPage().getTotal_elements()){
-                            hasMore = true;
-                        }else {
-                            hasMore = false;
-                        }
+                        hasMore = (receivedJournalEntity.getResult().getData().size() > 0);
                         listAdapter.notifyDataSetChanged();
                         lv.completeRefresh();
                     }

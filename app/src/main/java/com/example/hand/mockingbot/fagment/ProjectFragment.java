@@ -1,5 +1,6 @@
 package com.example.hand.mockingbot.fagment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
+import com.example.hand.mockingbot.avtivity.ResourceOccupationActivity;
 import com.example.hand.mockingbot.entity.AttentionProject;
 
 import java.util.ArrayList;
@@ -61,11 +63,19 @@ public class ProjectFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_project, container,false);
         GridLayout gl = (GridLayout) view.findViewById(R.id.project_gl);
         for (int i = 0; i < 8; i++) {
-            RelativeLayout item = (RelativeLayout) View.inflate(getContext(), R.layout.project_item, null);
+            final RelativeLayout item = (RelativeLayout) View.inflate(getContext(), R.layout.project_item, null);
             ImageView item_iv = (ImageView) item.findViewById(R.id.project_item_iv);
             item_iv.setBackgroundResource(im[i]);
             TextView item_tv = (TextView) item.findViewById(R.id.project_item_tv);
             item_tv.setText(tv[i]);
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), ResourceOccupationActivity.class);
+                    startActivity(intent);
+                }
+            });
             gl.addView(item);
         }
         initlist();
