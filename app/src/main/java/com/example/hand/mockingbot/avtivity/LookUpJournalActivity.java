@@ -21,8 +21,8 @@ import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.AttauchBean;
-import com.example.hand.mockingbot.entity.Entity;
 import com.example.hand.mockingbot.entity.JournalBean;
+import com.example.hand.mockingbot.entity.ResultEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.DataUtil;
 import com.example.hand.mockingbot.utils.HandApp;
@@ -125,7 +125,13 @@ public class LookUpJournalActivity extends BasicActivity {
 
             @Override
             public void onFailure(String msg) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"获取日报信息失败!");
+                        finish();
+                    }
+                });
             }
         });
 
@@ -151,19 +157,22 @@ public class LookUpJournalActivity extends BasicActivity {
             button.setVisibility(View.VISIBLE);
         } else {
             checkBox.setVisibility(View.VISIBLE);
-            if (intent.getExtras().getString("focus").equals("1")) {
-                checkBox.setChecked(true);
-            }
+            checkBox.setChecked(journalBean.getResult().getFocus().equals("1"));
         }
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
                 String url = CommonValues.FOCUS + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + dailyId + "&state=" + (b ? 1 : 0);
-                HttpManager.getInstance().get(url, Entity.class, new HttpManager.ResultCallback<Entity>() {
+                HttpManager.getInstance().get(url, ResultEntity.class, new HttpManager.ResultCallback<ResultEntity>() {
                     @Override
-                    public void onSuccess(String json, Entity entity) throws InterruptedException {
-                        if (entity.getCode() == 100) {
-                            ToastUtil.showToast(getApplicationContext(),b?"收藏成功" : "删除收藏成功");
+                    public void onSuccess(String json, ResultEntity entity) throws InterruptedException {
+                        if (entity.getResult().getData().equals("1")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.showToast(getApplicationContext(),b?"收藏成功" : "删除收藏成功");
+                                }
+                            });
                         }
                     }
 
@@ -288,10 +297,10 @@ public class LookUpJournalActivity extends BasicActivity {
                 pb.setVisibility(View.VISIBLE);
             }
         });
-        HttpManager.getInstance().post(CommonValues.COMMENT, map, Entity.class, new HttpManager.ResultCallback<Entity>() {
+        HttpManager.getInstance().post(CommonValues.COMMENT, map, ResultEntity.class, new HttpManager.ResultCallback<ResultEntity>() {
             @Override
-            public void onSuccess(String json, Entity entity) throws InterruptedException {
-                if (entity.getCode() == 100) {
+            public void onSuccess(String json, ResultEntity entity) throws InterruptedException {
+                if (entity.getResult().getData().equals("1")) {
                     addcontent(cont);
                 }
             }

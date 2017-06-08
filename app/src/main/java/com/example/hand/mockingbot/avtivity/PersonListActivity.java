@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
+import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.adapter.UsersAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.BaseItem;
@@ -41,9 +42,17 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
     private ListView lv;
     private UsersAdapter myAdapter = null;
     private List<BaseItem> mData = new ArrayList<>();
+    private List<String> strings = new ArrayList<>();
+    private ListAdapter listAdapter = new ListAdapter(strings,R.layout.item_string) {
+        @Override
+        public void bindView(ViewHolder holder, Object ob, int position) {
+            holder.setText(R.id.item_string_tv,ob.toString());
+        }
+    };
     private RelativeLayout pb;
     private TextView num;
     private Button btn;
+    private ListView listView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +83,28 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View view) {
                 addattentionperson();
+            }
+        });
+        listView = (ListView) findViewById(R.id.person_list_lv);
+        listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String s = strings.get(i);
+                for (int j = 0; j < mData.size(); j++) {
+                    if (mData.get(j).getItem_type() == ViewHolder1.ITEM_VIEW_TYPE_1){
+                        ItemBean1 baseItem = (ItemBean1) mData.get(j);
+                        if (baseItem.getName().equals(s)){
+                            if (j > lv.getFirstVisiblePosition()){
+                                int sise = (mData.size() - j > 7) ? 7 : (mData.size() - j);
+                                lv.smoothScrollToPosition(j + sise);
+                            }else {
+                                lv.smoothScrollToPosition(j);
+                            }
+                            return;
+                        }
+                    }
+                }
             }
         });
     }
@@ -134,6 +165,7 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
     private void setlist(List<UsersEntity.DataBeanX> data) {
         for (UsersEntity.DataBeanX dataBeanX : data) {
             mData.add(new ItemBean1(ViewHolder1.ITEM_VIEW_TYPE_1,dataBeanX.getMsg()));
+            strings.add(dataBeanX.getMsg());
             for (UsersEntity.DataBeanX.DataBean bean : dataBeanX.getData()) {
                 mData.add(new ItemBean2(ViewHolder2.ITEM_VIEW_TYPE_2,bean.getFlag().equals("1"),bean.getRealname(),bean.getDeptName(),bean.getUserId()));
                 if (bean.getFlag().equals("1")){
@@ -147,6 +179,7 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                listAdapter.notifyDataSetChanged();
                 num.setText(set.size() + "人");
                 btn.setText("确认(" + set.size() + ")");
             }

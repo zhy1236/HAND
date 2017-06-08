@@ -1,11 +1,14 @@
 package com.example.hand.mockingbot.avtivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
@@ -32,15 +35,36 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
     private ListAdapter<ResourceOccupationEntity.DataBean> listAdapter = new ListAdapter<ResourceOccupationEntity.DataBean>(list, R.layout.item_resource_occupation) {
         @Override
         public void bindView(ViewHolder holder, ResourceOccupationEntity.DataBean obj,int position) {
+            holder.setText(R.id.item_resource_occupation_name,obj.getRealname());
+            holder.setText(R.id.item_resource_occupation_day,obj.getDays() + "天");
+            ProgressBar pb = holder.getView(R.id.item_resource_occupation_pb);
+            pb.setMax(i);
+            pb.setProgress(obj.getDays());
+            holder.setText(R.id.item_resource_occupation_sum,obj.getTotal() + "");
+            holder.setText(R.id.item_resource_occupation_taskscompleted,obj.getTasksCompleted() + "");
 
         }
     };
     private RelativeLayout pb;
+    private String time;
+    private String days;
+    private String[] split;
+    private int i;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource_occupation);
+        String data = getData(true);
+        split = data.split("-");
+        time = split[0] + "/" + split[1];
+        if (split[2].startsWith("0")){
+            days = split[2].substring(1,2);
+        }else {
+            days = split[2];
+        }
+        Integer integer = new Integer(days);
+        i = integer.intValue();
         initView();
     }
 
@@ -65,6 +89,10 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
         lv.setAdapter(listAdapter);
         lv.setOnItemClickListener(this);
         pb = (RelativeLayout) findViewById(R.id.journal_receiver_pb);
+        TextView tv_time = (TextView) findViewById(R.id.time);
+        tv_time.setText(time);
+        TextView tv_days = (TextView) findViewById(R.id.item_resource_occupation_days);
+        tv_days.setText(days);
     }
 
     @Override
@@ -78,7 +106,7 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
     private void loadData(int indx) {
         Map<String, Object> getmap = CommonValues.getmap();
         getmap.put("product","");
-        getmap.put("dateTime","2017-6");
+        getmap.put("dateTime",time.replace("/","-"));
         getmap.put("pageNo",indx);
         getmap.put("pageSize",10);
         HttpManager.getInstance().post(CommonValues.RESOURCE_LIST, getmap, ResourceOccupationEntity.class, new HttpManager.ResultCallback<ResourceOccupationEntity>() {
@@ -123,6 +151,14 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        toResource(list.get(i - 1));
+    }
 
+    private void toResource(ResourceOccupationEntity.DataBean dataBean) {
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(),ResourcePersonActivity.class);
+        intent.putExtra("product",dataBean.getId());
+        intent.putExtra("resourceId",dataBean.getId());
+        startActivity(intent);
     }
 }

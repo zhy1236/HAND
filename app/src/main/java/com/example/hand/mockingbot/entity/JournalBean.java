@@ -31,6 +31,7 @@ public class JournalBean {
 
         private DataBean data;
         private int count;
+        private String focus;
         private List<ReaderBean> reader;
         private List<CommentBean> comment;
 
@@ -48,6 +49,14 @@ public class JournalBean {
 
         public void setCount(int count) {
             this.count = count;
+        }
+
+        public String getFocus() {
+            return focus;
+        }
+
+        public void setFocus(String focu) {
+            focus = focu;
         }
 
         public List<ReaderBean> getReader() {

@@ -24,7 +24,6 @@
             android:id="@+id/item_attention_person_name"
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/item_attention_person_iv"
-            android:text="肖珊"
             android:textSize="15sp"
             android:textColor="#333333"
             android:layout_width="wrap_content"
@@ -33,7 +32,6 @@
         <TextView
             android:id="@+id/item_attention_person_zw"
             android:layout_marginTop="10dp"
-            android:text="测试组长"
             android:textSize="13sp"
             android:textColor="#8D8A8A"
             android:layout_below="@+id/item_attention_person_name"
@@ -44,7 +42,7 @@
         <Button
             android:textColor="#999999"
             android:textSize="13sp"
-            android:text="日志"
+            android:text="日报"
             android:layout_marginRight="10dp"
             android:background="@drawable/btn_bg_to_journal"
             android:layout_centerVertical="true"

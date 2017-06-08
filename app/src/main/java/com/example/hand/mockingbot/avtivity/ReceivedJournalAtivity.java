@@ -171,7 +171,6 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         intent.putExtra("dailyId",list.get(i).getDailyId());
         intent.putExtra("time",getTime(list.get(i).getSubmitDate()));
         intent.putExtra("name",list.get(i).getRealname());
-        intent.putExtra("focus",list.get(i).getFocus());
         intent.putExtra("my",false);
         startActivity(intent);
     }

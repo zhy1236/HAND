@@ -96,35 +96,27 @@ public class ResourceOccupationEntity {
 
     public static class DataBean {
 
-        private int del_flag;
-        private String position;
-        private int project;
+        private int total;
+        private int tasksCompleted;
         private int days;
-        private String account;
+        private String position;
+        private int id;
         private String realname;
 
-        public int getDel_flag() {
-            return del_flag;
+        public int getTotal() {
+            return total;
         }
 
-        public void setDel_flag(int del_flag) {
-            this.del_flag = del_flag;
+        public void setTotal(int total) {
+            this.total = total;
         }
 
-        public String getPosition() {
-            return position;
+        public int getTasksCompleted() {
+            return tasksCompleted;
         }
 
-        public void setPosition(String position) {
-            this.position = position;
-        }
-
-        public int getProject() {
-            return project;
-        }
-
-        public void setProject(int project) {
-            this.project = project;
+        public void setTasksCompleted(int tasksCompleted) {
+            this.tasksCompleted = tasksCompleted;
         }
 
         public int getDays() {
@@ -135,12 +127,20 @@ public class ResourceOccupationEntity {
             this.days = days;
         }
 
-        public String getAccount() {
-            return account;
+        public String getPosition() {
+            return position;
         }
 
-        public void setAccount(String account) {
-            this.account = account;
+        public void setPosition(String position) {
+            this.position = position;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
 
         public String getRealname() {

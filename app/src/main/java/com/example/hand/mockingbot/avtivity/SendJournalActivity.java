@@ -97,7 +97,7 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
         });
         TextView title = (TextView) findViewById(R.id.main_tv_title);
         if (!getIntent().getExtras().getString("userId").equals(HandApp.getLoginEntity().getResult().getData().getId())){
-            title.setText("所有日志");
+            title.setText("所有日报");
         }
     }
 
@@ -152,7 +152,6 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
             intent.putExtra("dailyId",list.get(i-1).getDailyId());
             intent.putExtra("time",getTime(list.get(i-1).getSubmitDate()));
             intent.putExtra("name",list.get(i-1).getRealname());
-            intent.putExtra("focus","0");
             if (userId.equals(HandApp.getLoginEntity().getResult().getData().getId())){
                 intent.putExtra("my",true);
             }else {

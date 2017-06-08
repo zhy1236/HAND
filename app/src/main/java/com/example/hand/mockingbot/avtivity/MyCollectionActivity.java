@@ -12,9 +12,9 @@ import android.widget.Toast;
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
-import com.example.hand.mockingbot.entity.Entity;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.entity.ReceivedJournalEntity;
+import com.example.hand.mockingbot.entity.ResultEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.HandApp;
 import com.example.hand.mockingbot.view.SimpleListView;
@@ -86,10 +86,10 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
 
     private void deletefocus(final ReceivedJournalEntity.ResultBean.DataBean obj) {
         String url = CommonValues.FOCUS + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + obj.getDailyId() + "&state=0";
-        HttpManager.getInstance().get(url, Entity.class, new HttpManager.ResultCallback<Entity>() {
+        HttpManager.getInstance().get(url, ResultEntity.class, new HttpManager.ResultCallback<ResultEntity>() {
             @Override
-            public void onSuccess(String json, Entity entity) throws InterruptedException {
-                if (entity.getCode() == 100){
+            public void onSuccess(String json, ResultEntity entity) throws InterruptedException {
+                if (entity.getResult().getData().equals("1")){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

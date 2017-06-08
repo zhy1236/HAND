@@ -13,7 +13,6 @@ public class CommonValues {
     public static final String BASE_TEST_HOST  = "http://edb2.hand-china.com:8088/project-mg-app/app"; //正式环境
 
 
-
     public static String currentHost = BASE_TEST_HOST;
 
     /**

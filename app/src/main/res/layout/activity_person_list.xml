@@ -39,6 +39,7 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/reader_ll_ss"
         android:layout_below="@+id/id_toolbar"
         android:background="#fff"
@@ -92,6 +93,13 @@
         android:id="@+id/journal_receiver_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <ListView
+        android:layout_centerInParent="true"
+        android:id="@+id/person_list_lv"
+        android:layout_alignParentRight="true"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:id="@+id/journal_receiver_pb"

@@ -1,17 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="85dp">
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+
+            <com.example.hand.mockingbot.view.RoundImageViewByXfer
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/item_resource_occupation_iv"
+                android:src="@mipmap/ic_login_photo"
+                zhy:borderRadius="20dp"
+                zhy:type="round"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+            <TextView
+                android:textColor="#333"
+                android:textSize="14sp"
+                android:text="肖珊"
+                android:layout_centerVertical="true"
+                android:id="@+id/item_resource_occupation_name"
+                android:layout_toRightOf="@+id/item_resource_occupation_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll1"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="#666"
+                        android:text="任务总数"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:background="#D9D9D9"
+                        android:layout_width="1dp"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:id="@+id/item_resource_occupation_sum"
+                        android:minWidth="13sp"
+                        android:textSize="12sp"
+                        android:gravity="end"
+                        android:textColor="#F13E2B"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/ll1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="#666"
+                        android:text="已完成数"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:background="#D9D9D9"
+                        android:layout_width="1dp"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:id="@+id/item_resource_occupation_taskscompleted"
+                        android:gravity="end"
+                        android:minWidth="13sp"
+                        android:textSize="12sp"
+                        android:textColor="#4BCF99"
+                        android:text="2"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_marginTop="1dp"
+            android:orientation="horizontal"
             android:background="@color/white"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -28,22 +134,27 @@
                 android:layout_height="wrap_content" />
 
             <ProgressBar
+                android:indeterminate="false"
+                style="@style/mProgress_horizontal"
                 android:layout_gravity="center_vertical"
                 android:layout_width="150dp"
-                android:max="100"
-                android:progress="50"
+                android:max="22"
+                android:id="@+id/item_resource_occupation_pb"
                 android:layout_height="5dp" />
 
             <TextView
+                android:id="@+id/item_resource_occupation_day"
+                android:gravity="end"
                 android:layout_gravity="center_vertical"
                 android:textColor="#FF9940"
                 android:textSize="12sp"
                 android:text="17天"
                 android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
