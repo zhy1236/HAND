@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#f4f4f4"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         <TextView
             android:layout_centerInParent="true"
             android:textColor="#fff"
-            android:text="信息"
+            android:text="消息"
             android:id="@+id/toolbar_tv_title"
             android:layout_gravity="center_horizontal"
             android:textSize="18sp"
@@ -22,20 +23,176 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_margin="10dp"
-        android:textColor="#C7C7C7"
-        android:text="我关注的用户:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <ScrollView
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <GridLayout
-            android:id="@+id/manager_gl"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
+            android:layout_height="56dp">
+
+            <com.example.hand.mockingbot.view.RoundImageViewByXfer
+                android:id="@+id/message_iv_journal"
+                android:src="@mipmap/ic_receiver"
+                zhy:borderRadius="20dp"
+                zhy:type="round"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+            <LinearLayout
+                android:layout_toRightOf="@+id/message_iv_journal"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="#333"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="12sp"
+                    android:text="日报汇总"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/message_tv_journal_title"
+                    android:textSize="12sp"
+                    android:textColor="#8D8A8A"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/message_tv_jurnal_time"
+                    android:textColor="#666"
+                    android:textSize="12sp"
+                    android:text="13:40"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/fragment_message_tv_received_num"
+                    android:textSize="10sp"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:gravity="center"
+                    android:minHeight="12dp"
+                    android:minWidth="12dp"
+                    android:text="2"
+                    android:textColor="@color/white"
+                    android:layout_gravity="end"
+                    android:background="@drawable/journal_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginLeft="60dp"
+            android:background="#F4F4F4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <com.example.hand.mockingbot.view.RoundImageViewByXfer
+                android:id="@+id/message_iv_comment"
+                android:src="@mipmap/ic_comment"
+                zhy:borderRadius="20dp"
+                zhy:type="round"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+            <LinearLayout
+                android:layout_toRightOf="@+id/message_iv_comment"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="#333"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="12sp"
+                    android:text="日报评论"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/message_tv_comment_title"
+                    android:textSize="12sp"
+                    android:textColor="#8D8A8A"
+                    android:maxLines="1"
+                    android:maxEms="13"
+                    android:ellipsize="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/message_tv_comment_time"
+                    android:textColor="#666"
+                    android:textSize="12sp"
+                    android:text="13:40"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="10sp"
+                    android:paddingBottom="1dp"
+                    android:paddingTop="1dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:gravity="center"
+                    android:id="@+id/fragment_message_tv_comment_num"
+                    android:text="2"
+                    android:minHeight="12dp"
+                    android:minWidth="12dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="end"
+                    android:background="@drawable/journal_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

@@ -15,7 +15,9 @@ import android.widget.RadioGroup;
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.MyFragmentPagerAdapter;
 import com.example.hand.mockingbot.fagment.JournalFragment;
+import com.example.hand.mockingbot.fagment.MessagrFragment;
 import com.example.hand.mockingbot.fagment.MyFragment;
+import com.example.hand.mockingbot.fagment.ProjectFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,22 +71,22 @@ public class MainActivity extends AppCompatActivity {
         project = (RadioButton) findViewById(R.id.rb_main_project);
         message=(RadioButton) findViewById(R.id.rb_main_message);
         journal=(RadioButton) findViewById(R.id.rb_main_journal);
-        journal.setChecked(true);
         my = (RadioButton) findViewById(R.id.rb_main_my);
+        project.setChecked(true);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-//                    case R.id.rb_main_project:
-//                        pager.setCurrentItem(0);
-//                        break;
-//                    case R.id.rb_main_message:
-//                        pager.setCurrentItem(1);
-//                        break;
-                    case R.id.rb_main_journal:
+                    case R.id.rb_main_project:
                         pager.setCurrentItem(0);
                         break;
-                    case R.id.rb_main_my:
+                    case R.id.rb_main_message:
                         pager.setCurrentItem(1);
+                        break;
+                    case R.id.rb_main_journal:
+                        pager.setCurrentItem(2);
+                        break;
+                    case R.id.rb_main_my:
+                        pager.setCurrentItem(3);
                         break;
                 }
             }
@@ -95,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Fragment> getData() {
         fragments = new ArrayList<Fragment>();
-//        fragments.add(new ProjectFragment());
-//        fragments.add(new MessagrFragment());
+        fragments.add(new ProjectFragment());
+        fragments.add(new MessagrFragment());
         fragments.add(new JournalFragment());
         fragments.add(new MyFragment());
         return fragments;
@@ -121,16 +123,16 @@ public class MainActivity extends AppCompatActivity {
         //当新的页面被选中时调用
         public void onPageSelected(int position) {
             switch (position) {
-//                case 0:
-//                    project.setChecked(true);
-//                    break;
-//            case 1:
-//                message.setChecked(true);
-//                break;
                 case 0:
-                    journal.setChecked(true);
+                    project.setChecked(true);
                     break;
                 case 1:
+                    message.setChecked(true);
+                    break;
+                case 2:
+                    journal.setChecked(true);
+                    break;
+                case 3:
                     my.setChecked(true);
                     break;
 

@@ -3,10 +3,12 @@ package com.example.hand.mockingbot.avtivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,13 +37,14 @@ import java.util.Set;
  * Created by zhy on 2017/6/5.
  */
 
-public class PersonListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class PersonListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private Set<String> set = new HashSet<>();
     private Toolbar toolbar;
     private ListView lv;
     private UsersAdapter myAdapter = null;
     private List<BaseItem> mData = new ArrayList<>();
+    private List<BaseItem> baseEntityList = new ArrayList<>();
     private List<String> strings = new ArrayList<>();
     private ListAdapter listAdapter = new ListAdapter(strings,R.layout.item_string) {
         @Override
@@ -53,6 +56,8 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
     private TextView num;
     private Button btn;
     private ListView listView;
+    private SearchView etSearch;
+    private EditText textView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,9 +112,63 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
                 }
             }
         });
+        etSearch = (SearchView) findViewById(R.id.et_search);
+        etSearch.setSubmitButtonEnabled(false);
+        etSearch.setIconifiedByDefault(false);
+        etSearch.setFocusableInTouchMode(false);
+        etSearch.setFocusable(false);
+        etSearch.setOnClickListener(this);
+        textView = (EditText) etSearch.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        textView.setHintTextColor(0xffbfbdbd);
+        textView.setTextColor(0xff333333);
+        etSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                doFilter(newText);
+                return true;
+            }
+        });
+    }
+
+    private void doFilter(String key) {
+        if (mData != null && !key.equals("")) {
+            baseEntityList.addAll(mData);
+            List<BaseItem> list = new ArrayList<>();
+            for (int i = 0; i < baseEntityList.size(); i++) {
+                if (baseEntityList.get(i).getItem_type() == ViewHolder2.ITEM_VIEW_TYPE_2){
+                    ItemBean2 baseItem = (ItemBean2) baseEntityList.get(i);
+                    if (baseItem.getName() != null && baseItem.getName().contains(key)){
+                        list.add(baseItem);
+                    }
+                    if (baseItem.getZw() != null && baseItem.getZw().contains(key)){
+                        list.add(baseItem);
+                    }
+                    if (baseItem.getStr() != null && baseItem.getStr().toLowerCase().contains(key.toLowerCase())){
+                        list.add(baseItem);
+                    }
+                }
+            }
+            mData.clear();
+            mData.addAll(list);
+            myAdapter.notifyDataSetChanged();
+        } else if (mData != null) {
+            if (baseEntityList != null) {
+                mData.clear();
+                mData.addAll(baseEntityList);
+                baseEntityList.clear();
+                myAdapter.notifyDataSetChanged();
+            }
+
+        }
     }
 
     private void addattentionperson() {
+        btn.setEnabled(false);
         final Map<String, Object> getmap = CommonValues.getmap();
         String ids = "";
         for (String s : set) {
@@ -126,6 +185,7 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
                         public void run() {
                             ToastUtil.showToast(getApplicationContext(),"添加成功");
                             PersonListActivity.this.finish();
+                            btn.setEnabled(true);
                         }
                     });
                 }
@@ -133,7 +193,12 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
 
             @Override
             public void onFailure(String msg) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        btn.setEnabled(true);
+                    }
+                });
             }
         });
     }
@@ -167,7 +232,7 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
             mData.add(new ItemBean1(ViewHolder1.ITEM_VIEW_TYPE_1,dataBeanX.getMsg()));
             strings.add(dataBeanX.getMsg());
             for (UsersEntity.DataBeanX.DataBean bean : dataBeanX.getData()) {
-                mData.add(new ItemBean2(ViewHolder2.ITEM_VIEW_TYPE_2,bean.getFlag().equals("1"),bean.getRealname(),bean.getDeptName(),bean.getUserId()));
+                mData.add(new ItemBean2(ViewHolder2.ITEM_VIEW_TYPE_2,bean.getFlag().equals("1"),bean.getRealname(),bean.getPosition(),bean.getUserId(),bean.getLetter()));
                 if (bean.getFlag().equals("1")){
                     set.add(bean.getUserId() + "");
                 }
@@ -211,4 +276,21 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
         });
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.et_search) {
+            etSearch.setFocusable(true);
+            toggleSearchBox(true);
+        }
+    }
+
+    private void toggleSearchBox(boolean enable) {
+        if (enable) {
+            etSearch.setFocusableInTouchMode(true);
+            etSearch.requestFocus();
+        } else {
+            etSearch.setFocusableInTouchMode(false);
+            etSearch.clearFocus();
+        }
+    }
 }

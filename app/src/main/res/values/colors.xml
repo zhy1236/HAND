@@ -11,4 +11,5 @@
     <color name="indicator_color">#59C2E6</color>
     <color name="background_tab_pressed">#8859C2E6</color>
     <color name="status_bar_color">@color/primary_dark</color>
+    <color name="search_hint">#BFBDBD</color>
 </resources>

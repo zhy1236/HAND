@@ -39,51 +39,37 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/reader_ll_ss"
         android:layout_below="@+id/id_toolbar"
         android:background="#fff"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:gravity="center"
+        <android.support.v7.widget.SearchView
+            android:layout_margin="10dp"
+            android:id="@+id/et_search"
+            android:layout_width="355dp"
+            android:layout_height="25dp"
+            android:background="@drawable/bg_grey"
+            android:ellipsize="start"
+            android:focusable="false"
             android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_checked_project"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/ic_more"
-                android:text="项目综合管理平台"
-                android:textSize="15sp"
-                android:textColor="#666666"
-                android:background="#F4F4F4"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp" />
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/ic_more"
-                android:text="高级筛选"
-                android:textSize="15sp"
-                android:textColor="#666666"
-                android:layout_marginLeft="20dp"
-                android:background="#F4F4F4"
-                android:layout_width="102dp"
-                android:layout_height="35dp" />
-        </LinearLayout>
-    </LinearLayout>
+            android:hint="搜索"
+            android:foregroundGravity="center_horizontal|center"
+            android:gravity="center"
+            app:searchIcon="@mipmap/ic_search_grey"
+            android:imeOptions="actionDone"
+            android:lines="1"
+            app:queryHint="搜索"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    </LinearLayout>
 
     <ListView
         android:layout_below="@+id/reader_ll_ss"
@@ -94,23 +80,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <ListView
-        android:layout_centerInParent="true"
-        android:id="@+id/person_list_lv"
-        android:layout_alignParentRight="true"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"/>
-
     <RelativeLayout
-        android:id="@+id/journal_receiver_pb"
-        android:layout_below="@+id/id_toolbar"
-        android:background="#11ffffff"
-        android:layout_width="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/reader_ll_ss"
+        android:layout_above="@+id/person_list_bottom"
+        android:layout_width="20dp"
         android:layout_height="match_parent">
-        <ProgressBar
+
+        <ListView
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/person_list_lv"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -149,6 +131,21 @@
             android:background="@drawable/selector_bg_login_button"
             android:layout_width="77dp"
             android:layout_height="30dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/journal_receiver_pb"
+        android:layout_below="@+id/id_toolbar"
+        android:background="#11ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

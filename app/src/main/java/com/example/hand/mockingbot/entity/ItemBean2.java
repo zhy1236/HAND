@@ -10,14 +10,16 @@ public class ItemBean2 extends BaseItem{
     private String name = null;
     private String Zw = null;
     private int UsetId;
+    private String str;
 
 
-    public ItemBean2(int item_type, boolean checked, String name, String imagePath, int userId) {
+    public ItemBean2(int item_type, boolean checked, String name, String imagePath, int userId , String string) {
         super(item_type);
         this.Checked = checked;
         this.name = name;
         this.Zw = imagePath;
         this.UsetId = userId;
+        this.str = string;
     }
 
     public boolean getChecked(){
@@ -58,5 +60,13 @@ public class ItemBean2 extends BaseItem{
 
     public void setUsetId(int usetId) {
         UsetId = usetId;
+    }
+
+    public String getStr() {
+        return str;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
     }
 }
