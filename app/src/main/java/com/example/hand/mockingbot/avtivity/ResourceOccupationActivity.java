@@ -1,11 +1,16 @@
 package com.example.hand.mockingbot.avtivity;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,9 +20,14 @@ import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.ResourceOccupationEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
+import com.example.hand.mockingbot.utils.DataUtil;
+import com.example.hand.mockingbot.utils.DateUtils;
 import com.example.hand.mockingbot.view.SimpleListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +60,9 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
     private String days;
     private String[] split;
     private int i;
+    private LinearLayout ll_ss;
+    private TextView tv_days;
+    private TextView tv_time;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,8 +76,7 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
         }else {
             days = split[2];
         }
-        Integer integer = new Integer(days);
-        i = integer.intValue();
+        i = DataUtil.parseString2UnsignedInt(days);
         initView();
     }
 
@@ -89,10 +101,17 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
         lv.setAdapter(listAdapter);
         lv.setOnItemClickListener(this);
         pb = (RelativeLayout) findViewById(R.id.journal_receiver_pb);
-        TextView tv_time = (TextView) findViewById(R.id.time);
+        tv_time = (TextView) findViewById(R.id.time);
         tv_time.setText(time);
-        TextView tv_days = (TextView) findViewById(R.id.item_resource_occupation_days);
+        tv_days = (TextView) findViewById(R.id.item_resource_occupation_days);
         tv_days.setText(days);
+        ll_ss = (LinearLayout) findViewById(R.id.reader_ll_ss);
+        ll_ss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateTimePicker(tv_time);
+            }
+        });
     }
 
     @Override
@@ -151,14 +170,69 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        toResource(list.get(i - 1));
+        if (lv.isPullRefreshed()){
+            return;
+        }else {
+            toResource(list.get(i - 1));
+        }
     }
 
     private void toResource(ResourceOccupationEntity.DataBean dataBean) {
         Intent intent = new Intent();
         intent.setClass(getApplicationContext(),ResourcePersonActivity.class);
+        intent.putExtra("time",tv_time.getText().toString().replace("/","-"));
         intent.putExtra("product",dataBean.getId());
         intent.putExtra("resourceId",dataBean.getId());
         startActivity(intent);
+    }
+
+    public void showDateTimePicker(final TextView view) {
+        final Calendar select = Calendar.getInstance();
+        try {
+            select.setTime(new SimpleDateFormat("yyyy/MM").parse(view.getText().toString()));
+        } catch (Exception e) {
+            select.setTime(new Date());
+            select.set(Calendar.HOUR_OF_DAY, 0);
+            select.set(Calendar.MINUTE, 0);
+        }
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this, null, select.get(Calendar.YEAR), select.get(Calendar.MONTH), select.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                select.set(Calendar.YEAR, datePickerDialog.getDatePicker().getYear());
+                select.set(Calendar.MONTH, datePickerDialog.getDatePicker().getMonth());
+                final String format = new SimpleDateFormat("yyyy/MM").format(select.getTime());
+                ResourceOccupationActivity.this.time = format;
+                view.setText(format);
+                index = 1;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (split[1].equals(format.split("/")[1])){
+                            tv_days.setText(days);
+                            i = DataUtil.parseString2UnsignedInt(days);
+                        }else {
+                            int monthDays = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(format.split("/")[0]), DataUtil.parseString2UnsignedInt(format.split("/")[1]) - 1);
+                            tv_days.setText(monthDays + "");
+                            i = monthDays;
+                        }
+                    }
+                });
+                pb.setVisibility(View.VISIBLE);
+                loadData(index);
+            }
+        });
+        if (datePickerDialog != null) {
+            Integer integer = Integer.valueOf(Build.VERSION.SDK_INT);
+            int SDKVersion = integer;
+            if (SDKVersion < 11) {
+                ((ViewGroup) datePickerDialog.getDatePicker().getChildAt(0)).getChildAt(2).setVisibility(View.GONE);
+            } else if (SDKVersion > 14) {
+                ((ViewGroup) ((ViewGroup) datePickerDialog.getDatePicker().getChildAt(0)).getChildAt(0)).getChildAt(2).setVisibility(View.GONE);
+            }
+        }
+        datePickerDialog.show();
     }
 }

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F4F4F4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:title=""
+        android:id="@+id/id_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:textColor="#fff"
+            android:id="@+id/main_tv_title"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="项目资源占用情况"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/journal_receiver_btn_search"
+            android:gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:isScrollContainer="@+id/main_bt_search"
+            android:background="#5AC2E7"
+            android:drawableRight="@mipmap/ic_search"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.hand.mockingbot.view.RoundImageViewByXfer
+            android:id="@+id/login_iv"
+            android:src="@mipmap/ic_login_photo"
+            zhy:borderRadius="20dp"
+            zhy:type="round"
+            android:layout_margin="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:id="@+id/resource_person_name"
+            android:textSize="14sp"
+            android:textColor="#59C2E6"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/resource_person_zw"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="#ff0000"
+            android:text="2017"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.example.hand.mockingbot.view.WeekDayView
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <RelativeLayout
+                android:visibility="invisible"
+                android:id="@+id/rl1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#ff0000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#CECECE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:text="5月"
+                    android:textColor="#ff0000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#CECECE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#ff0000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#CECECE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#ff0000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#CECECE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl5"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#ff0000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#CECECE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl6"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#ff0000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#CECECE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl7"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="#ff0000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:background="#CECECE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/resource_person_gl"
+            android:columnCount="7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </GridLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

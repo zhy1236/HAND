@@ -31,7 +31,6 @@
         android:layout_toRightOf="@+id/item_comment_iv"
         android:textSize="14sp"
         android:textColor="#666"
-        android:text="日报"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -65,10 +64,8 @@
             android:id="@+id/item_comment_ed"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:ellipsize="end"
             android:enabled="false"
             android:lineSpacingExtra="3dp"
-            android:maxLength="77"
             android:textColor="#999999"
             android:textSize="13sp"
             android:layout_width="wrap_content"
