@@ -57,7 +57,6 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
     };
     private RelativeLayout pb;
     private String time;
-    private String days;
     private String[] split;
     private int i;
     private LinearLayout ll_ss;
@@ -71,12 +70,7 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
         String data = getData(true);
         split = data.split("-");
         time = split[0] + "/" + split[1];
-        if (split[2].startsWith("0")){
-            days = split[2].substring(1,2);
-        }else {
-            days = split[2];
-        }
-        i = DataUtil.parseString2UnsignedInt(days);
+        i = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1);
         initView();
     }
 
@@ -104,7 +98,7 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
         tv_time = (TextView) findViewById(R.id.time);
         tv_time.setText(time);
         tv_days = (TextView) findViewById(R.id.item_resource_occupation_days);
-        tv_days.setText(days);
+        tv_days.setText(DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1) + "");
         ll_ss = (LinearLayout) findViewById(R.id.reader_ll_ss);
         ll_ss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,8 +205,8 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
                     @Override
                     public void run() {
                         if (split[1].equals(format.split("/")[1])){
-                            tv_days.setText(days);
-                            i = DataUtil.parseString2UnsignedInt(days);
+                            tv_days.setText(DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1) + "");
+                            i = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1);
                         }else {
                             int monthDays = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(format.split("/")[0]), DataUtil.parseString2UnsignedInt(format.split("/")[1]) - 1);
                             tv_days.setText(monthDays + "");

@@ -31,6 +31,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/message_to_journal"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 
@@ -113,6 +114,7 @@
             android:layout_height="1dp" />
 
         <RelativeLayout
+            android:id="@+id/message_to_comment"
             android:layout_width="match_parent"
             android:layout_height="56dp">
 

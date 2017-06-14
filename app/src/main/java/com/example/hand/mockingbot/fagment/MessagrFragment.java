@@ -1,13 +1,17 @@
 package com.example.hand.mockingbot.fagment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
+import com.example.hand.mockingbot.avtivity.CommentJournalActivity;
+import com.example.hand.mockingbot.avtivity.ReceivedJournalAtivity;
 import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.CommentAllEntity;
 import com.example.hand.mockingbot.entity.GetDailyStatisticalEntity;
@@ -29,6 +33,8 @@ public class MessagrFragment extends android.support.v4.app.Fragment {
 
     private TextView received_num, comment_num, journal_title, message_title;
     private GetDailyStatisticalEntity getDailyStatisticalEntity;
+    private RelativeLayout to_journal;
+    private RelativeLayout to_comment;
 
 
     @Override
@@ -126,6 +132,24 @@ public class MessagrFragment extends android.support.v4.app.Fragment {
         comment_num = (TextView) view.findViewById(R.id.fragment_message_tv_comment_num);
         journal_title = (TextView) view.findViewById(R.id.message_tv_journal_title);
         message_title = (TextView) view.findViewById(R.id.message_tv_comment_title);
+        to_journal = (RelativeLayout) view.findViewById(R.id.message_to_journal);
+        to_journal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), ReceivedJournalAtivity.class);
+                startActivity(intent);
+            }
+        });
+        to_comment = (RelativeLayout) view.findViewById(R.id.message_to_comment);
+        to_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), CommentJournalActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

@@ -63,10 +63,20 @@ public class ResourcePersonActivity extends BasicActivity {
             }
         });
         gl = (GridLayout) findViewById(R.id.resource_person_gl);
+        TextView year = (TextView) findViewById(R.id.reader_tv_year);
+        year.setText(time.split("-")[0]);
         monthDays = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("-")[0]), DataUtil.parseString2UnsignedInt(time.split("-")[1])-1);
         firstDayWeek = DateUtils.getFirstDayWeek(DataUtil.parseString2UnsignedInt(time.split("-")[0]), DataUtil.parseString2UnsignedInt(time.split("-")[1])-1) - 1;
+        LinearLayout month_ll = (LinearLayout) findViewById(R.id.resource_month_ll);
+        for (int i = 0; i < 7; i++) {
+            if (i == firstDayWeek){
+                TextView childAt = (TextView) month_ll.getChildAt(i);
+                childAt.setText(DataUtil.parseString2UnsignedInt(time.split("-")[1]) + "月");
+            }
+        }
+
         for (int i = 0; i < monthDays + firstDayWeek; i++) {
-            LinearLayout.LayoutParams lp =new LinearLayout.LayoutParams(width/7, 100);
+            LinearLayout.LayoutParams lp =new LinearLayout.LayoutParams(width/7, 140);
             View inflate = View.inflate(getApplicationContext(), R.layout.item_resource_person_gl, null);
             Button tv = (Button) inflate.findViewById(item_resource_person_gl_tv);
             RelativeLayout rl = (RelativeLayout) inflate.findViewById(R.id.item_resource_person_gl_rl);

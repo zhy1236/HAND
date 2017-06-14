@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -82,6 +83,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         }
     };
     private RelativeLayout pb;
+    private Button btn_search;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,6 +144,18 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                 onBackPressed();
             }
         });
+        btn_search = (Button) findViewById(R.id.journal_receiver_btn_search);
+        btn_search.setVisibility(View.GONE);
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+    }
+
+    private void tosearch() {
+
     }
 
     private void initView() {

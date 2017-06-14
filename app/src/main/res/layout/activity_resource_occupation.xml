@@ -53,16 +53,15 @@
                 android:id="@+id/resource_occupation_title_iv"
                 android:layout_margin="10dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/ic_iv"
+                android:src="@mipmap/ic_calendar"
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
 
             <TextView
                 android:layout_centerVertical="true"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textColor="#333333"
                 android:id="@+id/time"
-                android:text="2017/05"
                 android:layout_toRightOf="@+id/resource_occupation_title_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -89,7 +88,6 @@
                 android:gravity="center_vertical"
                 android:textSize="13sp"
                 android:textColor="#999999"
-                android:text="工作天数"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent" />
@@ -99,7 +97,6 @@
                 android:gravity="center_vertical"
                 android:textSize="13sp"
                 android:id="@+id/item_resource_occupation_days"
-                android:text="22"
                 android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />

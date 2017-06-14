@@ -2,12 +2,14 @@ package com.example.hand.mockingbot.avtivity;
 
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -30,6 +32,7 @@ import java.util.Date;
 public class BasicActivity extends AppCompatActivity {
 
     public AlertDialog dialog;
+    public ProgressDialog progressDialog;
     public static final int TAKE_PICTURE = 0;
     public static final int CHOOSE_PICTURE = 1;
     public static final int CHOOSE_FILE = 2;
@@ -109,6 +112,26 @@ public class BasicActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void showDialog(String msg, @DrawableRes int resId) {
+        progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog.setMessage(msg);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public void updateDialog(String msg, @DrawableRes int resId) {
+        if (progressDialog != null && dialog.isShowing()) {
+            progressDialog.setMessage(msg);
+        }
+    }
+
+    public void hideDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.cancel();
+        }
+    }
+
     private void choosePicture() {
         Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
@@ -148,7 +171,6 @@ public class BasicActivity extends AppCompatActivity {
             }
         });
         datePickerDialog.show();
-
     }
 
     public void showSelector(final Button holder, final String[] args) {
@@ -178,6 +200,25 @@ public class BasicActivity extends AppCompatActivity {
                 holder.setText(value);
                 if (callback != null) {
                         callback.onSelected(index, holder);
+                }
+            }
+        });
+    }
+
+    public void showSelector2(String time_start,String time_end,boolean check,final String holder, final String args) {
+        showSelector2(time_start,time_end,check,holder,args,null);
+    }
+
+    public interface OnSelectedResultCallback2 {
+        void onSelected2(String startTime, String endTime, String Keyword, boolean isOrNot);
+    }
+
+    public void showSelector2(String time_start,String time_end,boolean check,final String hintstr, final String boolestr, final OnSelectedResultCallback2 callback2) {
+        ActionSheetActivity2.openActionSheet(BasicActivity.this,time_start,time_end,check, hintstr,boolestr, new ActionSheetActivity2.OnResult() {
+            @Override
+            public void onResult(String startTime, String endTime, String Keyword, boolean isOrNot) {
+                if (callback2 != null) {
+                    callback2.onSelected2(startTime, endTime,Keyword,isOrNot);
                 }
             }
         });

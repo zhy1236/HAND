@@ -13,10 +13,12 @@
         <RelativeLayout
             android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="65dp">
+            android:layout_height="wrap_content">
 
             <com.example.hand.mockingbot.view.RoundImageViewByXfer
                 android:layout_centerVertical="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="12.5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:id="@+id/item_resource_occupation_iv"
@@ -28,8 +30,7 @@
 
             <TextView
                 android:textColor="#333"
-                android:textSize="14sp"
-                android:text="肖珊"
+                android:textSize="15sp"
                 android:layout_centerVertical="true"
                 android:id="@+id/item_resource_occupation_name"
                 android:layout_toRightOf="@+id/item_resource_occupation_iv"
@@ -40,9 +41,11 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:id="@+id/ll1"
                     android:orientation="horizontal"
+                    android:layout_marginBottom="3dp"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -76,6 +79,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="3dp"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/ll1"
                     android:layout_width="wrap_content"
@@ -102,18 +106,15 @@
                         android:minWidth="13sp"
                         android:textSize="12sp"
                         android:textColor="#4BCF99"
-                        android:text="2"
                         android:layout_marginRight="10dp"
                         android:layout_toRightOf="@+id/tv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
+
             </RelativeLayout>
 
-
-
         </RelativeLayout>
-
 
         <LinearLayout
             android:layout_marginTop="1dp"
@@ -125,9 +126,9 @@
 
             <TextView
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:textColor="#999999"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:text="资源占用天数/月:"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -147,7 +148,7 @@
                 android:gravity="end"
                 android:layout_gravity="center_vertical"
                 android:textColor="#FF9940"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:text="17天"
                 android:layout_marginRight="10dp"
                 android:layout_width="match_parent"

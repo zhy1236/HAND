@@ -29,6 +29,7 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
 
     private Toolbar toolbar;
     private boolean hasMore = true;
+    private boolean hascondition = false;
     private SimpleListView lv;
     private int index = 1;
     private List<DefectEntity.ResultBean.DataBean> list = new ArrayList<>();
@@ -46,6 +47,10 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
     };
     private RelativeLayout pb;
     private Button button_checked;
+    private String mStartTime = "";
+    private String mEndTime = "";
+    private String mKerWord = "";
+    private boolean mChecked = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +68,12 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
 
     private void loadData(final int ind) {
         LoginEntity.ResultBean.DataBean data = HandApp.getLoginEntity().getResult().getData();
-        String url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData() + "&state=1&pageNo=" + ind + "&pageSize=10";
+        String url = "";
+        if (hascondition){
+            url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData() + "&state=1&pageNo=" + ind + "&pageSize=10" + "&username=" + mKerWord + "&startTime=" + mStartTime + "&endTime=" + mEndTime + "&managerId=" + (mChecked?"1":"0");
+        }else {
+            url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData() + "&state=1&pageNo=" + ind + "&pageSize=10";
+        }
         HttpManager.getInstance().get(url, DefectEntity.class, new HttpManager.ResultCallback<DefectEntity>() {
             @Override
             public void onSuccess(String json, final DefectEntity receivedJournal) throws InterruptedException {
@@ -102,11 +112,12 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
         });
         TextView viewById = (TextView) findViewById(R.id.main_tv_title);
         viewById.setText("未提交人员");
-        button_checked = (Button) findViewById(R.id.btn_checked_project);
-        button_checked.setOnClickListener(new View.OnClickListener() {
+        Button btn_search = (Button) findViewById(R.id.journal_receiver_btn_search);
+        btn_search.setVisibility(View.VISIBLE);
+        btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showSelector(button_checked,new String[]{"项目综合管理平台","伊利只能BI平台","吉利BPM项目","东方购物"});
+                showSelector2(mStartTime,mEndTime,mChecked,"请输入要查找人员姓名","我关注的人");
             }
         });
         lv = (SimpleListView) findViewById(R.id.journal_receiver_lv);
@@ -137,6 +148,30 @@ public class DefectJournalActivity extends BasicActivity implements  SimpleListV
     @Override
     public void onScrollOutside() {
 
+    }
+
+    public void showSelector2(final String time_start, String time_end, final boolean check, final String hintstr, final String boolestr) {
+        ActionSheetActivity2.openActionSheet(DefectJournalActivity.this,time_start,time_end,check, hintstr,boolestr, new ActionSheetActivity2.OnResult() {
+            @Override
+            public void onResult(final String startTime, final String endTime, final String Keyword, final boolean isOrNot) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mStartTime = startTime;
+                        mEndTime = endTime;
+                        mKerWord = Keyword;
+                        mChecked = isOrNot;
+                        if (!startTime.isEmpty() || !Keyword.isEmpty() || isOrNot){
+                            hascondition = true;
+                            index = 1;
+                            loadData(index);
+                        }else {
+                            hascondition = false;
+                        }
+                    }
+                });
+            }
+        });
     }
 
 }

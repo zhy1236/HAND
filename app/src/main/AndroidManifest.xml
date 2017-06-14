@@ -45,6 +45,9 @@
         <activity android:name=".avtivity.ActionSheetActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom"/>
+        <activity android:name=".avtivity.ActionSheetActivity2"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom"/>
         <activity android:name=".avtivity.MyAttentionActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".avtivity.PersonListActivity"
