@@ -77,10 +77,13 @@
 
                 <TextView
                     android:id="@+id/project_tv_urgent"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textSize="12sp"
                     android:textColor="#DA0A17"
+                    android:background="@drawable/bg_red"
                     android:text="急"
                     android:layout_toRightOf="@+id/project_tv_latest_announcement"
                     android:layout_alignTop="@+id/project_tv_latest_announcement"
@@ -89,10 +92,13 @@
 
                 <TextView
                     android:id="@+id/project__tv_news"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
                     android:textSize="12sp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textColor="#3AC493"
+                    android:background="@drawable/bg_green"
                     android:text="新"
                     android:layout_toRightOf="@+id/project_tv_latest_announcement"
                     android:layout_alignBottom="@+id/project_tv_latest_announcement"

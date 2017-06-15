@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
+import com.example.hand.mockingbot.avtivity.ProjectOverviewActivity;
 import com.example.hand.mockingbot.avtivity.ResourceOccupationActivity;
 import com.example.hand.mockingbot.entity.AttentionProject;
 
@@ -34,7 +37,7 @@ public class ProjectFragment extends Fragment {
                                 R.mipmap.ic_project_risk,R.mipmap.ic_project_announcement,R.mipmap.ic_memorandum,R.mipmap.ic_all};
 
     private String[] tv = {"项目概览","资源占用","任务统计","项目进展","项目风险","项目公告","备忘录","全部"};
-
+    private Class[]  classes = {ProjectOverviewActivity.class,ResourceOccupationActivity.class};
     private List<AttentionProject> list = new ArrayList<>();
     private ListView lv;
     private ListAdapter<AttentionProject> listAdapter = new ListAdapter<AttentionProject>(list, R.layout.attention_project_item) {
@@ -63,17 +66,24 @@ public class ProjectFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_project, container,false);
         GridLayout gl = (GridLayout) view.findViewById(R.id.project_gl);
         for (int i = 0; i < 8; i++) {
+            WindowManager wm = getActivity().getWindowManager();
+            int width = wm.getDefaultDisplay().getWidth();
+            RelativeLayout.LayoutParams lp =new RelativeLayout.LayoutParams(width/4, ViewPager.LayoutParams.WRAP_CONTENT);
             final RelativeLayout item = (RelativeLayout) View.inflate(getContext(), R.layout.project_item, null);
+            item.setLayoutParams(lp);
             ImageView item_iv = (ImageView) item.findViewById(R.id.project_item_iv);
             item_iv.setBackgroundResource(im[i]);
             TextView item_tv = (TextView) item.findViewById(R.id.project_item_tv);
             item_tv.setText(tv[i]);
+            final int finalI = i;
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(), ResourceOccupationActivity.class);
-                    startActivity(intent);
+                    if (finalI<classes.length){
+                        Intent intent = new Intent();
+                        intent.setClass(getContext(), classes[finalI]);
+                        startActivity(intent);
+                    }
                 }
             });
             gl.addView(item);

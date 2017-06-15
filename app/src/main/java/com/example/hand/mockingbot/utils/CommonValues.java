@@ -144,6 +144,14 @@ public class CommonValues {
      */
     public static final String RESOURCE_LIST = currentHost + "/resource/getResourceList";
 
+    /**
+     * 获取所有项目
+     * post
+     * pageNo 页数
+     * pageSize 条数
+     */
+    public static final String CUS_PROJECT = currentHost + "/mainPage/cusprojectinfo";
+
 
 
 

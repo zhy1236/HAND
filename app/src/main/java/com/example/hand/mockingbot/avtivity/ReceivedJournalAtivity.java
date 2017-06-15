@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.hand.mockingbot.R;
@@ -144,18 +145,15 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                 onBackPressed();
             }
         });
-        btn_search = (Button) findViewById(R.id.journal_receiver_btn_search);
-        btn_search.setVisibility(View.GONE);
+        LinearLayout ll_ss = (LinearLayout) findViewById(R.id.reader_ll_ss);
+        ll_ss.setVisibility(View.VISIBLE);
+        btn_search = (Button) findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog();
             }
         });
-    }
-
-    private void tosearch() {
-
     }
 
     private void initView() {

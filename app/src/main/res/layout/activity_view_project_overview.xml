@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F4F4F4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:title=""
+        android:id="@+id/id_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:textColor="#fff"
+            android:id="@+id/main_tv_title"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="查看项目概览"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/journal_receiver_btn_search"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            android:isScrollContainer="@+id/main_bt_search"
+            android:background="#5AC2E7"
+            android:drawableRight="@mipmap/ic_change"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tooble_tv_finish"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:layout_gravity="right|center_vertical"
+            android:text="完成"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:paddingRight="10dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="项目编号"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_project_num"
+                    android:textColor="#666"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingRight="10dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="项目名称"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_project_name"
+                    android:textColor="#666"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_project_overview_ispoint_ll"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="是否重点"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_ispoint"
+                    android:textColor="#666"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/view_project_overview_ispoint_iv"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_project_overview_risky_ll"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="风险"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_risky"
+                    android:textColor="#F13E2B"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/view_project_overview_risky_iv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingRight="10dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="项目经理"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_project_manager"
+                    android:textColor="#666"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingRight="10dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="产品经理"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="无"
+                    android:id="@+id/view_project_overview_product_manager"
+                    android:textColor="#666"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingRight="10dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="开始时间"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="2017-02-02"
+                    android:id="@+id/view_project_overview_start_time"
+                    android:textColor="#666"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingRight="10dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="结束时间"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="2017-02-02"
+                    android:id="@+id/view_project_overview_end_time"
+                    android:textColor="#666"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_project_overview_stage_ll"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="阶段"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_stage"
+                    android:textColor="#666"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/view_project_overview_stage_iv"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view_project_overview_state_ll"
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="状态"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_state"
+                    android:textColor="#666"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/view_project_overview_state_iv"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="进度"
+                    android:textColor="#666"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:id="@+id/view_project_overview_schedule"
+                    android:textColor="@color/indicator_color"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

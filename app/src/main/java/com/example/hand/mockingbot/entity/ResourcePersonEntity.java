@@ -9,7 +9,7 @@ import java.util.List;
 public class ResourcePersonEntity {
 
     private String msg;
-    private int code;
+    private String code;
     private PageBean page;
     private List<DataBean> data;
 
@@ -21,11 +21,11 @@ public class ResourcePersonEntity {
         this.msg = msg;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

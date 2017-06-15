@@ -105,7 +105,7 @@ public class ResourceDailyActivity extends BasicActivity implements SimpleListVi
         HttpManager.getInstance().post(CommonValues.RESOURCE_LIST, getmap, ResourceDailEntity.class, new HttpManager.ResultCallback<ResourceDailEntity>() {
             @Override
             public void onSuccess(String json, final ResourceDailEntity entity) throws InterruptedException {
-                if (entity.getCode() == 100){
+                if (entity.getCode().equals("100")){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

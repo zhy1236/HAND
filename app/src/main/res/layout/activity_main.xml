@@ -28,10 +28,9 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:layout_marginTop="1dp"
             android:id="@+id/rb_main_project"
             style="@style/BottomBarItem"
-            android:drawableTop="@drawable/login_iv_bg"
+            android:drawableTop="@drawable/btn_check_project"
             android:checked="true"
             android:text="项目" />
 

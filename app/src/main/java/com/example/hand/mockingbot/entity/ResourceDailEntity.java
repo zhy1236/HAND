@@ -15,7 +15,7 @@ public class ResourceDailEntity {
      */
 
     private String msg;
-    private int code;
+    private String code;
     private PageBean page;
     private List<DataBeanX> data;
 
@@ -27,11 +27,11 @@ public class ResourceDailEntity {
         this.msg = msg;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

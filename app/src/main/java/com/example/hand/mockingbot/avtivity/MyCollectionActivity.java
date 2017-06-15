@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
-import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.entity.ReceivedJournalEntity;
 import com.example.hand.mockingbot.entity.ResultEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
@@ -122,7 +121,6 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
     }
 
     private void loadData(final int index) {
-        LoginEntity.ResultBean.DataBean data = HandApp.getLoginEntity().getResult().getData();
         String url = CommonValues.JOURNAL_LIST + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyTime=" + getData(true) + "&state=0&pageNo=" + index +"&pageSize=10&focus=1";
         HttpManager.getInstance().get(url, ReceivedJournalEntity.class, new HttpManager.ResultCallback<ReceivedJournalEntity>() {
             @Override

@@ -31,6 +31,7 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
     private ProgressBar pb_rotate;
     private int footerViewHeight;
     private int downY;
+    public boolean cantouch = true;
 
     private final int PULL_REFRESH = 0;     //下拉刷新的状态值
     private final int RELEASE_REFRESH = 1;  //松开刷新的状态值
@@ -123,11 +124,11 @@ public class SimpleListView extends ListView implements AbsListView.OnScrollList
                     break;
                 }
                 int paddingTop = -headerViewHeight + deltaY;
-                if ((paddingTop > -headerViewHeight && getFirstVisiblePosition() == 0) || this.getCount() == 0) {
-                    if (paddingTop >= 0 && currentState == PULL_REFRESH) {
+                if (((paddingTop > -headerViewHeight && getFirstVisiblePosition() == 0) || this.getCount() == 0) && cantouch) {
+                    if (paddingTop >= 0 && currentState == PULL_REFRESH ) {
                         currentState = RELEASE_REFRESH;
                         refreshHeaderView();
-                    } else if (paddingTop < 0 && currentState == RELEASE_REFRESH) {
+                    } else if (paddingTop < 0 && currentState == RELEASE_REFRESH ) {
 
                         currentState = PULL_REFRESH;
                         refreshHeaderView();

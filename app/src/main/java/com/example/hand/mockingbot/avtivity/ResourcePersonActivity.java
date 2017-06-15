@@ -106,7 +106,7 @@ public class ResourcePersonActivity extends BasicActivity {
         HttpManager.getInstance().post(CommonValues.RESOURCE_LIST, getmap, ResourcePersonEntity.class, new HttpManager.ResultCallback<ResourcePersonEntity>() {
             @Override
             public void onSuccess(String json, final ResourcePersonEntity entity) throws InterruptedException {
-                if (entity.getCode() == 100){
+                if (entity.getCode().equals("100")){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

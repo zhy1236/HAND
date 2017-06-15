@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="34dp">
+
+        <TextView
+            android:textSize="12sp"
+            android:textColor="#999"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:text="提出人:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/item_add_risk_name"
+            android:layout_gravity="center_vertical"
+            android:text="肖珊"
+            android:textColor="@color/indicator_color"
+            android:textSize="12sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/item_add_risk_time"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:text="2017-05-23"
+            android:textColor="#999"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/item_add_risk_content"
+        android:background="@color/white"
+        android:enabled="false"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp"
+        android:textColor="#666"
+        android:lineSpacingExtra="4dp"
+        android:text="alksjdhlaskhdlaksjdhlajksdhlaksjdhalksjdhlaksjdhlaksjdhlakjsdhlakjsdhlakjdshlakjsdh"
+        android:paddingBottom="20dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </EditText>
+
+    <LinearLayout
+        android:paddingRight="10dp"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="33dp">
+
+        <TextView
+            android:layout_margin="10dp"
+            android:text="需求"
+            android:textColor="#999"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/item_add_risk_btn_change"
+            android:textColor="#999"
+            android:textSize="12sp"
+            android:text="修改"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_ccc"
+            android:layout_gravity="center_vertical"
+            android:layout_width="63dp"
+            android:layout_height="23dp" />
+
+        <Button
+            android:id="@+id/item_add_risk_btn_delete"
+            android:textColor="#F13E2B"
+            android:textSize="12sp"
+            android:text="删除"
+            android:background="@drawable/bg_f89e95"
+            android:layout_gravity="center_vertical"
+            android:layout_width="63dp"
+            android:layout_height="23dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
