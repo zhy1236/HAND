@@ -111,6 +111,7 @@ public class AttentionPersonFragment extends Fragment implements SimpleListView.
                     @Override
                     public void run() {
                         pb.setVisibility(View.GONE);
+                        ToastUtil.showToast(getContext(),"获取数据失败");
                         lv.completeRefresh();
                     }
                 });
@@ -126,10 +127,11 @@ public class AttentionPersonFragment extends Fragment implements SimpleListView.
         HttpManager.getInstance().post(CommonValues.USER_FOCUS, getmap, Entity.class, new HttpManager.ResultCallback<Entity>() {
             @Override
             public void onSuccess(String json, Entity entity) throws InterruptedException {
-                if (entity.getCode() == 100){
+                if (entity.getCode().equals("100")){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            pb.setVisibility(View.GONE);
                             list.remove(position);
                             listAdapter.notifyDataSetChanged();
                             ToastUtil.showToast(getContext(),"取消对" + dataBean.getRealname() + "的关注成功");
@@ -156,7 +158,6 @@ public class AttentionPersonFragment extends Fragment implements SimpleListView.
         lv.setDividerHeight(1);
         lv.setAdapter(listAdapter);
         pb = (RelativeLayout) view.findViewById(R.id.journal_receiver_pb);
-        pb.setVisibility(View.GONE);
         LinearLayout title = (LinearLayout) view.findViewById(R.id.item_list_title);
         title.setVisibility(View.VISIBLE);
         RelativeLayout bottom = (RelativeLayout) view.findViewById(R.id.item_list_bottom);

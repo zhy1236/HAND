@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
@@ -16,6 +17,7 @@ import com.example.hand.mockingbot.entity.ReceivedJournalEntity;
 import com.example.hand.mockingbot.entity.ResultEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.HandApp;
+import com.example.hand.mockingbot.utils.ToastUtil;
 import com.example.hand.mockingbot.view.SimpleListView;
 
 import java.util.ArrayList;
@@ -82,6 +84,7 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
             });
         }
     };
+    private RelativeLayout pb;
 
     private void deletefocus(final ReceivedJournalEntity.ResultBean.DataBean obj) {
         String url = CommonValues.FOCUS + "userId=" + HandApp.getLoginEntity().getResult().getData().getId() + "&dailyId=" + obj.getDailyId() + "&state=0";
@@ -129,6 +132,7 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        pb.setVisibility(View.GONE);
                         if (index == 1){
                             list.clear();
                         }
@@ -145,6 +149,8 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        pb.setVisibility(View.GONE);
+                        ToastUtil.showToast(getApplicationContext(),"获取数据失败");
                         lv.completeRefresh();
                     }
                 });
@@ -167,6 +173,7 @@ public class MyCollectionActivity extends BasicActivity implements AdapterView.O
         lv.setAdapter(listAdapter);
         lv.setOnRefreshListener(this);
         lv.setOnItemClickListener(this);
+        pb = (RelativeLayout) findViewById(R.id.resource_psrson_pb);
     }
 
     @Override

@@ -35,6 +35,8 @@ public class MessagrFragment extends android.support.v4.app.Fragment {
     private GetDailyStatisticalEntity getDailyStatisticalEntity;
     private RelativeLayout to_journal;
     private RelativeLayout to_comment;
+    private TextView commet_time;
+    private TextView journal_time;
 
 
     @Override
@@ -85,12 +87,17 @@ public class MessagrFragment extends android.support.v4.app.Fragment {
         HttpManager.getInstance().get(url2, ReceivedJournalEntity.class, new HttpManager.ResultCallback<ReceivedJournalEntity>() {
             @Override
             public void onSuccess(String json, final ReceivedJournalEntity receivedJournalEntity) throws InterruptedException {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        journal_title.setText("[日报]" + receivedJournalEntity.getResult().getData().get(0).getRealname() + "的日报");
-                    }
-                });
+                if (receivedJournalEntity.getResult().getData().size() > 0){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            journal_title.setText("[日报]" + receivedJournalEntity.getResult().getData().get(0).getRealname() + "的日报");
+                            String joutnalTime = getData(receivedJournalEntity.getResult().getData().get(0).getSubmitDate());
+                            journal_time.setText(joutnalTime.split("-")[1] + ":" + joutnalTime.split("-")[2]);
+                        }
+                    });
+                }
+
             }
 
             @Override
@@ -104,15 +111,20 @@ public class MessagrFragment extends android.support.v4.app.Fragment {
             @Override
             public void onSuccess(String json,final CommentAllEntity commentAllEntity) throws InterruptedException {
                 commentAllEntity.getResult().getData();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        CommentAllEntity.ResultBean.DataBean dataBean = commentAllEntity.getResult().getData().get(0);
-                        String[] split = dataBean.getSubmitDate().split("-");
-                        String str = split[1].substring(1) + "月" + split[2] + "日";
-                        message_title.setText("[日报]" + dataBean.getRealname() +  "对" + data.getRealname() + str + "提交的[日报]进行了评论");
-                    }
-                });
+                if (commentAllEntity.getResult().getData().size() > 0){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            CommentAllEntity.ResultBean.DataBean dataBean = commentAllEntity.getResult().getData().get(0);
+                            String[] split = dataBean.getSubmitDate().split(" ")[0].split("-");
+                            String str = split[1].substring(1) + "月" + split[2] + "日";
+                            message_title.setText("[日报]" + dataBean.getRealname() +  "对" + data.getRealname() + str + "提交的[日报]进行了评论");
+                            String substring = dataBean.getCommentDate().split(" ")[1].substring(0, 5);
+                            commet_time.setText(substring);
+                        }
+                    });
+                }
+
             }
 
             @Override
@@ -150,6 +162,8 @@ public class MessagrFragment extends android.support.v4.app.Fragment {
                 startActivity(intent);
             }
         });
+        commet_time = (TextView) view.findViewById(R.id.message_tv_comment_time);
+        journal_time = (TextView) view.findViewById(R.id.message_tv_jurnal_time);
         return view;
     }
 
@@ -158,6 +172,13 @@ public class MessagrFragment extends android.support.v4.app.Fragment {
     public String getData(){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date curDate = new Date(System.currentTimeMillis());
+        String str = formatter.format(curDate);
+        return str;
+    }
+
+    public String getData(long lon){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date curDate = new Date(lon);
         String str = formatter.format(curDate);
         return str;
     }

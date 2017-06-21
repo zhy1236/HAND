@@ -13,6 +13,7 @@ import com.example.hand.mockingbot.adapter.ListAdapter;
 import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.ProjectOverviewEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
+import com.example.hand.mockingbot.utils.ToastUtil;
 import com.example.hand.mockingbot.view.SimpleListView;
 
 import java.util.ArrayList;
@@ -107,6 +108,7 @@ public class ProjectOverviewActivity extends BasicActivity implements SimpleList
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"获取数据失败");
                         pb.setVisibility(View.GONE);
                         lv.completeRefresh();
                     }

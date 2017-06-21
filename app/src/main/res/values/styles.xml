@@ -58,5 +58,20 @@
     </style>
 
 
+    <style name="style0">
+
+        <item name="android:textSize">10sp</item>
+
+    </style>
+
+
+
+    <style name="style1">
+
+        <item name="android:textSize">17sp</item>
+
+    </style>
+
+
 
 </resources>

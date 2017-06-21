@@ -20,21 +20,22 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:background="#DDD"
+            android:background="#F7F7F7"
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="45dp"
             android:orientation="horizontal">
 
-            <Button
+            <TextView
+                android:padding="10dp"
+                android:background="#F7F7F7"
                 android:id="@+id/btn_cancel"
-                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:text="取消"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textColor="@drawable/selector_pickerview_btn" />
 
             <TextView
@@ -47,15 +48,15 @@
                 android:textSize="21sp"
                 android:textColor="@color/black" />
 
-            <Button
-                android:visibility="gone"
+            <TextView
+                android:padding="10dp"
                 android:id="@+id/btn_add"
-                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:background="#F7F7F7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="center_vertical"
                 android:text="确定"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textColor="@drawable/selector_pickerview_btn" />
 
         </LinearLayout>

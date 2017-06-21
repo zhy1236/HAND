@@ -14,6 +14,7 @@ import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.CommentAllEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.HandApp;
+import com.example.hand.mockingbot.utils.ToastUtil;
 import com.example.hand.mockingbot.view.SimpleListView;
 
 import java.util.ArrayList;
@@ -104,7 +105,13 @@ public class CommentJournalActivity extends BasicActivity implements SimpleListV
 
             @Override
             public void onFailure(String msg) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"未获取到评论数据");
+                        finish();
+                    }
+                });
             }
         });
     }
@@ -131,7 +138,6 @@ public class CommentJournalActivity extends BasicActivity implements SimpleListV
     @Override
     public void onPullRefresh() {
         loadData();
-        pb.setVisibility(View.VISIBLE);
     }
 
     @Override

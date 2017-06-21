@@ -64,6 +64,11 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_list);
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadData();
     }
 
@@ -137,7 +142,9 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
 
     private void doFilter(String key) {
         if (mData != null && !key.equals("")) {
-            baseEntityList.addAll(mData);
+            if (baseEntityList.size() == 0){
+                baseEntityList.addAll(mData);
+            }
             List<BaseItem> list = new ArrayList<>();
             for (int i = 0; i < baseEntityList.size(); i++) {
                 if (baseEntityList.get(i).getItem_type() == ViewHolder2.ITEM_VIEW_TYPE_2){
@@ -179,7 +186,7 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
         HttpManager.getInstance().post(CommonValues.ADD_MEBER_USERS, getmap, Entity.class, new HttpManager.ResultCallback<Entity>() {
             @Override
             public void onSuccess(String json, Entity entity) throws InterruptedException {
-                if (entity.getCode() == 100){
+                if (entity.getCode().equals("100")){
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -222,7 +229,13 @@ public class PersonListActivity extends AppCompatActivity implements AdapterView
 
             @Override
             public void onFailure(String msg) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"获取数据失败");
+                        finish();
+                    }
+                });
             }
         });
     }

@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
@@ -79,7 +78,7 @@ public class ProjectFragment extends Fragment {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (finalI<classes.length){
+                    if (finalI == classes.length - 1){
                         Intent intent = new Intent();
                         intent.setClass(getContext(), classes[finalI]);
                         startActivity(intent);
@@ -97,7 +96,6 @@ public class ProjectFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getContext(),"第" + i + "条数据被点击了",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -138,21 +136,6 @@ public class ProjectFragment extends Fragment {
         attentionProject4.setProjectName("DMP管理系统");
         attentionProject4.setProjectImage(R.mipmap.ic_hand);
         list.add(attentionProject4);
-        AttentionProject attentionProject5 = new AttentionProject();
-        attentionProject5.setProjectName("伊利智能BI平台");
-        attentionProject5.setProjectImage(R.mipmap.ic_project_yili);
-        list.add(attentionProject5);
-        AttentionProject attentionProject6 = new AttentionProject();
-        attentionProject6.setProjectName("项目综合管理平台");
-        attentionProject6.setProjectImage(R.mipmap.ic_hand);
-        list.add(attentionProject6);
-        AttentionProject attentionProject7 = new AttentionProject();
-        attentionProject7.setProjectName("吉利统一流程平台");
-        attentionProject7.setProjectImage(R.mipmap.ic_geely);
-        list.add(attentionProject7);
-        AttentionProject attentionProject8 = new AttentionProject();
-        attentionProject8.setProjectName("DMP管理系统");
-        attentionProject8.setProjectImage(R.mipmap.ic_hand);
-        list.add(attentionProject8);
+
     }
 }

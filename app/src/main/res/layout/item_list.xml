@@ -58,6 +58,7 @@
         <TextView
             android:drawableLeft="@mipmap/ic_item_list_add"
             android:text=" 添加用户"
+            android:textColor="@color/white"
             android:background="#359DF5"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"

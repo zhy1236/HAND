@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -148,10 +149,10 @@ public class BasicActivity extends AppCompatActivity {
         }
     }
 
-    public void showDateTimePicker(final TextView view, boolean bolean) {
+    public void showDateTimePicker(final TextView view) {
         final Calendar select = Calendar.getInstance();
         try {
-            select.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(view.getText().toString()));
+            select.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(view.getText().toString()));
         } catch (Exception e) {
             select.setTime(new Date());
             select.set(Calendar.HOUR_OF_DAY, 0);
@@ -160,8 +161,8 @@ public class BasicActivity extends AppCompatActivity {
         }
         final DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this, null, select.get(Calendar.YEAR), select.get(Calendar.MONTH), select.get(Calendar.DAY_OF_MONTH));
-
-        datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.setButton(DialogInterface.BUTTON1, "确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 select.set(Calendar.YEAR, datePickerDialog.getDatePicker().getYear());
@@ -170,6 +171,14 @@ public class BasicActivity extends AppCompatActivity {
                 view.setText(new SimpleDateFormat("yyyy-MM-dd").format(select.getTime()));
             }
         });
+        datePickerDialog.setButton(DialogInterface.BUTTON2, "取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        datePickerDialog.setCanceledOnTouchOutside(true);
+        datePickerDialog.setCancelable(true);
         datePickerDialog.show();
     }
 
@@ -233,6 +242,30 @@ public class BasicActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public int getday(String leave, String returnt) {
+        long LeaveTime = getTimes(leave);
+        long ReturnTime = getTimes(returnt);
+        if (ReturnTime < LeaveTime) {
+            return -1;
+        } else {
+            int day = (int) ((ReturnTime - LeaveTime) / 1000 / 60 /60);
+            return day;
+        }
+
+    }
+
+    public long getTimes(String data) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        long time = 0;
+        try {
+            time = sdf.parse(data).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
 
 }
 

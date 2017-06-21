@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,7 +46,7 @@ public class ActionSheetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_sheet);
         TextView tv_title = (TextView) findViewById(R.id.action_sheet_title);
-//        tv_title.setText(mTitle);
+        tv_title.setText(mTitle);
         View viewById = findViewById(R.id.action_sheet_rl);
         viewById.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +55,7 @@ public class ActionSheetActivity extends Activity {
             }
         });
         final ListView listView = (ListView) findViewById(R.id.lst_container);
-        Button btnCancel = (Button) findViewById(R.id.btn_cancel);
+        TextView btnCancel = (TextView) findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

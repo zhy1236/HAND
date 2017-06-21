@@ -18,6 +18,7 @@ import com.example.hand.mockingbot.fagment.JournalFragment;
 import com.example.hand.mockingbot.fagment.MessagrFragment;
 import com.example.hand.mockingbot.fagment.MyFragment;
 import com.example.hand.mockingbot.fagment.ProjectFragment;
+import com.example.hand.mockingbot.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton journal;
     private RadioButton my;
     private ViewPager pager;
+    private long fistclick = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +144,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        long l = System.currentTimeMillis();
+        if (fistclick == 0 || (l - fistclick > 3000)){
+            fistclick = l;
+            ToastUtil.showToast(getApplicationContext(),"再次点击退出");
+        }else if (l - fistclick <= 3000){
+            ToastUtil.closeToast();
+            finish();
+        }
+
     }
 
     @Override
@@ -150,4 +160,5 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
             fragments.get(fragments.size()-1).onActivityResult(requestCode,resultCode,data);
     }
+
 }

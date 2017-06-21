@@ -181,6 +181,12 @@ public class LoginActivity extends AppCompatActivity {
 //                return true;
 //            }
 //        });
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Picasso.with(getApplicationContext()).load("http://edb2.hand-china.com:8080/project-mg-app/img/dailyImg/addDaily.png").into(iv_photo);
+//            }
+//        });
 
     }
 

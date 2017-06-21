@@ -3,13 +3,13 @@ package com.example.hand.mockingbot.avtivity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -22,6 +22,7 @@ import com.example.hand.mockingbot.entity.ResourceOccupationEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.DataUtil;
 import com.example.hand.mockingbot.utils.DateUtils;
+import com.example.hand.mockingbot.utils.ToastUtil;
 import com.example.hand.mockingbot.view.SimpleListView;
 
 import java.text.SimpleDateFormat;
@@ -69,8 +70,8 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
         setContentView(R.layout.activity_resource_occupation);
         String data = getData(true);
         split = data.split("-");
-        time = split[0] + "/" + split[1];
-        i = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1);
+        time = split[0] + "-" + split[1];
+        i = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("-")[0]), DataUtil.parseString2UnsignedInt(time.split("-")[1])-1);
         initView();
     }
 
@@ -98,7 +99,7 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
         tv_time = (TextView) findViewById(R.id.time);
         tv_time.setText(time);
         tv_days = (TextView) findViewById(R.id.item_resource_occupation_days);
-        tv_days.setText(DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1) + "");
+        tv_days.setText(DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("-")[0]), DataUtil.parseString2UnsignedInt(time.split("-")[1])-1) + "");
         ll_ss = (LinearLayout) findViewById(R.id.reader_ll_ss);
         ll_ss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +120,7 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
     private void loadData(int indx) {
         Map<String, Object> getmap = CommonValues.getmap();
         getmap.put("product","");
-        getmap.put("dateTime",time.replace("/","-"));
+        getmap.put("dateTime",time);
         getmap.put("pageNo",indx);
         getmap.put("pageSize",10);
         HttpManager.getInstance().post(CommonValues.RESOURCE_LIST, getmap, ResourceOccupationEntity.class, new HttpManager.ResultCallback<ResourceOccupationEntity>() {
@@ -142,7 +143,12 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
 
             @Override
             public void onFailure(String msg) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"获取数据失败");
+                    }
+                });
             }
         });
     }
@@ -174,41 +180,49 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
     private void toResource(ResourceOccupationEntity.DataBean dataBean) {
         Intent intent = new Intent();
         intent.setClass(getApplicationContext(),ResourcePersonActivity.class);
-        intent.putExtra("time",tv_time.getText().toString().replace("/","-"));
+        intent.putExtra("time",tv_time.getText().toString());
         intent.putExtra("product",dataBean.getId());
         intent.putExtra("resourceId",dataBean.getId());
         startActivity(intent);
     }
 
     public void showDateTimePicker(final TextView view) {
+
         final Calendar select = Calendar.getInstance();
         try {
-            select.setTime(new SimpleDateFormat("yyyy/MM").parse(view.getText().toString()));
+            select.setTime(new SimpleDateFormat("yyyy-MM").parse(view.getText().toString()));
         } catch (Exception e) {
             select.setTime(new Date());
             select.set(Calendar.HOUR_OF_DAY, 0);
             select.set(Calendar.MINUTE, 0);
+            select.set(Calendar.SECOND, 0);
         }
         final DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this, null, select.get(Calendar.YEAR), select.get(Calendar.MONTH), select.get(Calendar.DAY_OF_MONTH));
-
+        DatePicker datePicker = datePickerDialog.getDatePicker();
+        ViewGroup childAt = (ViewGroup) datePickerDialog.getDatePicker().getChildAt(0);
+        ViewGroup childAt1 = (ViewGroup) childAt.getChildAt(0);
+        childAt1.getChildAt(2).setVisibility(View.GONE);
+        datePickerDialog.setCancelable(true);
+        datePickerDialog.setCanceledOnTouchOutside(true);
+        datePicker.setMaxDate(System.currentTimeMillis());
         datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 select.set(Calendar.YEAR, datePickerDialog.getDatePicker().getYear());
                 select.set(Calendar.MONTH, datePickerDialog.getDatePicker().getMonth());
-                final String format = new SimpleDateFormat("yyyy/MM").format(select.getTime());
+                final String format = new SimpleDateFormat("yyyy-MM").format(select.getTime());
                 ResourceOccupationActivity.this.time = format;
                 view.setText(format);
                 index = 1;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (split[1].equals(format.split("/")[1])){
-                            tv_days.setText(DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1) + "");
-                            i = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("/")[0]), DataUtil.parseString2UnsignedInt(time.split("/")[1])-1);
+                        if (split[1].equals(format.split("-")[1])){
+                            tv_days.setText(DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("-")[0]), DataUtil.parseString2UnsignedInt(time.split("-")[1])-1) + "");
+                            i = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(time.split("-")[0]), DataUtil.parseString2UnsignedInt(time.split("-")[1])-1);
                         }else {
-                            int monthDays = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(format.split("/")[0]), DataUtil.parseString2UnsignedInt(format.split("/")[1]) - 1);
+                            int monthDays = DateUtils.getMonthDays(DataUtil.parseString2UnsignedInt(format.split("-")[0]), DataUtil.parseString2UnsignedInt(format.split("-")[1]) - 1);
                             tv_days.setText(monthDays + "");
                             i = monthDays;
                         }
@@ -218,15 +232,6 @@ public class ResourceOccupationActivity extends BasicActivity implements SimpleL
                 loadData(index);
             }
         });
-        if (datePickerDialog != null) {
-            Integer integer = Integer.valueOf(Build.VERSION.SDK_INT);
-            int SDKVersion = integer;
-            if (SDKVersion < 11) {
-                ((ViewGroup) datePickerDialog.getDatePicker().getChildAt(0)).getChildAt(2).setVisibility(View.GONE);
-            } else if (SDKVersion > 14) {
-                ((ViewGroup) ((ViewGroup) datePickerDialog.getDatePicker().getChildAt(0)).getChildAt(0)).getChildAt(2).setVisibility(View.GONE);
-            }
-        }
         datePickerDialog.show();
     }
 }

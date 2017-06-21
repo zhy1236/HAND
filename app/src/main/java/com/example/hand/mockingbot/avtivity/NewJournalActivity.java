@@ -211,7 +211,7 @@ public class NewJournalActivity extends BasicActivity {
         tv_vj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDateTimePicker(tv_vj,true);
+                showDateTimePicker(tv_vj);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {

@@ -7,9 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.adapter.ListAdapter;
@@ -19,6 +22,7 @@ import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.entity.ReceivedJournalEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.HandApp;
+import com.example.hand.mockingbot.utils.ToastUtil;
 import com.example.hand.mockingbot.view.SimpleListView;
 
 import java.util.ArrayList;
@@ -85,12 +89,19 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     };
     private RelativeLayout pb;
     private Button btn_search;
-
+    private LinearLayout ll_search;
+    private TextView tv_startTime;
+    private TextView tv_endTime;
+    private CheckBox cb;
+    private Button btn_cz;
+    private Button btn_qd;
+    private boolean hasCondition = false;
+    private boolean follow = false;
+    private boolean searchIsOpen = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_received_journal);
-        initToolbar();
         initView();
     }
 
@@ -101,8 +112,14 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
     }
 
     private void loadData(final int index) {
+        String url;
         LoginEntity.ResultBean.DataBean data = HandApp.getLoginEntity().getResult().getData();
-        String url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData(true) + "&state=0&pageNo=" + index + "&pageSize=10";
+        if (hasCondition){
+            url =  CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData(true) + "&state=0&pageNo=" + index + "&pageSize=10"
+            + "&startTime=" + tv_startTime.getText().toString() + "&endTime=" +tv_endTime.getText().toString() + "&managerId=" + (follow?"1":"");
+        }else {
+            url = CommonValues.JOURNAL_LIST + "userId=" + data.getId() + "&dailyTime=" + getData(true) + "&state=0&pageNo=" + index + "&pageSize=10";
+        }
         HttpManager.getInstance().get(url, ReceivedJournalEntity.class, new HttpManager.ResultCallback<ReceivedJournalEntity>() {
             @Override
             public void onSuccess(String json, final ReceivedJournalEntity receivedJournalEntity) throws InterruptedException {
@@ -126,6 +143,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"获取数据失败");
                         pb.setVisibility(View.GONE);
                         lv.completeRefresh();
                     }
@@ -134,7 +152,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         });
     }
 
-    private void initToolbar() {
+    private void initView() {
         toolbar = (Toolbar) findViewById(R.id.id_toolbar);
         toolbar.setTitle("");
 //        设置左侧图标和点击事件
@@ -145,24 +163,80 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
                 onBackPressed();
             }
         });
-        LinearLayout ll_ss = (LinearLayout) findViewById(R.id.reader_ll_ss);
+        final LinearLayout ll_ss = (LinearLayout) findViewById(R.id.reader_ll_ss);
         ll_ss.setVisibility(View.VISIBLE);
         btn_search = (Button) findViewById(R.id.btn_search);
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });
-    }
-
-    private void initView() {
         lv = (SimpleListView) findViewById(R.id.journal_receiver_lv);
         lv.setOnRefreshListener(this);
         lv.setAdapter(listAdapter);
         lv.setOnItemClickListener(this);
         pb = (RelativeLayout) findViewById(R.id.journal_receiver_pb);
+        ll_search = (LinearLayout) findViewById(R.id.receiver_journal_search_ll);
+        tv_startTime = (TextView) findViewById(R.id.action_sheet_tv1);
+        tv_startTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateTimePicker(tv_startTime);
+            }
+        });
+        tv_endTime = (TextView) findViewById(R.id.action_sheet_tv2);
+        tv_endTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateTimePicker(tv_endTime);
+            }
+        });
+        cb = (CheckBox) findViewById(R.id.action_sheet_cb);
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                follow = b;
+            }
+        });
+        btn_cz = (Button) findViewById(R.id.action_sheet_but1);
+        btn_cz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_startTime.setText("");
+                tv_endTime.setText("");
+                cb.setChecked(false);
+                hasCondition = false;
+            }
+        });
+        btn_qd = (Button) findViewById(R.id.action_sheet_but2);
+        btn_qd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getday(tv_startTime.getText().toString(),tv_endTime.getText().toString()) == -1){
+                    ToastUtil.showToast(getApplicationContext(),"请选择正确的时间范围!");
+                }else {
+                    hasCondition = true;
+                    searchIsOpen = !searchIsOpen;
+                    ll_search.setVisibility(View.GONE);
+                    lv.setVisibility(View.VISIBLE);
+                    index = 1;
+                    pb.setVisibility(View.VISIBLE);
+                    loadData(index);
+                }
+            }
+        });
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSearch();
+            }
+        });
+    }
 
+    private void showSearch() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ll_search.setVisibility(searchIsOpen?View.GONE:View.VISIBLE);
+                lv.setVisibility(searchIsOpen?View.VISIBLE:View.INVISIBLE);
+                searchIsOpen = !searchIsOpen;
+            }
+        });
     }
 
     @Override
@@ -184,6 +258,7 @@ public class ReceivedJournalAtivity extends BasicActivity implements AdapterView
         intent.putExtra("time",getTime(list.get(i).getSubmitDate()));
         intent.putExtra("name",list.get(i).getRealname());
         intent.putExtra("my",false);
+        list.get(i).setIsReadFlag("1");
         startActivity(intent);
     }
 

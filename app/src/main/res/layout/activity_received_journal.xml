@@ -51,6 +51,22 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <!--<Button-->
+                <!--android:id="@+id/btn_checked_project"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:drawablePadding="10dp"-->
+                <!--android:drawableRight="@mipmap/ic_more"-->
+                <!--android:text="所有项目"-->
+                <!--android:textSize="15sp"-->
+                <!--android:textColor="#666666"-->
+                <!--android:background="#F4F4F4"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="35dp" />-->
+
             <Button
                 android:id="@+id/btn_checked_project"
                 android:layout_gravity="center"
@@ -58,13 +74,13 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/ic_more"
-                android:text="项目综合管理平台"
+                android:text="所有项目"
                 android:textSize="15sp"
                 android:textColor="#666666"
                 android:background="#F4F4F4"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp" />
+
             <Button
                 android:id="@+id/btn_search"
                 android:layout_gravity="center"
@@ -97,6 +113,127 @@
         android:layout_width="match_parent"
         android:dividerHeight="10dp"
         android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/receiver_journal_search_ll"
+        android:layout_below="@+id/reader_ll_ss"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="#333"
+                android:textSize="15sp"
+                android:text="开始时间"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/action_sheet_tv1"
+                android:drawablePadding="10dp"
+                android:gravity="right"
+                android:drawableRight="@mipmap/ic_right"
+                android:textColor="#666"
+                android:textSize="15sp"
+                android:textColorHint="#999"
+                android:hint="请选择"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="#333"
+                android:textSize="15sp"
+                android:text="结束时间"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/action_sheet_tv2"
+                android:drawablePadding="10dp"
+                android:gravity="right"
+                android:textColorHint="#999"
+                android:textSize="15sp"
+                android:hint="请选择"
+                android:drawableRight="@mipmap/ic_right"
+                android:textColor="#666"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/action_sheet_tv3"
+                android:text="关注用户"
+                android:textColor="#333"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:button="@drawable/btn_check_ispayment"
+                android:id="@+id/action_sheet_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="62dp">
+
+            <Button
+                android:layout_margin="10dp"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:id="@+id/action_sheet_but1"
+                android:text="重置"
+                android:background="@drawable/bg_journal_cz"
+                android:layout_width="135dp"
+                android:layout_height="30dp" />
+
+            <Button
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_journal_qd"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:id="@+id/action_sheet_but2"
+                android:text="确定"
+                android:layout_width="135dp"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/journal_receiver_pb"

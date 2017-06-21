@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
@@ -15,10 +16,13 @@ import com.example.hand.mockingbot.entity.AddDailySeeEntivy;
 import com.example.hand.mockingbot.entity.MyJournalEntity;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.HandApp;
+import com.example.hand.mockingbot.utils.ToastUtil;
 import com.example.hand.mockingbot.view.SimpleListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.hand.mockingbot.R.id.journal_receiver_pb;
 
 /**
  * Created by zhy on 2017/5/5.
@@ -69,6 +73,7 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
         }
     };
     private String userId;
+    private RelativeLayout pb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,6 +115,7 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        pb.setVisibility(View.GONE);
                         if (index == 1){
                             list.clear();
                         }
@@ -126,6 +132,8 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"获取数据失败");
+                        pb.setVisibility(View.GONE);
                         lv.completeRefresh();
                     }
                 });
@@ -138,7 +146,7 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
         lv.setOnRefreshListener(this);
         lv.setAdapter(listAdapter);
         lv.setOnItemClickListener(this);
-
+        pb = (RelativeLayout) findViewById(journal_receiver_pb);
     }
 
     @Override

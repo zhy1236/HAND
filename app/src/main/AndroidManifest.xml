@@ -29,7 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".avtivity.ReceivedJournalAtivity"/>
+        <activity android:name=".avtivity.ReceivedJournalAtivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".avtivity.NewJournalActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".avtivity.SendJournalActivity"

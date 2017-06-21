@@ -73,108 +73,129 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <LinearLayout
-        android:background="@color/white"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/reader_tv_year"
-            android:gravity="center"
-            android:layout_margin="17dp"
-            android:textColor="#FF2114"
-            android:text="2017"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.example.hand.mockingbot.view.WeekDayView
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
         <LinearLayout
-            android:id="@+id/resource_month_ll"
-            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="10dp"
+                android:id="@+id/reader_tv_year"
                 android:gravity="center"
-                android:textColor="#ff0000"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                android:layout_marginTop="7dp"
+                android:text="2017"
+                android:textColor="#FF2114"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <TextView
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="#ff0000"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+            <com.example.hand.mockingbot.view.WeekDayView
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
-            <TextView
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="#ff0000"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/resource_month_ll"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="#ff0000"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:textColor="#ff0000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
 
-            <TextView
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="#ff0000"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:textColor="#ff0000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
 
-            <TextView
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="#ff0000"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:textColor="#ff0000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:textColor="#ff0000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:textColor="#ff0000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:textColor="#ff0000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
 
 
-            <TextView
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:textColor="#ff0000"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:textColor="#ff0000"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
 
+
+            </LinearLayout>
+
+            <GridLayout
+                android:id="@+id/resource_person_gl"
+                android:columnCount="7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </GridLayout>
 
         </LinearLayout>
 
-        <GridLayout
-            android:id="@+id/resource_person_gl"
-            android:columnCount="7"
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/resource_psrson_pb"
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-        </GridLayout>
+            <ProgressBar
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 
 
 </LinearLayout>

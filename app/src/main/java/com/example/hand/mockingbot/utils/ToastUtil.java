@@ -18,5 +18,9 @@ public class ToastUtil {
         toast.show();
     }
 
+    public static void closeToast(){
+        toast.cancel();
+    }
+
 
 }

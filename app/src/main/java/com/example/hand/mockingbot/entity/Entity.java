@@ -9,7 +9,7 @@ import java.util.List;
 public class Entity {
 
     private String msg;
-    private int code;
+    private String code;
     private List<?> data;
 
     public String getMsg() {
@@ -20,11 +20,11 @@ public class Entity {
         this.msg = msg;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,10 +19,15 @@ import android.widget.TextView;
 import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.ResourcePersonEntity;
+import com.example.hand.mockingbot.utils.CalendarUtil;
 import com.example.hand.mockingbot.utils.CommonValues;
 import com.example.hand.mockingbot.utils.DataUtil;
 import com.example.hand.mockingbot.utils.DateUtils;
+import com.example.hand.mockingbot.utils.ToastUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +46,7 @@ public class ResourcePersonActivity extends BasicActivity {
     private int monthDays;
     private int firstDayWeek;
     private String time;
+    private RelativeLayout pb;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,7 +85,7 @@ public class ResourcePersonActivity extends BasicActivity {
         }
 
         for (int i = 0; i < monthDays + firstDayWeek; i++) {
-            LinearLayout.LayoutParams lp =new LinearLayout.LayoutParams(width/7, 140);
+            LinearLayout.LayoutParams lp =new LinearLayout.LayoutParams(width/7, 180);
             View inflate = View.inflate(getApplicationContext(), R.layout.item_resource_person_gl, null);
             Button tv = (Button) inflate.findViewById(item_resource_person_gl_tv);
             RelativeLayout rl = (RelativeLayout) inflate.findViewById(R.id.item_resource_person_gl_rl);
@@ -84,7 +93,24 @@ public class ResourcePersonActivity extends BasicActivity {
             if (i < firstDayWeek){
                 tv.setText("");
             }else {
-                tv.setText((i+1- firstDayWeek) + "");
+                final Calendar select = Calendar.getInstance();
+                try {
+                    select.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(time + "-" + ((i+1-firstDayWeek)<10?("0" + (i+1-firstDayWeek)):((i+1-firstDayWeek) +""))));
+                    final String currentDay = CalendarUtil.getCurrentDay(select);
+                    if (currentDay.endsWith("初一")){
+                        SpannableString styledText = new SpannableString((i+1- firstDayWeek) + "\n" + currentDay.substring(0,2));
+                        styledText.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.style1), 0, styledText.length() - 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        styledText.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.style0), 2, styledText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        tv.setText(styledText, TextView.BufferType.SPANNABLE);
+                    }else {
+                        SpannableString styledText = new SpannableString((i+1- firstDayWeek) + "\n" + currentDay.substring(currentDay.length() - 2,currentDay.length()));
+                        styledText.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.style1), 0, styledText.length() - 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        styledText.setSpan(new TextAppearanceSpan(getApplicationContext(), R.style.style0), 2, styledText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        tv.setText(styledText, TextView.BufferType.SPANNABLE);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
             if (i == 0 || i % 7 == 6 || i % 7 == 0){
                 tv.setTextColor(ResourcePersonActivity.this.getResources().getColor(R.color.selector_textcolor3));
@@ -94,6 +120,7 @@ public class ResourcePersonActivity extends BasicActivity {
         }
         name = (TextView) findViewById(R.id.resource_person_name);
         zw = (TextView) findViewById(R.id.resource_person_zw);
+        pb = (RelativeLayout) findViewById(R.id.resource_psrson_pb);
     }
 
     private void loadData() {
@@ -127,6 +154,7 @@ public class ResourcePersonActivity extends BasicActivity {
                                     }
                                 });
                             }
+                            pb.setVisibility(View.GONE);
                         }
                     });
                 }
@@ -134,7 +162,13 @@ public class ResourcePersonActivity extends BasicActivity {
 
             @Override
             public void onFailure(String msg) {
-                finish();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(getApplicationContext(),"获取数据失败");
+                        finish();
+                    }
+                });
             }
         });
     }

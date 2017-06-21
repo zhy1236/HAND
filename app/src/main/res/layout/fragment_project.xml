@@ -59,7 +59,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#FFF"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="50dp">
 
                 <ImageView
                     android:src="@mipmap/ic_news"
@@ -75,57 +75,74 @@
                     android:layout_width="1dp"
                     android:layout_height="25dp" />
 
-                <TextView
-                    android:id="@+id/project_tv_urgent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textSize="12sp"
-                    android:textColor="#DA0A17"
-                    android:background="@drawable/bg_red"
-                    android:text="急"
+                <LinearLayout
+                    android:paddingRight="10dp"
                     android:layout_toRightOf="@+id/project_tv_latest_announcement"
-                    android:layout_alignTop="@+id/project_tv_latest_announcement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp">
 
-                <TextView
-                    android:id="@+id/project__tv_news"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:textColor="#3AC493"
-                    android:background="@drawable/bg_green"
-                    android:text="新"
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/project_tv_urgent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textSize="12sp"
+                        android:textColor="#DA0A17"
+                        android:background="@drawable/bg_red"
+                        android:text="急"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:ellipsize="end"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="13sp"
+                        android:lines="1"
+                        android:textColor="#333"
+                        android:text="项目紧急，特此通知特此通知特此通知特此通知特此通知特此通知"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_toRightOf="@+id/project_tv_latest_announcement"
-                    android:layout_alignBottom="@+id/project_tv_latest_announcement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toRightOf="@+id/project_tv_urgent"
-                    android:textSize="13sp"
-                    android:lines="1"
-                    android:textColor="#333"
-                    android:text="项目紧急，特此通知特此通知特此通知特此通知特此通知特此通知"
+                    android:layout_alignParentBottom="true"
+                    android:paddingRight="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="25dp">
 
-                <TextView
-                    android:layout_marginTop="32dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toRightOf="@+id/project__tv_news"
-                    android:textSize="13sp"
-                    android:lines="1"
-                    android:textColor="#333"
-                    android:text="最新项目，特此通知特此通知特此通知特此通知特此通知特此通知特此通知特此通知"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/project__tv_news"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="#3AC493"
+                        android:background="@drawable/bg_green"
+                        android:text="新"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:ellipsize="end"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="13sp"
+                        android:lines="1"
+                        android:textColor="#333"
+                        android:text="最新项目，特此通知特此通知特此通知特此通知特此通知特此通知特此通知特此通知"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
             </RelativeLayout>
 
             <LinearLayout
