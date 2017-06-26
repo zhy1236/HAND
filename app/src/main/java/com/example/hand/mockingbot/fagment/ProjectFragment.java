@@ -78,7 +78,7 @@ public class ProjectFragment extends Fragment {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (finalI == classes.length - 1){
+                    if (finalI < classes.length ){
                         Intent intent = new Intent();
                         intent.setClass(getContext(), classes[finalI]);
                         startActivity(intent);

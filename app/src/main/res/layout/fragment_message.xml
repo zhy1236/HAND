@@ -90,6 +90,7 @@
                     android:visibility="invisible"
                     android:id="@+id/fragment_message_tv_received_num"
                     android:textSize="10sp"
+                    android:text="99+"
                     android:paddingBottom="1dp"
                     android:paddingTop="1dp"
                     android:paddingLeft="3dp"
@@ -99,7 +100,7 @@
                     android:minWidth="12dp"
                     android:textColor="@color/white"
                     android:layout_gravity="end"
-                    android:background="@drawable/journal_item"
+                    android:background="@drawable/btn_bg_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -184,7 +185,7 @@
                     android:minWidth="12dp"
                     android:textColor="@color/white"
                     android:layout_gravity="end"
-                    android:background="@drawable/journal_item"
+                    android:background="@drawable/btn_bg_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

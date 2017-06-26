@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class CommonValues {
 //    public static final String BASE_TEST_HOST = "http://192.168.11.198:8084/project-mg-app/app";//测试环境
-//    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/project-mg-app/app"; //本地环境
-    public static final String BASE_TEST_HOST  = "http://edb2.hand-china.com:8088/project-mg-app/app"; //正式环境
+    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/project-mg-app/app"; //本地环境
+//    public static final String BASE_TEST_HOST  = "http://edb2.hand-china.com:8088/project-mg-app/app"; //正式环境
 
 
     public static String currentHost = BASE_TEST_HOST;
@@ -153,6 +153,63 @@ public class CommonValues {
     public static final String CUS_PROJECT = currentHost + "/mainPage/cusprojectinfo";
 
 
+    /**
+     * 获取项目状态集合
+     * post
+     * productId 项目Id
+     */
+    public static final String GET_CUS_PROJECT_STATE = currentHost + "/mainPage/getCusProjectState";
+
+    /**
+     * 获取项目阶段集合
+     * post
+     * productId 项目Id
+     */
+    public static final String GET_CUS_PROJECT_STAGE = currentHost + "/mainPage/getCusProjectStage";
+
+    /**
+     * 修改项目概览
+     * post
+     * projectImprotance string 是否重要
+     * projectStage string 产品阶段
+     * projectState string 产品状态
+     * productId string 产品ID
+     */
+    public static final String UPDATE_CUS_PROJECT = currentHost + "/mainPage/updateCusProject";
+
+    /**
+     * 获取风险列表
+     * post
+     * projectNo true string 产品代号
+     * issueType false string 问题类型
+     * state false string 状态
+     * pageNo true string 页数
+     * pageSize true string 条数
+     */
+    public static final String GET_CUS_ISSUE = currentHost + "/mainPage/getCusIssue";
+
+    /**
+     * 获取风险类型
+     * post
+     */
+    public static final String QUERY_ISSUE_TYPE = currentHost + "/mainPage/queryIssueType";
+
+    /**
+     * 添加问题
+     * post
+     * projectNo true string 产品代号
+     * issueType true string 问题类型
+     * issueDesc true string 问题描述
+     * creater true string 创建人(当前登录人的name)
+     */
+    public static final String SAVE_CUS_ISSUE = currentHost + "/mainPage/saveCusIssue";
+
+    /**
+     * 删除风险
+     * post
+     * issueId true string 风险id
+     */
+    public static final String DELETE_CUS_ISSUE = currentHost + "/mainPage/deleteCusIssue";
 
 
     public static Map<String,Object> getmap(){

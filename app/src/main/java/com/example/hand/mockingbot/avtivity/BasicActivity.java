@@ -16,7 +16,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -182,15 +181,15 @@ public class BasicActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void showSelector(final Button holder, final String[] args) {
+    public void showSelector(final TextView holder, final String[] args) {
         showSelector(holder,args,null);
     }
 
     protected interface OnSelectedResultCallback {
-        void onSelected(int i,Button holder);
+        void onSelected(int i,TextView holder);
     }
 
-    public void showSelector(final Button holder, final String[] args, final OnSelectedResultCallback callback) {
+    public void showSelector(final TextView holder, final String[] args, final OnSelectedResultCallback callback) {
         if (args == null || args.length == 0) {
             Toast.makeText(getApplicationContext(), "没有数据", Toast.LENGTH_SHORT).show();
             return;

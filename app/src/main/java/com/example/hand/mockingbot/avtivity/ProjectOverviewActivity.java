@@ -34,7 +34,15 @@ public class ProjectOverviewActivity extends BasicActivity implements SimpleList
     private ListAdapter<ProjectOverviewEntity.DataBean> listAdapter = new ListAdapter<ProjectOverviewEntity.DataBean>(list, R.layout.item_project_overview) {
         @Override
         public void bindView(ViewHolder holder, final ProjectOverviewEntity.DataBean obj, int position) {
-            holder.setText(R.id.item_project_overview_name,obj.getName());
+            String objName = obj.getName();
+            holder.setText(R.id.item_project_overview_name,objName);
+            if (objName.contains("伊利")){
+                holder.setImageResource(R.id.item_project_overview_iv,R.mipmap.ic_project_yili);
+            }else if (objName.contains("汉得")){
+                holder.setImageResource(R.id.item_project_overview_iv,R.mipmap.ic_hand);
+            }else if (objName.contains("吉利")){
+                holder.setImageResource(R.id.item_project_overview_iv,R.mipmap.ic_geely);
+            }
             holder.setText(R.id.item_project_overview_pg,obj.getProjectState());
             holder.setOnClickListener(R.id.item_project_overview_btn, new View.OnClickListener() {
                 @Override
@@ -59,6 +67,7 @@ public class ProjectOverviewActivity extends BasicActivity implements SimpleList
         intent.putExtra("projectStage",obj.getProjectStage());
         intent.putExtra("projectState",obj.getProjectState());
         intent.putExtra("overallProgress",obj.getOverallProgress());
+        intent.putExtra("projectNo",obj.getProjectNo());
         startActivity(intent);
     }
 
@@ -74,6 +83,7 @@ public class ProjectOverviewActivity extends BasicActivity implements SimpleList
     @Override
     public void onResume() {
         super.onResume();
+        pb.setVisibility(View.VISIBLE);
         loadData(index);
     }
 
@@ -89,15 +99,16 @@ public class ProjectOverviewActivity extends BasicActivity implements SimpleList
                         @Override
                         public void run() {
                             pb.setVisibility(View.GONE);
-                            if (index == 1){
+                            if (index == 1) {
                                 list.clear();
-                                if (entity.getData().size() == 0){
-                                    hasMore = false;
-                                }
-                                list.addAll(entity.getData());
-                                listAdapter.notifyDataSetChanged();
-                                lv.completeRefresh();
                             }
+                            if (entity.getData().size() == 0){
+                                hasMore = false;
+                            }
+                            list.addAll(entity.getData());
+                            listAdapter.notifyDataSetChanged();
+                            lv.completeRefresh();
+
                         }
                     });
                 }

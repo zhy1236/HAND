@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hand.mockingbot.R;
@@ -24,6 +23,8 @@ public class ActionSheetActivity extends Activity {
     private static final String DEFAULT_DATA = "DEFAULT_DATA";
     private static String mTitle;
     public static Boolean[] array;
+    private int checkPosition = -1;
+    private String[] data;
 
     public interface OnResult {
         void onResult(int index, String value);
@@ -46,7 +47,7 @@ public class ActionSheetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_sheet);
         TextView tv_title = (TextView) findViewById(R.id.action_sheet_title);
-        tv_title.setText(mTitle);
+//        tv_title.setText(mTitle);
         View viewById = findViewById(R.id.action_sheet_rl);
         viewById.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,7 @@ public class ActionSheetActivity extends Activity {
                 finish();
             }
         });
-        final String[] data = getIntent().getExtras().getStringArray(DATA);
+        data = getIntent().getExtras().getStringArray(DATA);
         String defData = getIntent().getExtras().getString(DEFAULT_DATA);
         listView.setFilterTouchesWhenObscured(false);
         if (data != null) {
@@ -87,16 +88,29 @@ public class ActionSheetActivity extends Activity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        RelativeLayout rl = (RelativeLayout) view;
-                        TextView tv = (TextView) rl.findViewById(R.id.text);
-                        String val = tv.getText().toString();
                         listView.setItemChecked(position, true);
-                        mResult.onResult(mData.indexOf(val), val);
-                        finish();
+                        if (checkPosition != -1){
+                            listView.getChildAt(checkPosition).setBackgroundColor(0xffffffff);
+                        }
+                        listView.getChildAt(position).setBackgroundColor(0xfff4f4f4);
+                        checkPosition = position;
                     }
                 });
             }
         }
+        TextView tv_add =  (TextView) findViewById(R.id.btn_add);
+        tv_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkPosition == -1){
+                    mResult.onResult(checkPosition, "");
+                    finish();
+                }else {
+                    mResult.onResult(checkPosition, data[checkPosition]);
+                    finish();
+                }
+            }
+        });
     }
 
 }

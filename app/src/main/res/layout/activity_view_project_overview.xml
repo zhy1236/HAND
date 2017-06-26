@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="#F4F4F4"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -52,6 +51,7 @@
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
+        android:layout_below="@+id/id_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -241,7 +241,6 @@
                     android:gravity="right"
                     android:layout_gravity="center_vertical"
                     android:textSize="12sp"
-                    android:text="无"
                     android:id="@+id/view_project_overview_product_manager"
                     android:textColor="#666"
                     android:layout_width="match_parent"
@@ -418,8 +417,18 @@
 
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/journal_receiver_pb"
+        android:layout_below="@+id/id_toolbar"
+        android:background="#11ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 
 
-
-</LinearLayout>
+</RelativeLayout>

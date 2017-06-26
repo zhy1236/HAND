@@ -208,7 +208,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         rotation.end();
-                        login.setEnabled(true);
                         savepassword.setEnabled(true);
                         login.setEnabled(true);
                         mUsername.setEnabled(true);

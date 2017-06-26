@@ -311,6 +311,7 @@ public class DataUtil {
 
     public static Map<String,String> getMapMIME(){
         return mapMIME;
-    };
+    }
+
 
 }
