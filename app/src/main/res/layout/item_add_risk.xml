@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:descendantFocusability="blocksDescendants"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:layout_width="355dp"
@@ -83,7 +84,7 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/item_add_risk_btn_Processing"
+                android:id="@+id/item_add_risk_btn_processing"
                 android:textColor="#999"
                 android:textSize="12sp"
                 android:text="处理"

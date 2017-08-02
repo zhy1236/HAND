@@ -30,6 +30,7 @@ public class ProjectOverviewActivity extends BasicActivity implements SimpleList
     private boolean hasMore = true;
     private SimpleListView lv;
     private int index = 1;
+    private RelativeLayout pb;
     private List<ProjectOverviewEntity.DataBean> list = new ArrayList<>();
     private ListAdapter<ProjectOverviewEntity.DataBean> listAdapter = new ListAdapter<ProjectOverviewEntity.DataBean>(list, R.layout.item_project_overview) {
         @Override
@@ -71,7 +72,7 @@ public class ProjectOverviewActivity extends BasicActivity implements SimpleList
         startActivity(intent);
     }
 
-    private RelativeLayout pb;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

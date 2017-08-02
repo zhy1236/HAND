@@ -33,6 +33,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:paddingRight="10dp"
             android:id="@+id/risk_type_ll"
             android:layout_marginTop="2dp"
             android:background="@color/white"
@@ -53,7 +54,7 @@
                 android:gravity="end"
                 android:textColorHint="#999"
                 android:textSize="13sp"
-                android:textColor="#333"
+                android:textColor="#999"
                 android:hint="请选择问题类型"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
@@ -61,8 +62,8 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:layout_marginLeft="10dp"
                 android:id="@+id/risk_type_iv"
-                android:layout_margin="10dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_right"
                 android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
                 android:gravity="start"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="#333"
+                android:textColor="#999"
                 android:textSize="13sp"
                 android:textColorHint="#999"
                 android:hint="请填写问题描述"
@@ -121,7 +122,6 @@
                 android:layout_margin="10dp"
                 android:gravity="end"
                 android:textColor="#333"
-                android:text="周海宇"
                 android:textSize="13sp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
@@ -152,7 +152,6 @@
                 android:layout_margin="10dp"
                 android:gravity="end"
                 android:textColor="#333"
-                android:text="2017-06-26"
                 android:textSize="13sp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
@@ -163,7 +162,7 @@
 
         <LinearLayout
             android:visibility="gone"
-            android:id="@+id/risk_info_updata_name_ll"
+            android:id="@+id/risk_info_update_name_ll"
             android:layout_marginTop="1dp"
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -179,11 +178,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/risk_info_updata_name"
+                android:id="@+id/risk_info_update_name"
                 android:layout_margin="10dp"
                 android:gravity="end"
                 android:textColor="#333"
-                android:text="肖珊"
                 android:textSize="13sp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
@@ -194,7 +192,7 @@
 
         <LinearLayout
             android:visibility="gone"
-            android:id="@+id/risk_info_updata_time_ll"
+            android:id="@+id/risk_info_update_time_ll"
             android:layout_marginTop="1dp"
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -210,15 +208,118 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/risk_info_updata_time"
+                android:id="@+id/risk_info_update_time"
                 android:layout_margin="10dp"
                 android:gravity="end"
                 android:textColor="#333"
-                android:text="2017-06-26"
                 android:textSize="13sp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:id="@+id/risk_info_solution_ll"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_margin="10dp"
+                android:textColor="#333"
+                android:textSize="13sp"
+                android:text="解决方案"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/risk_info_solution"
+                android:gravity="start"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#999"
+                android:textSize="13sp"
+                android:textColorHint="#999"
+                android:hint="请填写解决方案"
+                android:minHeight="135dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:id="@+id/risk_info_handle_person_ll"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:textColor="#333"
+                android:textSize="13sp"
+                android:text="处理人"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/risk_info_handle_person"
+                android:layout_margin="10dp"
+                android:gravity="end"
+                android:textColor="#333"
+                android:textSize="13sp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingRight="10dp"
+            android:visibility="gone"
+            android:id="@+id/risk_handle_type_ll"
+            android:layout_marginTop="2dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:textColor="#333"
+                android:textSize="13sp"
+                android:text="处理状态"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/risk_info_check_handle_type"
+                android:gravity="end"
+                android:textColorHint="#999"
+                android:textSize="13sp"
+                android:textColor="#999"
+                android:hint="请选择处理状态"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/risk_handle_type_iv"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_right"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

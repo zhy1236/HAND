@@ -34,7 +34,6 @@
 
         <com.example.hand.mockingbot.view.PagerSlidingTab
             android:id="@+id/pst_main_title"
-            android:visibility="gone"
             android:background="#FFFFFF"
             android:layout_height="50dp"
             android:layout_width="match_parent"/>

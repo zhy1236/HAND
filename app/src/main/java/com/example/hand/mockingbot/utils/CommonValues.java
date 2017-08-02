@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class CommonValues {
 //    public static final String BASE_TEST_HOST = "http://192.168.11.198:8084/project-mg-app/app";//测试环境
-    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/project-mg-app/app"; //本地环境
-//    public static final String BASE_TEST_HOST  = "http://edb2.hand-china.com:8088/project-mg-app/app"; //正式环境
+//    public static final String BASE_TEST_HOST = "http://10.211.55.174:9090/project-mg-app/app"; //本地环境
+    public static final String BASE_TEST_HOST  = "http://edb2.hand-china.com:8088/project-mg-app/app"; //正式环境
 
 
     public static String currentHost = BASE_TEST_HOST;
@@ -195,7 +195,7 @@ public class CommonValues {
     public static final String QUERY_ISSUE_TYPE = currentHost + "/mainPage/queryIssueType";
 
     /**
-     * 添加问题
+     * 添加风险
      * post
      * projectNo true string 产品代号
      * issueType true string 问题类型
@@ -210,6 +210,28 @@ public class CommonValues {
      * issueId true string 风险id
      */
     public static final String DELETE_CUS_ISSUE = currentHost + "/mainPage/deleteCusIssue";
+
+    /**
+     * 修改风险
+     * post
+     * issueId true string 风险ID
+     * issueDesc false string 风险描述
+     * issueType false string 风险类型
+     * modifier false string 修改人(当前登录人的userid)
+     */
+    public static final String UPDATE_CUS_ISSUE = currentHost + "/mainPage/updateCusIssue";
+
+    /**
+     * 处理风险
+     * post
+     * solution true string 解决方案
+     * state true string 状态
+     * handler true string 处理人(当前登录人的id)
+     * issueId true string 风险ID
+     */
+    public static final String DISPOSE_CUS_ISSUE = currentHost + "/mainPage/disposeCusIssue";
+
+
 
 
     public static Map<String,Object> getmap(){

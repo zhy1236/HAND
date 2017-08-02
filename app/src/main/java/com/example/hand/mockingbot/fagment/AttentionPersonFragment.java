@@ -67,12 +67,8 @@ public class AttentionPersonFragment extends Fragment implements SimpleListView.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
     }
 
-    private void initView() {
-
-    }
 
     @Override
     public void onResume() {

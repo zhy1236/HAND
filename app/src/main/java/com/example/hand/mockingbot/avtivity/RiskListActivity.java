@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ import java.util.Map;
  * Created by zhy on 2017/6/15.
  */
 
-public class RiskListActivity extends BasicActivity implements SimpleListView.OnRefreshListener {
+public class RiskListActivity extends BasicActivity implements SimpleListView.OnRefreshListener, AdapterView.OnItemClickListener {
 
     private Toolbar toolbar;
     private boolean hasMore = true;
@@ -41,7 +42,7 @@ public class RiskListActivity extends BasicActivity implements SimpleListView.On
             holder.setText(R.id.item_add_risk_time,obj.getCreatDate());
             holder.setText(R.id.item_add_risk_content,obj.getIssueDesc());
             holder.setText(R.id.item_add_risk_name,obj.getCreater());
-            holder.setOnClickListener(R.id.item_add_risk_btn_Processing, new View.OnClickListener() {
+            holder.setOnClickListener(R.id.item_add_risk_btn_processing, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     toProcessingRisk(obj);
@@ -69,7 +70,18 @@ public class RiskListActivity extends BasicActivity implements SimpleListView.On
     private int issueTypeId;
 
     private void toProcessingRisk(RiskListEntity.DataBean obj) {
-
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(),AddRiskActivity.class);
+        intent.putExtra("type",2);
+        intent.putExtra("issuetypename",obj.getIssueTypeName());
+        intent.putExtra("creater",obj.getCreater());
+        intent.putExtra("creatdate",obj.getCreatDate());
+        intent.putExtra("issuedesc",obj.getIssueDesc());
+        intent.putExtra("projectNo",projectNo);
+        intent.putExtra("issueId",obj.getIssueId());
+        intent.putExtra("modifiername",obj.getModifierName());
+        intent.putExtra("modifierDate",obj.getModifierDate());
+        startActivity(intent);
     }
 
     /**
@@ -115,15 +127,18 @@ public class RiskListActivity extends BasicActivity implements SimpleListView.On
      * 跳转到修改风险界面
      */
     private void toModifyRisk(RiskListEntity.DataBean obj) {
-        //// TODO: 2017/6/15 跳转到修改风险界面
-//        Intent intent = new Intent();
-//        intent.setClass(getApplicationContext(),ModifyRiskActivity.class);
-//        //传递参数
-//        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(),AddRiskActivity.class);
+        intent.putExtra("type",1);
+        intent.putExtra("issuetypename",obj.getIssueTypeName());
+        intent.putExtra("creater",obj.getCreater());
+        intent.putExtra("creatdate",obj.getCreatDate());
+        intent.putExtra("issuedesc",obj.getIssueDesc());
+        intent.putExtra("issueId",obj.getIssueId());
+        startActivity(intent);
     }
 
     private RelativeLayout pb;
-    private Button btn_add;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -170,6 +185,24 @@ public class RiskListActivity extends BasicActivity implements SimpleListView.On
         lv = (SimpleListView) findViewById(R.id.journal_receiver_lv);
         lv.setOnRefreshListener(this);
         lv.setAdapter(listAdapter);
+        lv.setOnItemClickListener(this);
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent();
+//                intent.setClass(getApplicationContext(),AddRiskActivity.class);
+//                intent.putExtra("type",3);
+//                intent.putExtra("issuetypename",list.get(i).getIssueTypeName());
+//                intent.putExtra("creater",list.get(i).getCreater());
+//                intent.putExtra("creatdate",list.get(i).getCreatDate());
+//                intent.putExtra("issuedesc",list.get(i).getIssueDesc());
+//                intent.putExtra("issueId",list.get(i).getIssueId());
+//                intent.putExtra("modifierDate",list.get(i).getModifierDate());
+//                intent.putExtra("solution",list.get(i).getSolution());
+//                intent.putExtra("state",list.get(i).getState());
+//                startActivity(intent);
+//            }
+//        });
         Button add_risk = (Button) findViewById(R.id.risk_list_addrisk);
         add_risk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,9 +214,13 @@ public class RiskListActivity extends BasicActivity implements SimpleListView.On
 
     }
 
+    /**
+     * 添加风险
+     */
     private void toAddRisk() {
         Intent intent = new Intent();
         intent.setClass(getApplicationContext(),AddRiskActivity.class);
+        intent.putExtra("type",0);
         intent.putExtra("projectNo",projectNo);
         startActivity(intent);
     }
@@ -266,5 +303,27 @@ public class RiskListActivity extends BasicActivity implements SimpleListView.On
     @Override
     public void onScrollOutside() {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (lv.isPullRefreshed()){
+            return;
+        }else {
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(),AddRiskActivity.class);
+            intent.putExtra("type",3);
+            intent.putExtra("issuetypename",list.get(i-1).getIssueTypeName());
+            intent.putExtra("creater",list.get(i-1).getCreater());
+            intent.putExtra("creatdate",list.get(i-1).getCreatDate());
+            intent.putExtra("issuedesc",list.get(i-1).getIssueDesc());
+            intent.putExtra("issueId",list.get(i-1).getIssueId());
+            intent.putExtra("modifierName",list.get(i-1).getModifierName());
+            intent.putExtra("modifierDate",list.get(i-1).getModifierDate());
+            intent.putExtra("solution",list.get(i-1).getSolution());
+            intent.putExtra("realname",list.get(i-1).getRealname());
+            intent.putExtra("state",list.get(i-1).getState());
+            startActivity(intent);
+        }
     }
 }
