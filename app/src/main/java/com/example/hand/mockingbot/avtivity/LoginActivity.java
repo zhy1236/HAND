@@ -161,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                     SpUtils.saveString(getApplicationContext(),Fields.PASSWORD,"");
                     SpUtils.saveisBoolean(getApplicationContext(),Fields.SAVE_PASSWORD,false);
                 }
+
                 savepassword.setEnabled(false);
                 login.setEnabled(false);
                 mUsername.setEnabled(false);
