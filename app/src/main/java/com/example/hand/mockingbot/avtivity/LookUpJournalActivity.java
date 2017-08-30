@@ -287,6 +287,7 @@ public class LookUpJournalActivity extends BasicActivity {
             return;
         }
 
+
         Map<String, Object> map = CommonValues.getmap();
         map.put("dailyId", dailyId);
         map.put("content", cont);
