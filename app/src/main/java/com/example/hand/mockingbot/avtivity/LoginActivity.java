@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         if (mChildView != null) {
             ViewCompat.setFitsSystemWindows(mChildView, false);
         }
+
         setContentView(R.layout.actovity_login);
         boolean isAllGranted = checkPermissionAllGranted(
                 new String[] {
@@ -85,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
         );
         if (isAllGranted){
-//            upData();
+            upData();
         }else {
             ActivityCompat.requestPermissions(
                     this,
@@ -100,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void upData() {
-        PgyUpdateManager.register(this);
+        PgyUpdateManager.register(this, "");
     }
 
     private void initView() {
@@ -172,16 +173,16 @@ public class LoginActivity extends AppCompatActivity {
         });
         rl = (RelativeLayout) findViewById(R.id.login_rl);
         iv_photo = (ImageView) findViewById(R.id.login_iv);
-//        String string = SpUtils.getString(getApplicationContext(), Fields.PHOTO_PATH);
-//        HandApp.setPhotoUri(getPathForUri(string));
-//        iv_photo.setImageURI(HandApp.getPhotoUri());
-//        iv_photo.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                choosePicture();
-//                return true;
-//            }
-//        });
+        String string = SpUtils.getString(getApplicationContext(), Fields.PHOTO_PATH);
+        HandApp.setPhotoUri(getPathForUri(string));
+        iv_photo.setImageURI(HandApp.getPhotoUri());
+        iv_photo.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                choosePicture();
+                return true;
+            }
+        });
 //        runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -317,7 +318,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (isAllGranted) {
-                // 如果所有的权限都授予了, 则执行备份代码
                 upData();
             }else {
                 openAppDetails();

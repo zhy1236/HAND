@@ -16,6 +16,7 @@ import com.example.hand.mockingbot.R;
 import com.example.hand.mockingbot.avtivity.LoginActivity;
 import com.example.hand.mockingbot.avtivity.MyAttentionActivity;
 import com.example.hand.mockingbot.avtivity.MyCollectionActivity;
+import com.example.hand.mockingbot.datamanage.HttpManager;
 import com.example.hand.mockingbot.entity.LoginEntity;
 import com.example.hand.mockingbot.utils.Fields;
 import com.example.hand.mockingbot.utils.HandApp;
@@ -111,4 +112,26 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    public interface ActivityResultCallback {
+        void onActivityResult(int requestCode, int resultCode, Intent data);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        if (resultCode == 0){
+            if (requestCode == CHOOSE_PICTURE){
+                if (null != data) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            my_photo.setImageURI(data.getData());
+                            HandApp.setPhotoUri(data.getData());
+                            SpUtils.saveString(getContext(),Fields.PHOTO_PATH, HttpManager.getRealPathFromUri(data.getData(), getContext()));
+                        }
+                    });
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

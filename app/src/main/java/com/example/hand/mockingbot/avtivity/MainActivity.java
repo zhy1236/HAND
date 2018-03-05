@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    MyFragment.ActivityResultCallback callback;
     private RadioGroup radioGroup;
     private List<Fragment> fragments;
     private RadioButton project;
@@ -157,8 +159,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (null != data){
+            callback.onActivityResult(requestCode,resultCode,data);
+        }
         super.onActivityResult(requestCode, resultCode, data);
-            fragments.get(fragments.size()-1).onActivityResult(requestCode,resultCode,data);
     }
 
 }

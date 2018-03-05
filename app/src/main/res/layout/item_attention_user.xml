@@ -13,6 +13,7 @@
         android:layout_height="58dp">
 
         <CheckBox
+            android:enabled="false"
             android:layout_marginLeft="12.5dp"
             android:layout_centerVertical="true"
             android:id="@+id/item_users_cb"

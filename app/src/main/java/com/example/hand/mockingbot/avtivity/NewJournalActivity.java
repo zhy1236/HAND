@@ -257,7 +257,6 @@ public class NewJournalActivity extends BasicActivity {
                     File file = new File(path);
                     DataUtil.openFile(getApplicationContext(),file);
                 }
-
             }
         });
     }
@@ -528,7 +527,8 @@ public class NewJournalActivity extends BasicActivity {
     }
 
     private void downAndOpenAttauch(final int i) {
-        HttpManager.getUrl(CommonValues.DOWN_ATTAUCHMENT + "fileName=" + attauchlist.get(i).getFieldName(),attauchlist.get(i).getFieldName(), new Callback() {
+        final String storagePath = DataUtil.getStoragePath(getApplicationContext(),false);
+        HttpManager.getUrl(storagePath,CommonValues.DOWN_ATTAUCHMENT + "fileName=" + attauchlist.get(i).getFieldName(),attauchlist.get(i).getFieldName(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -540,7 +540,7 @@ public class NewJournalActivity extends BasicActivity {
                     @Override
                     public void run() {
                         pb.setVisibility(View.GONE);
-                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),attauchlist.get(i).getFieldName());
+                        File file = new File(storagePath,attauchlist.get(i).getFieldName());
                         DataUtil.openFile(getApplicationContext(),file);
                     }
                 });

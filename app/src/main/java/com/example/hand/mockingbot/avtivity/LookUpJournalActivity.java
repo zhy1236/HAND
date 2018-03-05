@@ -2,7 +2,6 @@ package com.example.hand.mockingbot.avtivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -336,7 +335,8 @@ public class LookUpJournalActivity extends BasicActivity {
     }
 
     private void downAndOpenAttauch(final String attauchuri) {
-        HttpManager.getUrl(CommonValues.DOWN_ATTAUCHMENT + "fileName=" + attauchuri, attauchuri, new Callback() {
+        final String storagePath = DataUtil.getStoragePath(getApplicationContext(),false);
+        HttpManager.getUrl(storagePath,CommonValues.DOWN_ATTAUCHMENT + "fileName=" + attauchuri, attauchuri, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -348,13 +348,15 @@ public class LookUpJournalActivity extends BasicActivity {
                     @Override
                     public void run() {
                         pb.setVisibility(View.GONE);
-                        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), attauchuri);
+                        File file = new File(storagePath, attauchuri);
                         DataUtil.openFile(getApplicationContext(), file);
 //                        Toast.makeText(getApplicationContext(),"下载完成，正在打开",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
+
+
     }
 
     private void initToolbar() {

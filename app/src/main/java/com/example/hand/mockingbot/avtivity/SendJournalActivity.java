@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,14 @@ public class SendJournalActivity extends BasicActivity implements AdapterView.On
     private ListAdapter<MyJournalEntity.ResultBean.DataBean> listAdapter = new ListAdapter<MyJournalEntity.ResultBean.DataBean>(list, R.layout.journal_item) {
         @Override
         public void bindView(ViewHolder holder, MyJournalEntity.ResultBean.DataBean obj,int position) {
+            if (obj.getRealname().equals(HandApp.getLoginEntity().getResult().getData().getRealname())){
+                if (HandApp.getPhotoUri() != null){
+                    ImageView iv = holder.getView(R.id.journal_item_imv);
+                    iv.setImageURI(HandApp.getPhotoUri());
+                }
+            }else {
+                holder.setImageResource(R.id.journal_item_imv,R.mipmap.ic_head_portrait);
+            }
             if (obj.getFinishWork() != null){
                 holder.setText(R.id.journal_item_tv_finish, obj.getFinishWork());
             }else {

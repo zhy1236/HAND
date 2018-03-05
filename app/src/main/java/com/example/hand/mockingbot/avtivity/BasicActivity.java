@@ -133,6 +133,17 @@ public class BasicActivity extends AppCompatActivity {
     }
 
     private void choosePicture() {
+//        Intent getAlbum;
+//        boolean isKitKatO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+//        if (isKitKatO) {
+//            getAlbum = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//        } else {
+//            getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
+//        }
+//        getAlbum.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+//
+//        startActivityForResult(getAlbum, CHOOSE_PICTURE);
+
         Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
         startActivityForResult(intent, CHOOSE_PICTURE);

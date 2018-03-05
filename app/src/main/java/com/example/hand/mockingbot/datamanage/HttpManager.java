@@ -4,7 +4,6 @@ package com.example.hand.mockingbot.datamanage;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.example.hand.mockingbot.utils.CommonValues;
@@ -359,7 +358,7 @@ public class HttpManager {
 //    }
 
 
-     public static void getUrl(String url, final String fileName, final Callback callback) {
+     public static void getUrl(final String SDPath, String url, final String fileName, final Callback callback) {
 
             Request request = new Request.Builder()
                     .url(url)
@@ -377,7 +376,6 @@ public class HttpManager {
                     byte[] buf = new byte[2048];
                     int len = 0;
                     FileOutputStream fos = null;
-                    String SDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
                     try {
                         is = response.body().byteStream();
                         long total = response.body().contentLength();

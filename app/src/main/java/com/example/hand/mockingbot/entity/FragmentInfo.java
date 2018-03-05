@@ -15,4 +15,13 @@ public class FragmentInfo {
         this.title = title;
         this.fragment = fragment;
     }
+
+
+    public Fragment getFragment() {
+        return fragment;
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
+    }
 }
